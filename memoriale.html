@@ -71,7 +71,15 @@ button {
 </div>
 
 <script>
-function invia() {
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co"
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS"
+
+const client = supabase.createClient(supabaseUrl, supabaseKey)
+
+async function invia() {
   const nome = document.getElementById("nome").value
   const messaggio = document.getElementById("messaggio").value
 
@@ -80,7 +88,23 @@ function invia() {
     return
   }
 
-  alert("FUNZIONA! Nome: " + nome + " - Messaggio: " + messaggio)
+  const { error } = await client
+    .from("ricordi")
+    .insert([
+      {
+        nome: nome,
+        messaggio: messaggio,
+        approvato: false,
+        memoriale: "mario-rossi"
+      }
+    ])
+
+  if (error) {
+    alert("Errore nel salvataggio")
+    console.error(error)
+  } else {
+    alert("Messaggio salvato!")
+  }
 }
 </script>
 
