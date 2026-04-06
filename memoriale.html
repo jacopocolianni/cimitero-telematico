@@ -78,3 +78,26 @@
 
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co"
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS"
+
+const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+
+// esempio inserimento
+async function salvaMessaggio(nome, messaggio) {
+  const { data, error } = await supabase
+    .from('ricordi')
+    .insert([
+      { nome: nome, messaggio: messaggio, approvato: false, memoriale: "mario-rossi" }
+    ])
+
+  if (error) {
+    console.error(error)
+  } else {
+    alert("Messaggio inviato!")
+  }
+}
+</script>
