@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memoriale</title>
   <style>
     body {
@@ -10,7 +11,7 @@
       background: #111;
       color: white;
       text-align: center;
-      padding: 40px;
+      padding: 40px 20px;
     }
 
     h1 {
@@ -24,7 +25,7 @@
 
     .video {
       margin: 30px auto;
-      max-width: 600px;
+      max-width: 700px;
     }
 
     video {
@@ -40,9 +41,41 @@
       background: #1a1a1a;
       padding: 20px;
       border-radius: 10px;
-      margin-top: 10px;
+      margin: 10px auto 0;
+      max-width: 700px;
     }
 
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 24px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -53,6 +86,7 @@
   <div class="video">
     <video controls>
       <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Il tuo browser non supporta il video.
     </video>
   </div>
 
@@ -64,53 +98,60 @@
   </div>
 
   <div class="section">
-  <h2>Lascia un ricordo</h2>
-  <div class="box">
-    <form>
+    <h2>Lascia un ricordo</h2>
+    <div class="box">
       <form id="form-ricordo">
-  <form id="form-ricordo">
-  <input id="nome" type="text" placeholder="Il tuo nome" style="width: 80%; padding: 12px; margin-bottom: 12px; border-radius: 8px; border: none;"><br>
-  <textarea id="messaggio" placeholder="Scrivi un ricordo..." style="width: 80%; height: 120px; padding: 12px; border-radius: 8px; border: none;"></textarea><br>
-  <button type="submit" style="margin-top: 15px; padding: 12px 24px; background: white; color: black; border: none; border-radius: 8px; font-weight: bold;">
-    Invia ricordo
-  </button>
-</form>
+        <input id="nome" type="text" placeholder="Il tuo nome" required>
+        <textarea id="messaggio" placeholder="Scrivi un ricordo..." required></textarea>
+        <button type="submit">Invia ricordo</button>
+      </form>
+      <div id="status" class="status"></div>
+    </div>
   </div>
-</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+    const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+
+    const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById("form-ricordo");
+    const statusBox = document.getElementById("status");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const messaggio = document.getElementById("messaggio").value.trim();
+
+      if (!nome || !messaggio) {
+        statusBox.textContent = "Compila tutti i campi.";
+        return;
+      }
+
+      statusBox.textContent = "Invio in corso...";
+
+      const { error } = await client
+        .from("ricordi")
+        .insert([
+          {
+            nome: nome,
+            messaggio: messaggio,
+            approvato: false,
+            memoriale: "mario-rossi"
+          }
+        ]);
+
+      if (error) {
+        console.error(error);
+        statusBox.textContent = "Errore nel salvataggio.";
+      } else {
+        statusBox.textContent = "Messaggio inviato con successo.";
+        form.reset();
+      }
+    });
+  </script>
 
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-<script>
-const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co"
-const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS"
-
-const form = document.getElementById("form-ricordo")
-
-form.addEventListener("submit", async function(e) {
-  e.preventDefault()
-
-  const nome = document.getElementById("nome").value
-  const messaggio = document.getElementById("messaggio").value
-
-  const { data, error } = await client
-    .from("ricordi")
-    .insert([
-      {
-        nome: nome,
-        messaggio: messaggio,
-        approvato: false,
-        memoriale: "mario-rossi"
-      }
-    ])
-
-  if (error) {
-    alert("Errore nel salvataggio")
-    console.error(error)
-  } else {
-    alert("Messaggio inviato!")
-    form.reset()
-  }
-})
-</script>
