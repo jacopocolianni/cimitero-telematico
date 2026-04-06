@@ -1,92 +1,53 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memoriale</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
-    }
+<meta charset="UTF-8">
+<title>Memoriale</title>
 
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0d0d0d;
+  color: white;
+  text-align: center;
+}
 
-    p {
-      color: #ccc;
-    }
+.container {
+  padding: 50px 20px;
+}
 
-    .video {
-      margin: 30px auto;
-      max-width: 700px;
-    }
+h1 {
+  font-size: 40px;
+}
 
-    video {
-      width: 100%;
-      border-radius: 10px;
-    }
+.video {
+  margin: 20px auto;
+}
 
-    .section {
-      margin-top: 40px;
-    }
+.section {
+  margin-top: 40px;
+}
 
-    .box {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 10px auto 0;
-      max-width: 700px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 12px;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-    }
-
-    button {
-      margin-top: 10px;
-      padding: 12px 24px;
-      background: white;
-      color: black;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .status {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #ccc;
-    }
-  </style>
+.box {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  margin: auto;
+}
+</style>
 </head>
+
 <body>
 
+<div class="container">
   <h1>Mario Rossi</h1>
   <p>1950 - 2023</p>
 
   <div class="video">
-    <video controls>
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-      Il tuo browser non supporta il video.
+    <video width="400" controls>
+      <source src="video.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -100,58 +61,61 @@
   <div class="section">
     <h2>Lascia un ricordo</h2>
     <div class="box">
-      <form id="form-ricordo">
-        <input id="nome" type="text" placeholder="Il tuo nome" required>
-        <textarea id="messaggio" placeholder="Scrivi un ricordo..." required></textarea>
-        <button type="submit">Invia ricordo</button>
+
+      <form onsubmit="event.preventDefault(); salvaMessaggio()">
+
+        <input id="nome" type="text" placeholder="Il tuo nome"
+          style="width:80%; padding:12px; margin-bottom:10px;"><br>
+
+        <textarea id="messaggio" placeholder="Scrivi un ricordo..."
+          style="width:80%; height:120px; padding:12px;"></textarea><br>
+
+        <button type="submit"
+          style="margin-top:15px; padding:12px 24px; background:white; border:none; cursor:pointer;">
+          Invia ricordo
+        </button>
+
       </form>
-      <div id="status" class="status"></div>
+
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
-    const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+</div>
 
-    const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-    const form = document.getElementById("form-ricordo");
-    const statusBox = document.getElementById("status");
+<script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co"
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS"
 
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
+const supabase = supabase.createClient(supabaseUrl, supabaseKey)
 
-      const nome = document.getElementById("nome").value.trim();
-      const messaggio = document.getElementById("messaggio").value.trim();
+async function salvaMessaggio() {
+  const nome = document.getElementById("nome").value
+  const messaggio = document.getElementById("messaggio").value
 
-      if (!nome || !messaggio) {
-        statusBox.textContent = "Compila tutti i campi.";
-        return;
+  const { error } = await supabase
+    .from('ricordi')
+    .insert([
+      {
+        nome: nome,
+        messaggio: messaggio,
+        approvato: false,
+        memoriale: "mario-rossi"
       }
+    ])
 
-      statusBox.textContent = "Invio in corso...";
-
-      const { error } = await client
-        .from("ricordi")
-        .insert([
-          {
-            nome: nome,
-            messaggio: messaggio,
-            approvato: false,
-            memoriale: "mario-rossi"
-          }
-        ]);
-
-      if (error) {
-        console.error(error);
-        statusBox.textContent = "Errore nel salvataggio.";
-      } else {
-        statusBox.textContent = "Messaggio inviato con successo.";
-        form.reset();
-      }
-    });
-  </script>
+  if (error) {
+    alert("Errore nel salvataggio")
+    console.error(error)
+  } else {
+    alert("Messaggio inviato!")
+    document.getElementById("nome").value = ""
+    document.getElementById("messaggio").value = ""
+  }
+}
+</script>
 
 </body>
 </html>
