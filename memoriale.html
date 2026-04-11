@@ -5,133 +5,129 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Memoriale</title>
 <style>
+* { box-sizing: border-box; }
+
 body {
 margin: 0;
 font-family: Arial, sans-serif;
 background: #0d0d0d;
 color: white;
-text-align: center;
+line-height: 1.5;
 }
 
 .container {
 max-width: 900px;
 margin: 0 auto;
-padding: 50px 20px;
+padding: 40px 20px 80px;
+}
+
+.hero {
+text-align: center;
+padding: 30px 0 20px;
 }
 
 h1 {
-font-size: 42px;
-margin-bottom: 8px;
+font-size: 48px;
+margin-bottom: 10px;
 }
 
-.years {
-color: #ccc;
-margin-bottom: 24px;
+.anni {
+color: #bbb;
+font-size: 22px;
+margin-bottom: 30px;
+}
+
+.box {
+background: #171717;
+border: 1px solid #222;
+border-radius: 14px;
+padding: 24px;
+margin-top: 24px;
+}
+
+h2 {
+margin-top: 0;
+font-size: 28px;
+}
+
+p {
+color: #ddd;
 }
 
 video {
 width: 100%;
-max-width: 500px;
-border-radius: 10px;
+border-radius: 12px;
+margin-top: 20px;
+background: black;
 }
 
-.box {
-background: #1a1a1a;
-padding: 20px;
-border-radius: 10px;
-margin: 24px auto;
-max-width: 800px;
-text-align: left;
-}
-
-.box h2 {
-text-align: center;
-margin-top: 0;
-}
-
-input, textarea {
+input, textarea, button {
 width: 100%;
-box-sizing: border-box;
-padding: 12px;
-margin: 10px 0;
-border: none;
-border-radius: 8px;
-font-size: 16px;
-font-family: Arial, sans-serif;
+padding: 14px;
+margin-top: 12px;
+border-radius: 10px;
+border: 1px solid #333;
+background: #101010;
+color: white;
+font-size: 15px;
 }
 
 textarea {
-min-height: 140px;
+min-height: 120px;
 resize: vertical;
 }
 
 button {
-padding: 12px 24px;
 background: white;
 color: black;
 border: none;
-border-radius: 8px;
-cursor: pointer;
 font-weight: bold;
-display: block;
-margin: 10px auto 0;
+cursor: pointer;
 }
 
 .status {
-margin-top: 14px;
-color: #ccc;
-min-height: 24px;
-word-break: break-word;
-text-align: center;
+margin-top: 12px;
+color: #bbb;
 }
 
 .ricordo {
-background: #242424;
-border-radius: 10px;
-padding: 16px;
-margin-top: 14px;
+padding: 14px 0;
+border-bottom: 1px solid #2a2a2a;
 }
 
-.ricordo-nome {
-font-weight: bold;
-margin-bottom: 8px;
+.ricordo:last-child {
+border-bottom: none;
+}
+
+.ricordo strong {
+display: block;
+margin-bottom: 6px;
 color: white;
 }
 
-.ricordo-testo {
-color: #ddd;
-white-space: pre-wrap;
-}
-
 .vuoto {
-color: #aaa;
-text-align: center;
+color: #888;
 }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Mario Rossi</h1>
-<div class="years">1950 - 2023</div>
-
-<video controls>
-<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-Il tuo browser non supporta il video.
-</video>
+<div class="hero">
+<h1 id="nomePersona">Caricamento...</h1>
+<div class="anni" id="anniPersona"></div>
+</div>
 
 <div class="box">
 <h2>Chi era</h2>
-<p>Un uomo gentile, padre amorevole e grande lavoratore.</p>
+<p id="biografiaPersona">Caricamento biografia...</p>
+<video id="videoPersona" controls style="display:none;"></video>
 </div>
 
 <div class="box">
 <h2>Lascia un ricordo</h2>
-
 <input id="nome" type="text" placeholder="Il tuo nome" />
 <textarea id="messaggio" placeholder="Scrivi un ricordo..."></textarea>
-
 <button id="btnInvia" type="button">Invia ricordo</button>
-
 <div id="status" class="status"></div>
 </div>
 
@@ -139,20 +135,48 @@ Il tuo browser non supporta il video.
 <h2>Ricordi condivisi</h2>
 <div id="listaRicordi" class="vuoto">Caricamento ricordi...</div>
 </div>
-
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
-const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
-
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs";
 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const statusEl = document.getElementById("status");
-const btnEl = document.getElementById("btnInvia");
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("slug") || "mario-rossi";
+
+const nomePersonaEl = document.getElementById("nomePersona");
+const anniPersonaEl = document.getElementById("anniPersona");
+const biografiaPersonaEl = document.getElementById("biografiaPersona");
+const videoPersonaEl = document.getElementById("videoPersona");
 const listaRicordiEl = document.getElementById("listaRicordi");
+const statusEl = document.getElementById("status");
+const btnInvia = document.getElementById("btnInvia");
+
+async function caricaMemoriale() {
+const { data, error } = await client
+.from("memoriali")
+.select("*")
+.eq("slug", slug)
+.single();
+
+if (error || !data) {
+nomePersonaEl.textContent = "Memoriale non trovato";
+anniPersonaEl.textContent = "";
+biografiaPersonaEl.textContent = "Nessun dato disponibile.";
+return;
+}
+
+nomePersonaEl.textContent = data.nome_persona || "";
+anniPersonaEl.textContent = data.anni || "";
+biografiaPersonaEl.textContent = data.biografia || "";
+
+if (data.video_url) {
+videoPersonaEl.src = data.video_url;
+videoPersonaEl.style.display = "block";
+}
+}
 
 async function caricaRicordi() {
 listaRicordiEl.textContent = "Caricamento ricordi...";
@@ -160,7 +184,7 @@ listaRicordiEl.textContent = "Caricamento ricordi...";
 const { data, error } = await client
 .from("ricordi")
 .select("nome, messaggio, created_at")
-.eq("memoriale", "mario-rossi")
+.eq("memoriale", slug)
 .eq("approvato", true)
 .order("created_at", { ascending: false });
 
@@ -177,28 +201,18 @@ return;
 
 listaRicordiEl.innerHTML = "";
 
-data.forEach((ricordo) => {
-const item = document.createElement("div");
-item.className = "ricordo";
-
-item.innerHTML = `
-<div class="ricordo-nome">${escapeHtml(ricordo.nome || "Anonimo")}</div>
-<div class="ricordo-testo">${escapeHtml(ricordo.messaggio || "")}</div>
+data.forEach((r) => {
+const div = document.createElement("div");
+div.className = "ricordo";
+div.innerHTML = `
+<strong>${r.nome}</strong>
+<div>${r.messaggio}</div>
 `;
-
-listaRicordiEl.appendChild(item);
+listaRicordiEl.appendChild(div);
 });
 }
 
-function escapeHtml(text) {
-const div = document.createElement("div");
-div.textContent = text;
-return div.innerHTML;
-}
-
-btnEl.addEventListener("click", async function () {
-statusEl.textContent = "Invio in corso...";
-
+btnInvia.addEventListener("click", async function () {
 const nome = document.getElementById("nome").value.trim();
 const messaggio = document.getElementById("messaggio").value.trim();
 
@@ -207,6 +221,8 @@ statusEl.textContent = "Compila tutti i campi.";
 return;
 }
 
+statusEl.textContent = "Invio ricordo...";
+
 const { error } = await client
 .from("ricordi")
 .insert([
@@ -214,21 +230,22 @@ const { error } = await client
 nome: nome,
 messaggio: messaggio,
 approvato: false,
-memoriale: "mario-rossi"
+memoriale: slug
 }
 ]);
 
 if (error) {
 console.error(error);
-statusEl.textContent = "Errore nel salvataggio: " + error.message;
+statusEl.textContent = "Errore: " + error.message;
 return;
 }
 
-statusEl.textContent = "Ricordo inviato correttamente. Sarà visibile dopo l'approvazione.";
+statusEl.textContent = "Ricordo inviato correttamente. Sarà visibile dopo approvazione.";
 document.getElementById("nome").value = "";
 document.getElementById("messaggio").value = "";
 });
 
+caricaMemoriale();
 caricaRicordi();
 </script>
 </body>
