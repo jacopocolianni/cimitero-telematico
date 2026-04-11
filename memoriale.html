@@ -145,18 +145,20 @@ const statusEl = document.getElementById("status");
 const btnInvia = document.getElementById("btnInvia");
 
 async function caricaMemoriale() {
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("slug") || "mario-rossi";
+
 const { data, error } = await client
-.from("richieste")
-.select("id, nome_persona, anni, descrizione")
-.order("id", { ascending: false })
-.limit(1)
+.from("memoriali")
+.select("*")
+.eq("slug", slug)
 .maybeSingle();
 
 if (error) {
 console.error("Errore memoriale:", error);
-nomePersonaEl.textContent = "Errore caricamento memoriale";
-anniPersonaEl.textContent = "";
-biografiaPersonaEl.textContent = error.message;
+nomePersonaEl.textContent = data.nome_persona || "";
+anniPersonaEl.textContent = data.anni || "";
+biografiaPersonaEl.textContent = data.biografia || "";
 return;
 }
 
