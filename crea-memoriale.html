@@ -98,7 +98,10 @@ return nome
 const { error } = await client
 .from("richieste")
 const slug = generaSlug(nome_persona);
-await client.from("richieste").insert([
+
+const { error } = await client
+.from("richieste")
+.insert([
 {
 nome_persona,
 anni,
