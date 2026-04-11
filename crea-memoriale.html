@@ -1,134 +1,131 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<title>Crea Memoriale</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Crea memoriale</title>
 
 <style>
-body {
-margin: 0;
-font-family: -apple-system, sans-serif;
-background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
-color: #1f2937;
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(180deg,#f7f8fc,#eef2f7);
+color:#1f2937;
 }
 
-.container {
-max-width: 800px;
-margin: auto;
-padding: 40px 20px;
+.container{
+max-width:900px;
+margin:auto;
+padding:40px 20px 120px;
 }
 
-h1 {
-text-align: center;
-font-size: 28px;
-margin-bottom: 10px;
+h1{
+text-align:center;
+margin-bottom:10px;
 }
 
-.subtitle {
-text-align: center;
-color: #6b7280;
-margin-bottom: 40px;
+.subtitle{
+text-align:center;
+color:#6b7280;
+margin-bottom:40px;
 }
 
-.box {
-background: white;
-border-radius: 14px;
-padding: 24px;
-margin-bottom: 20px;
-box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+/* BOX */
+.box{
+background:white;
+border-radius:20px;
+padding:24px;
+margin-bottom:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
-input, textarea {
-width: 100%;
-padding: 12px;
-border-radius: 8px;
-border: 1px solid #ddd;
-margin-top: 8px;
-margin-bottom: 16px;
-font-size: 14px;
+/* INPUT */
+input,textarea{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+margin-top:6px;
+margin-bottom:14px;
 }
 
-textarea {
-min-height: 100px;
+/* PACCHETTI */
+.packages{
+display:grid;
+gap:16px;
 }
 
-.packages {
-display: grid;
-gap: 16px;
+.card{
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:18px;
+cursor:pointer;
+transition:0.2s;
 }
 
-.card {
-border: 1px solid #ddd;
-border-radius: 12px;
-padding: 18px;
-cursor: pointer;
-transition: 0.2s;
+.card:hover{
+transform:translateY(-2px);
 }
 
-.card:hover {
-border-color: #2563eb;
+.card.selected{
+border:2px solid #2563eb;
+background:#f0f6ff;
 }
 
-.card.selected {
-border: 2px solid #2563eb;
-background: #f0f6ff;
+.card h3{
+margin:0;
 }
 
-.card h3 {
-margin: 0;
-font-size: 18px;
+.card p{
+font-size:14px;
+color:#6b7280;
+margin:6px 0;
 }
 
-.card p {
-font-size: 13px;
-color: #6b7280;
-margin: 8px 0;
-}
-
-.price {
-font-size: 13px;
-color: #9ca3af;
+/* prezzo piccolo */
+.price{
+font-size:13px;
+color:#9ca3af;
 }
 
 /* BOTTOM BAR */
-.bottom-bar {
-position: sticky;
-bottom: 0;
-background: white;
-padding: 16px;
-border-top: 1px solid #eee;
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-top: 30px;
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+border-top:1px solid #eee;
+padding:14px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.bottom-price {
-font-size: 14px;
-color: #6b7280;
+.bottom span{
+font-size:14px;
+color:#6b7280;
 }
 
-button {
-background: #2563eb;
-color: white;
-border: none;
-padding: 12px 20px;
-border-radius: 8px;
-cursor: pointer;
-font-size: 14px;
+button{
+background:#111827;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:10px;
+cursor:pointer;
 }
 
-button:hover {
-background: #1e4ed8;
+button:hover{
+opacity:0.9;
 }
 
-.note {
-font-size: 12px;
-color: #9ca3af;
-margin-top: 8px;
+.note{
+font-size:12px;
+color:#9ca3af;
 }
-
 </style>
 </head>
 
@@ -137,20 +134,17 @@ margin-top: 8px;
 <div class="container">
 
 <h1>Crea un memoriale</h1>
-<p class="subtitle">
-Un luogo digitale per custodire e condividere un ricordo
-</p>
+<p class="subtitle">Un luogo digitale per custodire e condividere un ricordo</p>
 
-<!-- DATI -->
 <div class="box">
 <label>Nome persona</label>
-<input id="nome_persona" placeholder="Mario Rossi">
+<input id="nome_persona">
 
 <label>Anni</label>
-<input id="anni" placeholder="1950 - 2024">
+<input id="anni">
 
 <label>Descrizione</label>
-<textarea id="descrizione" placeholder="Chi era..."></textarea>
+<textarea id="descrizione"></textarea>
 
 <label>Nome familiare</label>
 <input id="nome_familiare">
@@ -162,97 +156,101 @@ Un luogo digitale per custodire e condividere un ricordo
 <input id="telefono">
 </div>
 
-<!-- PACCHETTI -->
 <div class="box">
 <h2>Scegli il memoriale</h2>
 <p class="note">
-Il contributo serve a mantenere e sviluppare il progetto del Cimitero Telematico
+Il contributo serve a sostenere e portare avanti il progetto del Cimitero Telematico
 </p>
 
 <div class="packages">
 
-<div class="card" onclick="selectPackage('base', 19)">
+<div class="card" onclick="selectPackage('base',49)">
 <h3>Base</h3>
-<p>Pagina memoriale semplice con biografia e ricordi</p>
-<div class="price">Contributo: 19€</div>
-</div>
-
-<div class="card" onclick="selectPackage('premium', 49)">
-<h3>Premium</h3>
-<p>
-Memoriale completo con foto, video e
-accesso a videocamera sulla tomba riservata ai familiari
-</p>
+<p>Memoriale digitale con biografia e ricordi condivisi</p>
 <div class="price">Contributo: 49€</div>
 </div>
 
+<div class="card" onclick="selectPackage('plus',99)">
+<h3>Plus</h3>
+<p>Memoriale più completo con contenuti ampliati</p>
+<div class="price">Contributo: 99€</div>
+</div>
+
+<div class="card" onclick="selectPackage('premium',149)">
+<h3>Premium</h3>
+<p>
+Versione completa con configurazione avanzata e videocamera sulla tomba
+visibile ai familiari e apribile al pubblico su scelta
+</p>
+<div class="price">Contributo: 149€</div>
+</div>
+
 </div>
 </div>
 
-<!-- CONFERMA IN BASSO -->
-<div class="bottom-bar">
-<div class="bottom-price" id="prezzo">
-Seleziona un memoriale
 </div>
 
+<!-- BOTTOM BAR -->
+<div class="bottom">
+<span id="riepilogo">Seleziona un memoriale</span>
 <button onclick="invia()">Conferma richiesta</button>
 </div>
 
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const client = window.supabase.createClient(
+"https://lbfkrsdtezjowkftntlq.supabase.co",
+"sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs"
+);
 
-let pianoSelezionato = null;
-let prezzoSelezionato = 0;
+let piano=null;
+let prezzo=0;
 
-function selectPackage(piano, prezzo) {
-pianoSelezionato = piano;
-prezzoSelezionato = prezzo;
+function selectPackage(p,pz){
+piano=p;
+prezzo=pz;
 
-document.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
 event.currentTarget.classList.add("selected");
 
-document.getElementById("prezzo").innerText =
-"Contributo selezionato: " + prezzo + "€";
+document.getElementById("riepilogo").innerText=
+"Contributo selezionato: "+pz+"€";
 }
 
-function generaSlug(nome) {
-return nome
-.toLowerCase()
-.trim()
-.replace(/\s+/g, "-")
-.replace(/[^a-z0-9\-]/g, "");
+function generaSlug(nome){
+return nome.toLowerCase().trim()
+.replace(/\s+/g,"-")
+.replace(/[^a-z0-9\-]/g,"");
 }
 
-async function invia() {
+async function invia(){
 
-const nome_persona = document.getElementById("nome_persona").value;
+const nome=document.getElementById("nome_persona").value;
 
-if (!nome_persona || !pianoSelezionato) {
-alert("Compila i campi e scegli un memoriale");
+if(!nome||!piano){
+alert("Compila i dati e scegli un memoriale");
 return;
 }
 
-const slug = generaSlug(nome_persona);
+const slug=generaSlug(nome);
 
-const { error } = await client.from("richieste").insert([{
-nome_persona,
-anni: document.getElementById("anni").value,
-descrizione: document.getElementById("descrizione").value,
-nome_familiare: document.getElementById("nome_familiare").value,
-email: document.getElementById("email").value,
-telefono: document.getElementById("telefono").value,
-piano: pianoSelezionato,
+const {error}=await client.from("richieste").insert([{
+nome_persona:nome,
+anni:document.getElementById("anni").value,
+descrizione:document.getElementById("descrizione").value,
+nome_familiare:document.getElementById("nome_familiare").value,
+email:document.getElementById("email").value,
+telefono:document.getElementById("telefono").value,
+piano,
 slug
 }]);
 
-if (error) {
-alert("Errore: " + error.message);
-} else {
-alert("Richiesta inviata con successo");
+if(error){
+alert(error.message);
+}else{
+alert("Richiesta inviata");
 }
 }
-
 </script>
 
 </body>
