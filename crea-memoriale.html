@@ -87,14 +87,23 @@ background: #fff;
 }
 
 .hero {
-padding: 44px 34px;
-border-radius: 32px;
+position: relative;
+overflow: hidden;
+padding: 54px 38px;
+border-radius: 34px;
+min-height: 360px;
+display: flex;
+align-items: end;
 background:
-linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,255,255,0.72)),
-linear-gradient(135deg, #dbeafe, #fdf2f8);
-border: 1px solid rgba(17,24,39,0.06);
+linear-gradient(rgba(17,24,39,0.34), rgba(17,24,39,0.46)),
+url("https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
 box-shadow: var(--shadow);
 margin-bottom: 22px;
+}
+
+.hero-content {
+max-width: 760px;
+color: white;
 }
 
 .eyebrow {
@@ -102,14 +111,15 @@ display: inline-flex;
 align-items: center;
 padding: 8px 13px;
 border-radius: 999px;
-background: rgba(255,255,255,0.86);
-border: 1px solid rgba(17,24,39,0.06);
-color: #334155;
+background: rgba(255,255,255,0.18);
+border: 1px solid rgba(255,255,255,0.18);
+color: white;
 font-size: 12px;
 font-weight: 800;
 letter-spacing: 0.05em;
 text-transform: uppercase;
 margin-bottom: 16px;
+backdrop-filter: blur(8px);
 }
 
 .hero h1 {
@@ -117,13 +127,13 @@ margin: 0;
 font-size: 46px;
 line-height: 1.02;
 letter-spacing: -0.045em;
-color: #0f172a;
+color: white;
 }
 
 .hero-text {
 margin-top: 14px;
 max-width: 640px;
-color: #5b6473;
+color: rgba(255,255,255,0.92);
 font-size: 15px;
 }
 
@@ -148,10 +158,32 @@ gap: 18px;
 }
 
 .card {
-background: var(--card);
+position: relative;
 border: 1px solid var(--line);
 border-radius: var(--radius-xl);
 box-shadow: var(--shadow-soft);
+overflow: hidden;
+}
+
+.card::before {
+content: "";
+display: block;
+height: 4px;
+width: 100%;
+background: linear-gradient(90deg, #c7d2fe, #fbcfe8, #bfdbfe);
+opacity: 0.9;
+}
+
+.card.variant-blue {
+background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(239,246,255,0.72));
+}
+
+.card.variant-rose {
+background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(253,242,248,0.66));
+}
+
+.card.variant-neutral {
+background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.82));
 }
 
 .card-inner {
@@ -445,7 +477,7 @@ Inserisci i dati essenziali della persona e scegli il contributo più adatto per
 
 <section class="layout">
 <div class="stack">
-<article class="card">
+<article class="card variant-blue">
 <div class="card-inner">
 <h2 class="section-title">Dati del memoriale</h2>
 <div class="section-subtitle">
@@ -471,7 +503,7 @@ Compila le informazioni principali che verranno usate per preparare la pagina.
 </div>
 </article>
 
-<article class="card">
+<article class="card variant-rose">
 <div class="card-inner">
 <h2 class="section-title">Referente familiare</h2>
 <div class="section-subtitle">
@@ -502,7 +534,7 @@ Questi dati servono per gestire la richiesta e la futura pubblicazione.
 </div>
 </article>
 
-<article class="card">
+<article class="card variant-neutral">
 <div class="card-inner">
 <h2 class="section-title">Scegli il contributo</h2>
 <div class="section-subtitle">
@@ -553,7 +585,7 @@ Il contributo selezionato aiuta a sostenere e portare avanti il progetto del Cim
 Inserire una biografia chiara e il pacchetto corretto rende più rapida la preparazione del memoriale.
 </article>
 
-<article class="card">
+<article class="card variant-blue">
 <div class="card-inner">
 <h2 class="section-title">Conferma richiesta</h2>
 <div class="section-subtitle">
