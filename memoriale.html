@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Memoriale</title>
 <style>
-* { box-sizing: border-box; }
+* {
+box-sizing: border-box;
+}
 
 body {
 margin: 0;
@@ -23,18 +25,18 @@ padding: 40px 20px 80px;
 
 .hero {
 text-align: center;
-padding: 30px 0 20px;
+padding: 20px 0 10px;
 }
 
 h1 {
 font-size: 48px;
-margin-bottom: 10px;
+margin: 0 0 10px;
 }
 
 .anni {
 color: #bbb;
 font-size: 22px;
-margin-bottom: 30px;
+margin-bottom: 24px;
 }
 
 .box {
@@ -46,12 +48,13 @@ margin-top: 24px;
 }
 
 h2 {
-margin-top: 0;
+margin: 0 0 14px;
 font-size: 28px;
 }
 
 p {
 color: #ddd;
+margin: 0;
 }
 
 video {
@@ -61,7 +64,9 @@ margin-top: 20px;
 background: black;
 }
 
-input, textarea, button {
+input,
+textarea,
+button {
 width: 100%;
 padding: 14px;
 margin-top: 12px;
@@ -88,6 +93,7 @@ cursor: pointer;
 .status {
 margin-top: 12px;
 color: #bbb;
+min-height: 24px;
 }
 
 .ricordo {
@@ -143,9 +149,6 @@ const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
 const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs";
 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const params = new URLSearchParams(window.location.search);
-const slug = params.get("slug") || "mario-rossi";
-
 const nomePersonaEl = document.getElementById("nomePersona");
 const anniPersonaEl = document.getElementById("anniPersona");
 const biografiaPersonaEl = document.getElementById("biografiaPersona");
@@ -164,6 +167,7 @@ const { data, error } = await client
 .maybeSingle();
 
 if (error || !data) {
+console.error(error);
 nomePersonaEl.textContent = "Memoriale non trovato";
 anniPersonaEl.textContent = "";
 biografiaPersonaEl.textContent = "Nessun dato disponibile.";
@@ -173,12 +177,6 @@ return;
 nomePersonaEl.textContent = data.nome_persona || "";
 anniPersonaEl.textContent = data.anni || "";
 biografiaPersonaEl.textContent = data.descrizione || "";
-return;
-}
-
-nomePersonaEl.textContent = data.nome_persona || "";
-anniPersonaEl.textContent = data.anni || "";
-biografiaPersonaEl.textContent = data.biografia || "";
 
 if (data.video_url) {
 videoPersonaEl.src = data.video_url;
@@ -237,7 +235,7 @@ const { error } = await client
 nome: nome,
 messaggio: messaggio,
 approvato: false,
-memoriale: slug
+memoriale: "mario-rossi"
 }
 ]);
 
