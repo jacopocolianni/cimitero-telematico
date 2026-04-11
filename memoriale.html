@@ -9,125 +9,188 @@
 box-sizing: border-box;
 }
 
+:root {
+--bg: #f6f7fb;
+--bg-soft: #ffffff;
+--text: #1f2937;
+--muted: #6b7280;
+--line: #e5e7eb;
+--primary: #111827;
+--accent: #dbeafe;
+--shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+--radius: 22px;
+}
+
 body {
 margin: 0;
 font-family: Arial, sans-serif;
-background: #0b0b0b;
-color: #f5f5f5;
+background:
+radial-gradient(circle at top left, #eef4ff 0%, transparent 28%),
+radial-gradient(circle at top right, #f9efe8 0%, transparent 24%),
+var(--bg);
+color: var(--text);
 line-height: 1.6;
 }
 
 .page {
 min-height: 100vh;
-background:
-radial-gradient(circle at top, rgba(255,255,255,0.04), transparent 30%),
-linear-gradient(180deg, #111 0%, #0b0b0b 100%);
 }
 
 .container {
 width: 100%;
-max-width: 920px;
+max-width: 980px;
 margin: 0 auto;
-padding: 36px 20px 80px;
+padding: 28px 20px 80px;
 }
 
 .topbar {
 display: flex;
 justify-content: space-between;
 align-items: center;
-margin-bottom: 36px;
+margin-bottom: 34px;
 }
 
 .brand {
 font-size: 14px;
+font-weight: 700;
 letter-spacing: 0.12em;
 text-transform: uppercase;
-color: #bdbdbd;
+color: var(--primary);
 }
 
 .back-link {
-color: #eaeaea;
 text-decoration: none;
-font-size: 14px;
-border: 1px solid #2b2b2b;
-padding: 10px 14px;
+color: var(--primary);
+background: rgba(255,255,255,0.75);
+backdrop-filter: blur(8px);
+border: 1px solid rgba(17,24,39,0.08);
+padding: 12px 18px;
 border-radius: 999px;
+font-size: 14px;
+font-weight: 600;
+box-shadow: var(--shadow);
 transition: 0.2s ease;
 }
 
 .back-link:hover {
-background: #171717;
+transform: translateY(-1px);
+background: #fff;
 }
 
 .hero {
 text-align: center;
-padding: 18px 0 8px;
+padding: 44px 20px 30px;
+background: rgba(255,255,255,0.7);
+border: 1px solid rgba(17,24,39,0.06);
+border-radius: 30px;
+box-shadow: var(--shadow);
+backdrop-filter: blur(10px);
+}
+
+.eyebrow {
+display: inline-block;
+padding: 8px 14px;
+border-radius: 999px;
+background: #eef2ff;
+color: #374151;
+font-size: 13px;
+font-weight: 700;
+margin-bottom: 20px;
 }
 
 .hero h1 {
 margin: 0;
-font-size: 52px;
-line-height: 1.05;
-font-weight: 700;
-letter-spacing: -0.03em;
+font-size: 58px;
+line-height: 1.02;
+letter-spacing: -0.04em;
+color: var(--primary);
 }
 
 .anni {
-margin-top: 12px;
-color: #b8b8b8;
-font-size: 20px;
+margin-top: 14px;
+color: var(--muted);
+font-size: 22px;
+font-weight: 600;
 }
 
-.hero-divider {
-width: 90px;
-height: 1px;
-margin: 28px auto 0;
-background: linear-gradient(90deg, transparent, #666, transparent);
+.hero-text {
+max-width: 620px;
+margin: 18px auto 0;
+color: var(--muted);
+font-size: 16px;
+}
+
+.grid {
+display: grid;
+grid-template-columns: 1.15fr 0.85fr;
+gap: 24px;
+margin-top: 28px;
 }
 
 .card {
-background: rgba(22, 22, 22, 0.95);
-border: 1px solid #232323;
-border-radius: 18px;
-padding: 26px;
-margin-top: 28px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+background: rgba(255,255,255,0.82);
+border: 1px solid rgba(17,24,39,0.07);
+border-radius: var(--radius);
+padding: 28px;
+box-shadow: var(--shadow);
+backdrop-filter: blur(10px);
 }
 
 .card h2 {
 margin: 0 0 14px;
-font-size: 26px;
-font-weight: 650;
-letter-spacing: -0.02em;
+font-size: 28px;
+line-height: 1.1;
+letter-spacing: -0.03em;
+color: var(--primary);
 }
 
 .bio-text {
-color: #d7d7d7;
+color: #374151;
 font-size: 16px;
 white-space: pre-wrap;
 }
 
-.empty-video {
-margin-top: 14px;
-padding: 18px;
-border: 1px dashed #343434;
-border-radius: 14px;
-color: #8f8f8f;
+.video-placeholder {
+margin-top: 18px;
+background: linear-gradient(135deg, #f8fafc, #eef2ff);
+border: 1px solid #e5e7eb;
+border-radius: 18px;
+padding: 20px;
 text-align: center;
+color: var(--muted);
 font-size: 14px;
 }
 
 video {
 width: 100%;
-margin-top: 14px;
-border-radius: 14px;
-background: #000;
+margin-top: 18px;
+border-radius: 18px;
 display: block;
+background: #000;
+}
+
+.quote-box {
+background: linear-gradient(135deg, #eff6ff, #ffffff);
+border: 1px solid #e5e7eb;
+border-radius: 18px;
+padding: 22px;
+color: #374151;
+}
+
+.quote-box strong {
+display: block;
+color: var(--primary);
+margin-bottom: 8px;
+font-size: 15px;
+}
+
+.section-full {
+margin-top: 24px;
 }
 
 .intro {
-color: #bfbfbf;
-margin-bottom: 10px;
+color: var(--muted);
+margin-bottom: 12px;
 font-size: 15px;
 }
 
@@ -139,57 +202,66 @@ margin-top: 14px;
 display: block;
 margin-bottom: 8px;
 font-size: 14px;
-color: #d3d3d3;
+font-weight: 600;
+color: #374151;
 }
 
 input,
 textarea {
 width: 100%;
-padding: 14px 15px;
-border-radius: 12px;
-border: 1px solid #2f2f2f;
-background: #101010;
-color: #f5f5f5;
+padding: 15px 16px;
 font-size: 15px;
+color: var(--text);
+background: #fff;
+border: 1px solid #dbe1ea;
+border-radius: 16px;
 outline: none;
+transition: 0.2s ease;
 }
 
 input:focus,
 textarea:focus {
-border-color: #555;
+border-color: #93c5fd;
+box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.2);
 }
 
 textarea {
-min-height: 130px;
+min-height: 140px;
 resize: vertical;
 }
 
 .btn-row {
-margin-top: 16px;
+margin-top: 18px;
 }
 
 button {
 width: 100%;
-padding: 14px 18px;
-border-radius: 12px;
 border: none;
-background: #f1f1f1;
-color: #111;
-font-weight: 700;
+border-radius: 16px;
+padding: 16px 18px;
 font-size: 15px;
+font-weight: 700;
 cursor: pointer;
+color: white;
+background: linear-gradient(135deg, #111827, #374151);
+box-shadow: 0 10px 24px rgba(17, 24, 39, 0.16);
 transition: 0.2s ease;
 }
 
 button:hover {
-opacity: 0.94;
+transform: translateY(-1px);
+opacity: 0.98;
 }
 
 .status {
-margin-top: 14px;
 min-height: 24px;
-color: #bbbbbb;
+margin-top: 14px;
+color: var(--muted);
 font-size: 14px;
+}
+
+.ricordi-wrap {
+margin-top: 14px;
 }
 
 .ricordi-grid {
@@ -198,57 +270,72 @@ gap: 14px;
 }
 
 .ricordo {
-background: #111;
-border: 1px solid #262626;
-border-radius: 14px;
-padding: 16px;
+background: linear-gradient(135deg, #ffffff, #f8fafc);
+border: 1px solid #e5e7eb;
+border-radius: 18px;
+padding: 18px;
 }
 
 .ricordo strong {
 display: block;
 margin-bottom: 8px;
+color: var(--primary);
 font-size: 15px;
-color: #fff;
 }
 
 .ricordo div {
-color: #d4d4d4;
+color: #4b5563;
 white-space: pre-wrap;
 }
 
 .vuoto {
-color: #8e8e8e;
+color: var(--muted);
 text-align: center;
 padding: 16px 0 4px;
 }
 
 .footer-note {
-margin-top: 30px;
 text-align: center;
-color: #7f7f7f;
+margin-top: 30px;
+color: #9ca3af;
 font-size: 13px;
 }
 
-@media (max-width: 700px) {
-.container {
-padding: 24px 16px 60px;
+@media (max-width: 860px) {
+.grid {
+grid-template-columns: 1fr;
 }
 
 .hero h1 {
-font-size: 40px;
+font-size: 44px;
 }
 
 .anni {
-font-size: 18px;
+font-size: 19px;
 }
 
 .card {
-padding: 20px;
-border-radius: 16px;
+padding: 22px;
+}
+}
+
+@media (max-width: 560px) {
+.container {
+padding: 20px 14px 60px;
 }
 
 .topbar {
-margin-bottom: 24px;
+flex-direction: column;
+gap: 12px;
+align-items: flex-start;
+}
+
+.hero {
+padding: 32px 18px 24px;
+}
+
+.hero h1 {
+font-size: 36px;
 }
 }
 </style>
@@ -261,23 +348,36 @@ margin-bottom: 24px;
 <a href="index.html" class="back-link">Torna alla home</a>
 </div>
 
-<div class="hero">
+<section class="hero">
+<div class="eyebrow">Memoriale digitale</div>
 <h1 id="nomePersona">Caricamento...</h1>
 <div class="anni" id="anniPersona"></div>
-<div class="hero-divider"></div>
+<div class="hero-text">
+Uno spazio dedicato alla memoria, ai ricordi condivisi e ai pensieri di chi vuole lasciare una traccia.
 </div>
+</section>
 
+<section class="grid">
 <div class="card">
 <h2>Chi era</h2>
 <p id="biografiaPersona" class="bio-text">Caricamento biografia...</p>
 <video id="videoPersona" controls style="display:none;"></video>
-<div id="videoPlaceholder" class="empty-video">Nessun video disponibile per questo memoriale.</div>
+<div id="videoPlaceholder" class="video-placeholder">Nessun video disponibile per questo memoriale.</div>
 </div>
 
 <div class="card">
+<h2>Un ricordo che resta</h2>
+<div class="quote-box">
+<strong>Uno spazio semplice e umano</strong>
+Qui amici e familiari possono lasciare un pensiero, una parola, un frammento di memoria.
+</div>
+</div>
+</section>
+
+<section class="card section-full">
 <h2>Lascia un ricordo</h2>
 <div class="intro">
-Puoi lasciare un pensiero, un saluto o un ricordo. Il contenuto sarà visibile dopo approvazione.
+Puoi condividere un messaggio, un saluto o un ricordo personale.
 </div>
 
 <div class="field-group">
@@ -295,15 +395,15 @@ Puoi lasciare un pensiero, un saluto o un ricordo. Il contenuto sarà visibile d
 </div>
 
 <div id="status" class="status"></div>
-</div>
+</section>
 
-<div class="card">
+<section class="card section-full">
 <h2>Ricordi condivisi</h2>
 <div id="listaRicordi" class="vuoto">Caricamento ricordi...</div>
-</div>
+</section>
 
 <div class="footer-note">
-Memoriale digitale
+Una memoria digitale, accessibile nel tempo.
 </div>
 </div>
 </div>
@@ -311,7 +411,7 @@ Memoriale digitale
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://lbfkrsdtezjowkftntlq.supabase.co";
-const SUPABASE_KEY = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+const SUPABASE_KEY = "sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs";
 
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -384,7 +484,7 @@ listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo approvato per ora.
 return;
 }
 
-listaRicordiEl.innerHTML = '<div class="ricordi-grid"></div>';
+listaRicordiEl.innerHTML = '<div class="ricordi-wrap"><div class="ricordi-grid"></div></div>';
 const grid = listaRicordiEl.querySelector(".ricordi-grid");
 
 data.forEach((r) => {
