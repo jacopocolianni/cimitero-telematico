@@ -290,14 +290,36 @@ color: rgba(255,255,255,0.86);
 }
 
 .section {
-margin-top: 22px;
+margin-top: 28px;
 }
 
 .section-card {
-background: var(--card);
+position: relative;
 border: 1px solid var(--line);
 border-radius: var(--radius-xl);
 box-shadow: var(--shadow-soft);
+overflow: hidden;
+}
+
+.section-card::before {
+content: "";
+display: block;
+height: 4px;
+width: 100%;
+background: linear-gradient(90deg, #c7d2fe, #fbcfe8, #bfdbfe);
+opacity: 0.9;
+}
+
+.section-card.variant-blue {
+background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(239,246,255,0.72));
+}
+
+.section-card.variant-rose {
+background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(253,242,248,0.66));
+}
+
+.section-card.variant-neutral {
+background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.82));
 }
 
 .section-inner {
@@ -458,10 +480,10 @@ color: #111827;
 }
 
 .price-card .price {
-font-size: 18px;
-font-weight: 800;
-color: #1f2937;
-margin-bottom: 10px;
+font-size: 16px;
+font-weight: 700;
+color: #374151;
+margin-bottom: 8px;
 }
 
 .price-card p {
@@ -610,7 +632,7 @@ Cimitero Telematico collega il luogo fisico al ricordo digitale: una pagina dedi
 </section>
 
 <section class="section">
-<article class="section-card">
+<article class="section-card variant-blue">
 <div class="section-inner">
 <h2 class="section-title">Perché nasce questo progetto</h2>
 <div class="section-subtitle">
@@ -638,7 +660,7 @@ Un memoriale non dovrebbe fermarsi a un nome inciso. Può raccontare la persona,
 </section>
 
 <section class="section" id="qr-code">
-<article class="section-card">
+<article class="section-card variant-rose">
 <div class="section-inner">
 <h2 class="section-title">Come funziona il QR Code</h2>
 <div class="section-subtitle">
@@ -675,7 +697,7 @@ Il QR Code è il ponte tra la tomba fisica e il memoriale digitale, semplice da 
 </section>
 
 <section class="section">
-<article class="section-card">
+<article class="section-card variant-neutral">
 <div class="section-inner">
 <h2 class="section-title">Un servizio pensato per dare fiducia</h2>
 <div class="section-subtitle">
@@ -703,7 +725,7 @@ Il progetto è costruito per essere semplice, umano e adatto a famiglie che vogl
 </section>
 
 <section class="section">
-<article class="section-card">
+<article class="section-card variant-blue">
 <div class="section-inner">
 <h2 class="section-title">Memoriali pubblicati</h2>
 <div class="section-subtitle">
@@ -721,30 +743,30 @@ Alcune pagine già attive e consultabili online.
 </section>
 
 <section class="section" id="prezzi">
-<article class="section-card">
+<article class="section-card variant-neutral">
 <div class="section-inner">
-<h2 class="section-title">Pacchetti</h2>
+<h2 class="section-title">Contributi al progetto</h2>
 <div class="section-subtitle">
-I prezzi restano in basso e sono mostrati in modo chiaro ma non invasivo.
+I pacchetti rappresentano un contributo per sostenere e portare avanti il progetto del Cimitero Telematico, mantenendo attivo il servizio e i memoriali digitali nel tempo.
 </div>
 
 <div class="pricing-wrap">
 <div class="price-card">
 <h3>Base</h3>
 <div class="price">49€</div>
-<p>Attivazione memoriale digitale, biografia, link dedicato e ricordi condivisi.</p>
+<p>Contributo essenziale per attivare il memoriale digitale, con biografia, link dedicato e ricordi condivisi.</p>
 </div>
 
 <div class="price-card">
 <h3>Plus</h3>
 <div class="price">99€</div>
-<p>Più contenuti, più spazio e una presentazione più ricca del memoriale.</p>
+<p>Contributo ampliato per un memoriale più ricco, con più contenuti e una presentazione più completa.</p>
 </div>
 
 <div class="price-card">
 <h3>Premium</h3>
 <div class="price">149€</div>
-<p>Versione completa con configurazione avanzata e maggiore cura editoriale.</p>
+<p>Contributo completo che include una configurazione avanzata del memoriale e la possibilità di integrare una videocamera sulla tomba, visibile inizialmente solo ai familiari e apribile anche al pubblico su scelta.</p>
 </div>
 </div>
 
