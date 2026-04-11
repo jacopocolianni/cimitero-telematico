@@ -10,10 +10,10 @@ box-sizing: border-box;
 }
 
 :root {
---bg: #f7f8fc;
---text: #1f2937;
---muted: #6b7280;
---line: rgba(31, 41, 55, 0.08);
+--bg: #f6f8fc;
+--text: #18212f;
+--muted: #667085;
+--line: rgba(24, 33, 47, 0.08);
 --card: rgba(255, 255, 255, 0.82);
 --shadow: 0 20px 60px rgba(31, 41, 55, 0.08);
 --shadow-soft: 0 10px 30px rgba(31, 41, 55, 0.05);
@@ -29,8 +29,8 @@ font-family: Arial, sans-serif;
 color: var(--text);
 background:
 radial-gradient(circle at 10% 10%, rgba(191, 219, 254, 0.55), transparent 28%),
-radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.16), transparent 24%),
-radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.12), transparent 26%),
+radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.14), transparent 24%),
+radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.10), transparent 26%),
 linear-gradient(180deg, #fbfcff 0%, #f5f7fb 100%);
 line-height: 1.55;
 }
@@ -88,7 +88,7 @@ transform: translateY(-1px);
 background: #fff;
 }
 
-.memorial-toolbar {
+.toolbar {
 background: rgba(255,255,255,0.78);
 border: 1px solid var(--line);
 border-radius: 24px;
@@ -100,9 +100,9 @@ margin-bottom: 22px;
 .toolbar-top {
 display: flex;
 justify-content: space-between;
-align-items: center;
+align-items: end;
 gap: 12px;
-margin-bottom: 12px;
+margin-bottom: 14px;
 }
 
 .toolbar-title {
@@ -114,6 +114,40 @@ color: #111827;
 .toolbar-subtitle {
 font-size: 13px;
 color: var(--muted);
+margin-top: 3px;
+}
+
+.search-wrap {
+display: grid;
+grid-template-columns: 1fr auto;
+gap: 10px;
+margin-bottom: 14px;
+}
+
+.search-wrap input {
+width: 100%;
+padding: 13px 15px;
+border-radius: 14px;
+border: 1px solid #dbe1ea;
+background: rgba(255,255,255,0.94);
+font-size: 14px;
+outline: none;
+}
+
+.search-wrap input:focus {
+border-color: #93c5fd;
+box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.18);
+}
+
+.search-btn {
+border: none;
+border-radius: 14px;
+padding: 13px 16px;
+font-size: 14px;
+font-weight: 800;
+cursor: pointer;
+color: white;
+background: linear-gradient(135deg, #111827, #334155);
 }
 
 .toolbar-list {
@@ -144,14 +178,23 @@ box-shadow: var(--shadow-soft);
 }
 
 .hero {
-padding: 54px 38px;
+position: relative;
+overflow: hidden;
+padding: 58px 40px;
 border-radius: 34px;
+min-height: 430px;
+display: flex;
+align-items: end;
 background:
-linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,255,255,0.72)),
-linear-gradient(135deg, #dbeafe, #fdf2f8);
-border: 1px solid rgba(17,24,39,0.06);
+linear-gradient(rgba(17,24,39,0.38), rgba(17,24,39,0.42)),
+url("https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
 box-shadow: var(--shadow);
 margin-bottom: 22px;
+}
+
+.hero-content {
+max-width: 760px;
+color: white;
 }
 
 .eyebrow {
@@ -159,14 +202,15 @@ display: inline-flex;
 align-items: center;
 padding: 8px 13px;
 border-radius: 999px;
-background: rgba(255,255,255,0.86);
-border: 1px solid rgba(17,24,39,0.06);
-color: #334155;
+background: rgba(255,255,255,0.18);
+border: 1px solid rgba(255,255,255,0.18);
+color: white;
 font-size: 12px;
 font-weight: 800;
 letter-spacing: 0.05em;
 text-transform: uppercase;
 margin-bottom: 16px;
+backdrop-filter: blur(8px);
 }
 
 .hero h1 {
@@ -174,14 +218,14 @@ margin: 0;
 font-size: 54px;
 line-height: 1.02;
 letter-spacing: -0.045em;
-color: #0f172a;
+color: white;
 max-width: 760px;
 }
 
 .hero-text {
 margin-top: 14px;
-max-width: 720px;
-color: #5b6473;
+max-width: 700px;
+color: rgba(255,255,255,0.92);
 font-size: 16px;
 }
 
@@ -202,28 +246,19 @@ transition: 0.2s ease;
 }
 
 .hero-btn-primary {
-background: linear-gradient(135deg, #111827, #334155);
-color: white;
-box-shadow: 0 14px 30px rgba(17, 24, 39, 0.16);
+background: white;
+color: #111827;
 }
 
 .hero-btn-secondary {
-background: rgba(255,255,255,0.84);
-color: #111827;
-border: 1px solid rgba(17,24,39,0.06);
-box-shadow: var(--shadow-soft);
+background: rgba(255,255,255,0.16);
+color: white;
+border: 1px solid rgba(255,255,255,0.22);
+backdrop-filter: blur(8px);
 }
 
 .hero-btn:hover {
 transform: translateY(-1px);
-}
-
-.hero-line {
-width: 96px;
-height: 2px;
-margin-top: 22px;
-border-radius: 999px;
-background: linear-gradient(90deg, #c7d2fe, #fbcfe8);
 }
 
 .section {
@@ -280,9 +315,9 @@ color: #667085;
 font-size: 14px;
 }
 
-.how-grid {
+.steps-grid {
 display: grid;
-grid-template-columns: repeat(3, 1fr);
+grid-template-columns: repeat(4, 1fr);
 gap: 16px;
 }
 
@@ -290,63 +325,32 @@ gap: 16px;
 background: linear-gradient(135deg, #ffffff, #f8fafc);
 border: 1px solid rgba(17,24,39,0.06);
 border-radius: 20px;
-padding: 20px;
+padding: 18px;
 }
 
 .step-number {
-width: 34px;
-height: 34px;
+width: 32px;
+height: 32px;
 border-radius: 999px;
 background: #eef2ff;
 color: #111827;
 display: inline-flex;
 align-items: center;
 justify-content: center;
-font-size: 14px;
+font-size: 13px;
 font-weight: 800;
-margin-bottom: 12px;
+margin-bottom: 10px;
 }
 
 .step-card h3 {
 margin: 0 0 8px;
-font-size: 17px;
+font-size: 16px;
 }
 
 .step-card p {
 margin: 0;
 color: #667085;
-font-size: 14px;
-}
-
-.preview-card {
-background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(239,246,255,0.88));
-border: 1px solid rgba(17,24,39,0.06);
-border-radius: 24px;
-padding: 24px;
-text-align: center;
-}
-
-.preview-card h3 {
-margin: 0 0 6px;
-font-size: 24px;
-color: #111827;
-}
-
-.preview-card p {
-margin: 0 0 16px;
-color: var(--muted);
-font-size: 14px;
-}
-
-.preview-link {
-text-decoration: none;
-display: inline-block;
-border-radius: 999px;
-padding: 12px 16px;
-background: #111827;
-color: white;
-font-size: 14px;
-font-weight: 800;
+font-size: 13px;
 }
 
 .pricing-wrap {
@@ -369,7 +373,7 @@ color: #111827;
 }
 
 .price-card .price {
-font-size: 20px;
+font-size: 18px;
 font-weight: 800;
 color: #1f2937;
 margin-bottom: 10px;
@@ -407,7 +411,8 @@ font-size: 12px;
 
 @media (max-width: 980px) {
 .hero {
-padding: 40px 28px;
+padding: 42px 28px;
+min-height: 360px;
 }
 
 .hero h1 {
@@ -415,7 +420,7 @@ font-size: 42px;
 }
 
 .grid-3,
-.how-grid,
+.steps-grid,
 .pricing-wrap {
 grid-template-columns: 1fr;
 }
@@ -431,9 +436,14 @@ flex-direction: column;
 align-items: flex-start;
 }
 
+.search-wrap {
+grid-template-columns: 1fr;
+}
+
 .hero {
-padding: 32px 22px;
+padding: 34px 22px;
 border-radius: 28px;
+min-height: 320px;
 }
 
 .hero h1 {
@@ -456,16 +466,21 @@ padding: 20px;
 
 <nav class="nav">
 <a href="crea-memoriale.html" class="pill-link">Crea memoriale</a>
-<a href="admin-richieste.html" class="pill-link">Admin</a>
+<a href="#" class="pill-link">Login</a>
 </nav>
 </div>
 
-<section class="memorial-toolbar">
+<section class="toolbar">
 <div class="toolbar-top">
 <div>
-<div class="toolbar-title">Memoriali pubblicati</div>
-<div class="toolbar-subtitle">Puoi visualizzare subito i memoriali già registrati e pubblicati.</div>
+<div class="toolbar-title">Cerca un memoriale</div>
+<div class="toolbar-subtitle">Scrivi nome e cognome per trovare amici o familiari già registrati.</div>
 </div>
+</div>
+
+<div class="search-wrap">
+<input id="searchInput" type="text" placeholder="Es. Mario Rossi" />
+<button id="searchBtn" class="search-btn" type="button">Cerca</button>
 </div>
 
 <div id="toolbarList" class="toolbar-list">
@@ -474,73 +489,79 @@ padding: 20px;
 </section>
 
 <section class="hero">
+<div class="hero-content">
 <div class="eyebrow">Memoria digitale</div>
-<h1>Oltre un nome.<br>Una vita da ricordare.</h1>
+<h1>Non solo un nome.<br>Una vita da ricordare.</h1>
 <div class="hero-text">
-Cimitero Telematico trasforma una visita in un incontro con la storia della persona: memoriale digitale, ricordi condivisi, accesso a distanza e continuità nel tempo.
+Cimitero Telematico permette di visitare un memoriale digitale, ascoltare la storia della persona, leggere i ricordi condivisi e mantenere viva la memoria anche a distanza.
 </div>
 
 <div class="hero-actions">
 <a href="crea-memoriale.html" class="hero-btn hero-btn-primary">Crea un memoriale</a>
-<a href="#prezzi" class="hero-btn hero-btn-secondary">Vedi i pacchetti</a>
+<a href="#qr-code" class="hero-btn hero-btn-secondary">Scopri il QR Code</a>
 </div>
-
-<div class="hero-line"></div>
+</div>
 </section>
 
 <section class="section">
 <article class="section-card">
 <div class="section-inner">
-<h2 class="section-title">Perché nasce questo progetto</h2>
+<h2 class="section-title">Cos’è il Cimitero Telematico</h2>
 <div class="section-subtitle">
-Un memoriale non deve limitarsi a un nome inciso. Deve poter raccontare una persona, la sua voce, la sua storia e i ricordi lasciati da chi l’ha amata.
+Un memoriale non deve fermarsi a una pietra. Può raccontare una persona, custodire la sua storia e accogliere ricordi lasciati da chi le ha voluto bene.
 </div>
 
 <div class="grid-3">
 <div class="feature-card">
-<h3>Video e biografia</h3>
-<p>Ogni memoriale può mostrare chi era davvero la persona, con una presentazione chiara e umana.</p>
+<h3>Video e presentazione</h3>
+<p>Ogni persona può essere raccontata con una biografia, un video e una pagina dedicata.</p>
 </div>
 
 <div class="feature-card">
 <h3>Ricordi a distanza</h3>
-<p>Familiari e amici possono lasciare pensieri anche se vivono lontano o all’estero.</p>
+<p>Amici e familiari possono lasciare un pensiero anche da altre città o dall’estero.</p>
 </div>
 
 <div class="feature-card">
-<h3>Memoria condivisa</h3>
-<p>I ricordi approvati diventano parte di una pagina che resta viva e accessibile nel tempo.</p>
+<h3>Memoria accessibile</h3>
+<p>Il memoriale resta consultabile online e permette di ritrovare la storia di una persona nel tempo.</p>
 </div>
 </div>
 </div>
 </article>
 </section>
 
-<section class="section">
+<section class="section" id="qr-code">
 <article class="section-card">
 <div class="section-inner">
-<h2 class="section-title">Come funziona</h2>
+<h2 class="section-title">Come funziona il QR Code</h2>
 <div class="section-subtitle">
-Il flusso è semplice, intuitivo e pensato per essere usato anche da chi non ha dimestichezza con la tecnologia.
+Il QR Code è il collegamento diretto tra il luogo fisico e il memoriale digitale.
 </div>
 
-<div class="how-grid">
+<div class="steps-grid">
 <div class="step-card">
 <div class="step-number">1</div>
-<h3>Compili la richiesta</h3>
-<p>Inserisci i dati essenziali della persona e scegli il pacchetto che preferisci.</p>
+<h3>Arrivi alla tomba</h3>
+<p>Il visitatore trova il QR Code associato al memoriale della persona.</p>
 </div>
 
 <div class="step-card">
 <div class="step-number">2</div>
-<h3>Pubblicazione</h3>
-<p>Dal pannello admin il memoriale viene pubblicato con link dedicato e slug personale.</p>
+<h3>Scansiona</h3>
+<p>Con il telefono apre subito la pagina memoriale dedicata.</p>
 </div>
 
 <div class="step-card">
 <div class="step-number">3</div>
-<h3>Ricordi condivisi</h3>
-<p>Amici e familiari possono visitare il memoriale e lasciare pensieri e messaggi.</p>
+<h3>Scopre la storia</h3>
+<p>Può vedere video, biografia, ricordi e informazioni lasciate dalla famiglia.</p>
+</div>
+
+<div class="step-card">
+<div class="step-number">4</div>
+<h3>Lascia un ricordo</h3>
+<p>Può scrivere un pensiero o un saluto, anche se si trova molto lontano.</p>
 </div>
 </div>
 </div>
@@ -550,15 +571,13 @@ Il flusso è semplice, intuitivo e pensato per essere usato anche da chi non ha 
 <section class="section">
 <article class="section-card">
 <div class="section-inner">
-<h2 class="section-title">Esempio memoriale</h2>
+<h2 class="section-title">Memoriali pubblicati</h2>
 <div class="section-subtitle">
-Una pagina pubblica dedicata alla persona, con biografia, ricordi e contenuti digitali.
+Alcuni memoriali già attivi e consultabili online.
 </div>
 
-<div class="preview-card">
-<h3>Mario Rossi</h3>
-<p>Memoriale di esempio già pubblicato</p>
-<a href="memoriale.html?slug=mario-rossi" class="preview-link">Apri memoriale</a>
+<div id="featuredMemorials" class="toolbar-list">
+<div class="toolbar-item">Caricamento memoriali...</div>
 </div>
 </div>
 </article>
@@ -569,26 +588,26 @@ Una pagina pubblica dedicata alla persona, con biografia, ricordi e contenuti di
 <div class="section-inner">
 <h2 class="section-title">Pacchetti</h2>
 <div class="section-subtitle">
-I prezzi sono pensati per essere chiari e discreti, senza trasformare la pagina in una vetrina aggressiva.
+I prezzi sono indicati in modo chiaro e discreto, nella parte finale della pagina.
 </div>
 
 <div class="pricing-wrap">
 <div class="price-card">
 <h3>Base</h3>
 <div class="price">49€</div>
-<p>Attivazione memoriale digitale, struttura essenziale, link dedicato e ricordi condivisi.</p>
+<p>Attivazione memoriale digitale, biografia, link dedicato e ricordi condivisi.</p>
 </div>
 
 <div class="price-card">
 <h3>Plus</h3>
 <div class="price">99€</div>
-<p>Più contenuti, gestione ampliata e impostazione più ricca del memoriale.</p>
+<p>Più contenuti, più spazio e una presentazione più ricca del memoriale.</p>
 </div>
 
 <div class="price-card">
 <h3>Premium</h3>
 <div class="price">149€</div>
-<p>Versione completa con maggiore cura editoriale, supporto e configurazione avanzata.</p>
+<p>Versione completa con configurazione avanzata e maggiore cura editoriale.</p>
 </div>
 </div>
 
@@ -611,8 +630,13 @@ const SUPABASE_KEY = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const toolbarListEl = document.getElementById("toolbarList");
+const featuredMemorialsEl = document.getElementById("featuredMemorials");
+const searchInputEl = document.getElementById("searchInput");
+const searchBtnEl = document.getElementById("searchBtn");
 
-async function caricaMemorialiToolbar() {
+let memorialiCache = [];
+
+async function caricaMemoriali() {
 const { data, error } = await client
 .from("memoriali")
 .select("slug, nome_persona, stato")
@@ -622,26 +646,58 @@ const { data, error } = await client
 if (error) {
 console.error(error);
 toolbarListEl.innerHTML = '<div class="toolbar-item">Errore caricamento memoriali</div>';
+featuredMemorialsEl.innerHTML = '<div class="toolbar-item">Errore caricamento memoriali</div>';
 return;
 }
 
-if (!data || data.length === 0) {
+memorialiCache = data || [];
+renderMemoriali(memorialiCache);
+}
+
+function renderMemoriali(lista) {
+if (!lista || lista.length === 0) {
 toolbarListEl.innerHTML = '<div class="toolbar-item">Nessun memoriale pubblicato</div>';
+featuredMemorialsEl.innerHTML = '<div class="toolbar-item">Nessun memoriale pubblicato</div>';
 return;
 }
 
 toolbarListEl.innerHTML = "";
+featuredMemorialsEl.innerHTML = "";
 
-data.forEach((m) => {
-const link = document.createElement("a");
-link.className = "toolbar-item";
-link.href = `memoriale.html?slug=${m.slug}`;
-link.textContent = m.nome_persona || m.slug;
-toolbarListEl.appendChild(link);
+lista.forEach((m) => {
+const link1 = document.createElement("a");
+link1.className = "toolbar-item";
+link1.href = `memoriale.html?slug=${m.slug}`;
+link1.textContent = m.nome_persona || m.slug;
+toolbarListEl.appendChild(link1);
+
+const link2 = document.createElement("a");
+link2.className = "toolbar-item";
+link2.href = `memoriale.html?slug=${m.slug}`;
+link2.textContent = m.nome_persona || m.slug;
+featuredMemorialsEl.appendChild(link2);
 });
 }
 
-caricaMemorialiToolbar();
+function cercaMemoriale() {
+const query = searchInputEl.value.trim().toLowerCase();
+
+if (!query) {
+renderMemoriali(memorialiCache);
+return;
+}
+
+const filtrati = memorialiCache.filter((m) =>
+(m.nome_persona || "").toLowerCase().includes(query)
+);
+
+renderMemoriali(filtrati);
+}
+
+searchBtnEl.addEventListener("click", cercaMemoriale);
+searchInputEl.addEventListener("input", cercaMemoriale);
+
+caricaMemoriali();
 </script>
 </body>
 </html>
