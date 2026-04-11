@@ -161,7 +161,6 @@ async function caricaMemoriale() {
 const { data, error } = await client
 .from("richieste")
 .select("*")
-.ilike("nome_persona", "%mario rossi%")
 .order("creato_il", { ascending: false })
 .limit(1)
 .maybeSingle();
@@ -190,7 +189,6 @@ listaRicordiEl.textContent = "Caricamento ricordi...";
 const { data, error } = await client
 .from("ricordi")
 .select("nome, messaggio, created_at")
-.eq("approvato", true)
 .order("created_at", { ascending: false });
 
 if (error) {
@@ -200,7 +198,7 @@ return;
 }
 
 if (!data || data.length === 0) {
-listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo approvato per ora.</div>';
+listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo per ora.</div>';
 return;
 }
 
