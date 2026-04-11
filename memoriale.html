@@ -75,36 +75,35 @@ button {
 
 <script>
 const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co"
-const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS"
-
+const supabaseKey = "sb_publishable_..." // la tua key
 const client = supabase.createClient(supabaseUrl, supabaseKey)
 
 async function invia() {
-  const nome = document.getElementById("nome").value
-  const messaggio = document.getElementById("messaggio").value
+const nome = document.getElementById("nome").value
+const messaggio = document.getElementById("messaggio").value
 
-  if (!nome || !messaggio) {
-    alert("Compila tutto")
-    return
-  }
+if (!nome || !messaggio) {
+alert("Compila tutto")
+return
+}
 
-  const { error } = await client
-    .from("ricordi")
-    .insert([
-      {
-        nome: nome,
-        messaggio: messaggio,
-        approvato: false,
-        memoriale: "mario-rossi"
-      }
-    ])
+const { error } = await client
+.from("ricordi")
+.insert([
+{
+nome: nome,
+messaggio: messaggio,
+approvato: false,
+memoriale: "mario-rossi"
+}
+])
 
-  if (error) {
-    alert("Errore nel salvataggio")
-    console.error(error)
-  } else {
-    alert("Messaggio salvato!")
-  }
+if (error) {
+alert("Errore nel salvataggio")
+console.error(error)
+} else {
+alert("Messaggio salvato!")
+}
 }
 </script>
 
