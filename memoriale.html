@@ -156,9 +156,9 @@ const btnInvia = document.getElementById("btnInvia");
 
 async function caricaMemoriale() {
 const { data, error } = await client
-.from("memoriali")
+.from("richieste")
 .select("*")
-.eq("slug", slug)
+.eq("nome_persona", "Mario Rossi")
 .single();
 
 if (error || !data) {
