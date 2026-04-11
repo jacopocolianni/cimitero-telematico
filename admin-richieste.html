@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Richieste</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #0d0d0d;
+color: white;
+padding: 30px 20px 60px;
+}
+
+.container {
+max-width: 1100px;
+margin: 0 auto;
+}
+
+h1 {
+text-align: center;
+margin-bottom: 30px;
+font-size: 38px;
+}
+
+.richiesta {
+background: #171717;
+border: 1px solid #2a2a2a;
+border-radius: 14px;
+padding: 20px;
+margin-bottom: 20px;
+}
+
+.richiesta h2 {
+margin: 0 0 10px;
+font-size: 24px;
+}
+
+.meta {
+color: #bbb;
+margin-bottom: 10px;
+}
+
+.label {
+font-weight: bold;
+color: white;
+}
+
+.row {
+margin-top: 6px;
+color: #ddd;
+}
+
+.actions {
+margin-top: 18px;
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+}
+
+button {
+padding: 12px 18px;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.btn-pubblica {
+background: white;
+color: black;
+}
+
+.btn-link {
+background: #2a2a2a;
+color: white;
+}
+
+.status {
+margin-top: 12px;
+color: #bbb;
+min-height: 22px;
+}
+
+.vuoto {
+text-align: center;
+color: #999;
+margin-top: 40px;
+}
+
+a {
+color: white;
+text-decoration: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Admin richieste</h1>
+<div id="listaRichieste" class="vuoto">Caricamento richieste...</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs";
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const listaRichiesteEl = document.getElementById("listaRichieste");
+
+async function caricaRichieste() {
+listaRichiesteEl.textContent = "Caricamento richieste...";
+
+const { data, error } = await client
+.from("richieste")
+.select("*")
+.order("id", { ascending: false });
+
+if (error) {
+console.error(error);
+listaRichiesteEl.textContent = "Errore nel caricamento richieste: " + error.message;
+return;
+}
+
+if (!data || data.length === 0) {
+listaRichiesteEl.innerHTML = '<div class="vuoto">Nessuna richiesta presente.</div>';
+return;
+}
+
+listaRichiesteEl.innerHTML = "";
+
+data.forEach((r) => {
+const div = document.createElement("div");
+div.className = "richiesta";
+
+const slug = r.slug || "";
+
+div.innerHTML = `
+<h2>${r.nome_persona || "Senza nome"}</h2>
+<div class="meta">Slug: ${slug || "non presente"}</div>
+
+<div class="row"><span class="label">Anni:</span> ${r.anni || "-"}</div>
+<div class="row"><span class="label">Descrizione:</span> ${r.descrizione || "-"}</div>
+<div class="row"><span class="label">Familiare:</span> ${r.nome_familiare || "-"}</div>
+<div class="row"><span class="label">Email:</span> ${r.email || "-"}</div>
+<div class="row"><span class="label">Telefono:</span> ${r.telefono || "-"}</div>
+<div class="row"><span class="label">Piano:</span> ${r.piano || "-"}</div>
+<div class="row"><span class="label">Note:</span> ${r.note || "-"}</div>
+
+<div class="actions">
+<button class="btn-pubblica" onclick="pubblicaMemoriale(${r.id})">Pubblica</button>
+${slug ? `<button class="btn-link"><a href="memoriale.html?slug=${slug}" target="_blank">Apri memoriale</a></button>` : ""}
+</div>
+
+<div class="status" id="status-${r.id}"></div>
+`;
+
+listaRichiesteEl.appendChild(div);
+});
+}
+
+async function pubblicaMemoriale(idRichiesta) {
+const statusEl = document.getElementById(`status-${idRichiesta}`);
+statusEl.textContent = "Pubblicazione in corso...";
+
+const { data: richiesta, error: errRichiesta } = await client
+.from("richieste")
+.select("*")
+.eq("id", idRichiesta)
+.maybeSingle();
+
+if (errRichiesta || !richiesta) {
+console.error(errRichiesta);
+statusEl.textContent = "Errore nel caricamento richiesta.";
+return;
+}
+
+const { data: esistente } = await client
+.from("memoriali")
+.select("id")
+.eq("slug", richiesta.slug)
+.maybeSingle();
+
+if (esistente) {
+statusEl.textContent = "Memoriale già pubblicato.";
+return;
+}
+
+const { error: errInsert } = await client
+.from("memoriali")
+.insert([
+{
+slug: richiesta.slug,
+nome_persona: richiesta.nome_persona,
+anni: richiesta.anni,
+biografia: richiesta.descrizione,
+video_url: "",
+stato: "pubblicato"
+}
+]);
+
+if (errInsert) {
+console.error(errInsert);
+statusEl.textContent = "Errore pubblicazione: " + errInsert.message;
+return;
+}
+
+statusEl.innerHTML = `Memoriale pubblicato. <a href="memoriale.html?slug=${richiesta.slug}" target="_blank">Apri</a>`;
+}
+
+caricaRichieste();
+</script>
+</body>
+</html>
