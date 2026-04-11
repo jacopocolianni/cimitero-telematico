@@ -1,356 +1,66 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Crea Memoriale - Cimitero Telematico</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crea memoriale</title>
+
 <style>
-* {
-box-sizing: border-box;
-}
-
 body {
-margin: 0;
 font-family: Arial, sans-serif;
-background: #0d0d0d;
+background: #111;
 color: white;
-line-height: 1.5;
-}
-
-a {
-text-decoration: none;
-}
-
-.container {
-width: 100%;
-max-width: 1000px;
-margin: 0 auto;
-padding: 0 20px;
-}
-
-.header {
-border-bottom: 1px solid #222;
-background: #0d0d0d;
-}
-
-.header-inner {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 18px 0;
-}
-
-.logo {
-font-size: 22px;
-font-weight: bold;
-color: white;
-}
-
-.nav {
-display: flex;
-gap: 18px;
-align-items: center;
-}
-
-.nav a {
-color: #ddd;
-font-size: 15px;
-}
-
-.btn {
-display: inline-block;
-padding: 14px 24px;
-border-radius: 8px;
-font-weight: bold;
-border: none;
-cursor: pointer;
-transition: 0.2s ease;
-font-size: 15px;
-}
-
-.btn-primary {
-background: white;
-color: black;
-}
-
-.btn-secondary {
-border: 1px solid #444;
-color: white;
-background: transparent;
-}
-
-.hero {
-text-align: center;
-padding: 70px 0 30px;
-}
-
-.hero h1 {
-font-size: 46px;
-margin: 0 0 14px;
-}
-
-.hero p {
-color: #bbb;
-font-size: 18px;
-max-width: 760px;
-margin: 0 auto;
-}
-
-.section {
-padding: 40px 0 70px;
-}
-
-.grid {
-display: grid;
-grid-template-columns: 1.2fr 0.8fr;
-gap: 24px;
-align-items: start;
-}
-
-.card {
-background: #171717;
-border: 1px solid #222;
-border-radius: 16px;
-padding: 26px;
-}
-
-.card h2 {
-margin-top: 0;
-font-size: 28px;
-}
-
-.card p {
-color: #bbb;
-}
-
-label {
-display: block;
-margin-top: 16px;
-margin-bottom: 8px;
-font-weight: bold;
-font-size: 15px;
+padding: 40px;
 }
 
 input, textarea, select {
 width: 100%;
-padding: 14px;
-border-radius: 10px;
-border: 1px solid #333;
-background: #101010;
+padding: 10px;
+margin: 10px 0;
+background: #222;
 color: white;
-font-size: 15px;
-font-family: Arial, sans-serif;
+border: 1px solid #444;
+border-radius: 6px;
 }
 
-textarea {
-min-height: 120px;
-resize: vertical;
-}
-
-.row {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 14px;
-}
-
-.submit-wrap {
-margin-top: 22px;
-}
-
-.info-box {
-background: #101010;
-border: 1px solid #2a2a2a;
-border-radius: 12px;
-padding: 18px;
-margin-bottom: 16px;
-}
-
-.info-box strong {
-display: block;
-margin-bottom: 6px;
-font-size: 16px;
-}
-
-.info-box span {
-color: #bbb;
-font-size: 15px;
-}
-
-.price-box {
+button {
+padding: 12px 20px;
 background: white;
 color: black;
-border-radius: 14px;
-padding: 22px;
-margin-top: 16px;
-}
-
-.price-box h3 {
-margin-top: 0;
-font-size: 24px;
-}
-
-.price {
-font-size: 38px;
-font-weight: bold;
-margin: 10px 0;
-}
-
-.price small {
-font-size: 14px;
-font-weight: normal;
-color: #444;
+border: none;
+border-radius: 6px;
+cursor: pointer;
 }
 
 .status {
-margin-top: 14px;
-color: #bbb;
-min-height: 24px;
-}
-
-.footer {
-border-top: 1px solid #1b1b1b;
-padding: 30px 0;
-text-align: center;
-color: #888;
-font-size: 14px;
-}
-
-@media (max-width: 900px) {
-.grid,
-.row {
-grid-template-columns: 1fr;
-}
-
-.hero h1 {
-font-size: 36px;
-}
-
-.nav {
-display: none;
-}
+margin-top: 15px;
 }
 </style>
 </head>
+
 <body>
 
-<header class="header">
-<div class="container header-inner">
-<div class="logo">Cimitero Telematico</div>
-<nav class="nav">
-<a href="index.html">Home</a>
-<a href="memoriale.html">Memoriale demo</a>
-</nav>
-</div>
-</header>
+<h1>Crea memoriale</h1>
 
-<section class="hero">
-<div class="container">
-<h1>Crea un memoriale</h1>
-<p>
-Compila i dati iniziali della persona e della famiglia. Questo è il primo passo per attivare la pagina memoriale digitale.
-</p>
-</div>
-</section>
+<input id="nomePersona" placeholder="Nome persona">
+<input id="anniVita" placeholder="Anni di vita (es. 1950-2020)">
+<textarea id="biografia" placeholder="Biografia"></textarea>
 
-<section class="section">
-<div class="container">
-<div class="grid">
-<div class="card">
-<h2>Dati iniziali</h2>
-<p>Inserisci le informazioni principali. In futuro questa pagina sarà collegata a pagamento, area famiglia e attivazione automatica.</p>
+<input id="nomeFamiliare" placeholder="Nome familiare">
+<input id="emailFamiliare" placeholder="Email">
+<input id="telefonoFamiliare" placeholder="Telefono">
 
-<form id="formCreaMemoriale">
-<div class="row">
-<div>
-<label for="nomePersona">Nome della persona</label>
-<input id="nomePersona" type="text" placeholder="Es. Mario Rossi" />
-</div>
-<div>
-<label for="anniVita">Anni di vita</label>
-<input id="anniVita" type="text" placeholder="Es. 1950 - 2023" />
-</div>
-</div>
-
-<label for="biografia">Breve descrizione</label>
-<textarea id="biografia" placeholder="Scrivi una breve presentazione della persona..."></textarea>
-
-<div class="row">
-<div>
-<label for="nomeFamiliare">Nome del familiare referente</label>
-<input id="nomeFamiliare" type="text" placeholder="Es. Giovanni Rossi" />
-</div>
-<div>
-<label for="emailFamiliare">Email del familiare</label>
-<input id="emailFamiliare" type="email" placeholder="Es. famiglia@email.it" />
-</div>
-</div>
-
-<label for="telefonoFamiliare">Telefono</label>
-<input id="telefonoFamiliare" type="text" placeholder="Es. 333 1234567" />
-
-<label for="piano">Piano scelto</label>
 <select id="piano">
-<option value="">Seleziona un piano</option>
-<option value="attivazione">Attivazione iniziale - 49€</option>
-<option value="annuale">Attivazione + annuale - 49€ + 29€/anno</option>
-<option value="premium">Premium - su richiesta</option>
+<option value="">Seleziona piano</option>
+<option value="base">Base</option>
+<option value="premium">Premium</option>
 </select>
 
-<label for="note">Note aggiuntive</label>
-<textarea id="note" placeholder="Esigenze particolari, richiesta QR, supporto caricamento video, ecc."></textarea>
+<textarea id="note" placeholder="Note"></textarea>
 
-<div class="submit-wrap">
-<button type="button" class="btn btn-primary" id="btnInviaRichiesta">Invia richiesta</button>
-<div class="status" id="statusRichiesta"></div>
-</div>
-</form>
-</div>
+<button id="btnInviaRichiesta">Invia richiesta</button>
 
-<div>
-<div class="info-box">
-<strong>Cosa ricevi</strong>
-<span>Pagina memoriale, struttura iniziale, collegamento digitale e base per foto, video e ricordi.</span>
-</div>
-
-<div class="info-box">
-<strong>Per chi è pensato</strong>
-<span>Famiglie, parenti e persone che vogliono conservare la memoria in modo rispettoso, semplice e accessibile.</span>
-</div>
-
-<div class="info-box">
-<strong>Ricordi a distanza</strong>
-<span>Amici e familiari possono lasciare ricordi anche da altre città o dall’estero.</span>
-</div>
-
-<div class="price-box">
-<h3>Piano consigliato</h3>
-<div class="price">49€ <small>attivazione</small></div>
-<p style="color:#444; margin-bottom: 8px;">
-+ 29€/anno per mantenimento, aggiornamenti e continuità del servizio.
-</p>
-<a href="memoriale.html" class="btn btn-secondary">Vedi memoriale demo</a>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<footer class="footer">
-<div class="container">
-Cimitero Telematico — richiesta di attivazione memoriale
-</div>
-</footer>
-
-<script>
-const btnInviaRichiesta = document.getElementById("btnInviaRichiesta");
-const statusRichiesta = document.getElementById("statusRichiesta");
-
-btnInviaRichiesta.addEventListener("click", function () {
-const nomePersona = document.getElementById("nomePersona").value.trim();
-const anniVita = document.getElementById("anniVita").value.trim();
-const nomeFamiliare = document.getElementById("nomeFamiliare").value.trim();
-const emailFamiliare = document.getElementById("emailFamiliare").value.trim();
-const piano = document.getElementById("piano").value;
+<div id="statusRichiesta" class="status"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -359,11 +69,11 @@ const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs";
 
 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const btnInviaRichiesta = document.getElementById("btnInviaRichiesta");
-const statusRichiesta = document.getElementById("statusRichiesta");
+const btn = document.getElementById("btnInviaRichiesta");
+const status = document.getElementById("statusRichiesta");
 
-btnInviaRichiesta.addEventListener("click", async function () {
-statusRichiesta.textContent = "Invio richiesta...";
+btn.addEventListener("click", async () => {
+status.textContent = "Invio richiesta...";
 
 const nomePersona = document.getElementById("nomePersona").value.trim();
 const anniVita = document.getElementById("anniVita").value.trim();
@@ -375,7 +85,7 @@ const piano = document.getElementById("piano").value;
 const note = document.getElementById("note").value.trim();
 
 if (!nomePersona || !anniVita || !nomeFamiliare || !emailFamiliare || !piano) {
-statusRichiesta.textContent = "Compila tutti i campi principali.";
+status.textContent = "Compila tutti i campi obbligatori.";
 return;
 }
 
@@ -396,12 +106,13 @@ note: note
 
 if (error) {
 console.error(error);
-statusRichiesta.textContent = "Errore: " + error.message;
+status.textContent = "Errore: " + error.message;
 return;
 }
 
-statusRichiesta.textContent = "Richiesta inviata correttamente!";
+status.textContent = "Richiesta inviata correttamente!";
 });
 </script>
+
 </body>
 </html>
