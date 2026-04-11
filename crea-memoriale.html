@@ -352,10 +352,6 @@ const nomeFamiliare = document.getElementById("nomeFamiliare").value.trim();
 const emailFamiliare = document.getElementById("emailFamiliare").value.trim();
 const piano = document.getElementById("piano").value;
 
-if (!nomePersona || !anniVita || !nomeFamiliare || !emailFamiliare || !piano) {
-statusRichiesta.textContent = "Compila tutti i campi principali.";
-return;
-}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
