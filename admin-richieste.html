@@ -162,6 +162,14 @@ listaRichiesteEl.appendChild(div);
 });
 }
 
+function generaSlug(nome) {
+return nome
+.toLowerCase()
+.trim()
+.replace(/\s+/g, "-")
+.replace(/[^\w-]+/g, "");
+}
+
 async function pubblicaMemoriale(idRichiesta) {
 const statusEl = document.getElementById(`status-${idRichiesta}`);
 statusEl.textContent = "Pubblicazione in corso...";
@@ -173,15 +181,26 @@ const { data: richiesta, error: errRichiesta } = await client
 .maybeSingle();
 
 if (errRichiesta || !richiesta) {
-console.error(errRichiesta);
 statusEl.textContent = "Errore nel caricamento richiesta.";
 return;
+}
+
+// 👉 genera slug se manca
+let slug = richiesta.slug;
+if (!slug) {
+slug = generaSlug(richiesta.nome_persona);
+
+// salva lo slug anche nella richiesta
+await client
+.from("richieste")
+.update({ slug })
+.eq("id", idRichiesta);
 }
 
 const { data: esistente } = await client
 .from("memoriali")
 .select("id")
-.eq("slug", richiesta.slug)
+.eq("slug", slug)
 .maybeSingle();
 
 if (esistente) {
@@ -193,7 +212,7 @@ const { error: errInsert } = await client
 .from("memoriali")
 .insert([
 {
-slug: richiesta.slug,
+slug: slug,
 nome_persona: richiesta.nome_persona,
 anni: richiesta.anni,
 biografia: richiesta.descrizione,
@@ -203,12 +222,11 @@ stato: "pubblicato"
 ]);
 
 if (errInsert) {
-console.error(errInsert);
-statusEl.textContent = "Errore pubblicazione: " + errInsert.message;
+statusEl.textContent = "Errore: " + errInsert.message;
 return;
 }
 
-statusEl.innerHTML = `Memoriale pubblicato. <a href="memoriale.html?slug=${richiesta.slug}" target="_blank">Apri</a>`;
+statusEl.innerHTML = `Memoriale pubblicato. <a href="memoriale.html?slug=${slug}" target="_blank">Apri</a>`;
 }
 
 caricaRichieste();
