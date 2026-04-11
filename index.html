@@ -1,55 +1,469 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Cimitero Telematico</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: white;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cimitero Telematico</title>
+<style>
+* {
+box-sizing: border-box;
+}
 
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #0d0d0d;
+color: white;
+line-height: 1.5;
+}
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
+a {
+text-decoration: none;
+}
 
-    p {
-      font-size: 20px;
-      color: #ccc;
-      max-width: 500px;
-    }
+.container {
+width: 100%;
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 20px;
+}
 
-    .btn {
-      margin-top: 30px;
-      padding: 14px 28px;
-      background: white;
-      color: black;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-  </style>
+.header {
+position: sticky;
+top: 0;
+background: rgba(13, 13, 13, 0.95);
+border-bottom: 1px solid #222;
+z-index: 10;
+}
+
+.header-inner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 18px 0;
+}
+
+.logo {
+font-size: 22px;
+font-weight: bold;
+color: white;
+}
+
+.nav {
+display: flex;
+gap: 18px;
+align-items: center;
+}
+
+.nav a {
+color: #ddd;
+font-size: 15px;
+}
+
+.btn {
+display: inline-block;
+padding: 14px 24px;
+border-radius: 8px;
+font-weight: bold;
+transition: 0.2s ease;
+}
+
+.btn-primary {
+background: white;
+color: black;
+}
+
+.btn-secondary {
+border: 1px solid #444;
+color: white;
+}
+
+.hero {
+padding: 90px 0 70px;
+text-align: center;
+}
+
+.hero h1 {
+font-size: 54px;
+margin: 0 0 20px;
+line-height: 1.1;
+}
+
+.hero p {
+color: #bbb;
+font-size: 20px;
+max-width: 760px;
+margin: 0 auto 30px;
+}
+
+.hero-buttons {
+display: flex;
+justify-content: center;
+gap: 14px;
+flex-wrap: wrap;
+margin-bottom: 40px;
+}
+
+.hero-card {
+background: #171717;
+border: 1px solid #222;
+border-radius: 14px;
+padding: 28px;
+max-width: 850px;
+margin: 0 auto;
+text-align: left;
+}
+
+.hero-card-title {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 8px;
+}
+
+.hero-card-text {
+color: #bbb;
+}
+
+.section {
+padding: 70px 0;
+border-top: 1px solid #1b1b1b;
+}
+
+.section h2 {
+font-size: 34px;
+margin: 0 0 14px;
+text-align: center;
+}
+
+.section-subtitle {
+color: #bbb;
+text-align: center;
+max-width: 760px;
+margin: 0 auto 40px;
+font-size: 18px;
+}
+
+.grid-3 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+}
+
+.card {
+background: #171717;
+border: 1px solid #222;
+border-radius: 14px;
+padding: 24px;
+}
+
+.card h3 {
+margin-top: 0;
+font-size: 22px;
+}
+
+.card p {
+color: #bbb;
+margin-bottom: 0;
+}
+
+.feature-list {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 20px;
+}
+
+.feature-item {
+background: #171717;
+border: 1px solid #222;
+border-radius: 14px;
+padding: 22px;
+}
+
+.feature-item strong {
+display: block;
+margin-bottom: 8px;
+font-size: 18px;
+}
+
+.feature-item span {
+color: #bbb;
+}
+
+.pricing {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+}
+
+.price-card {
+background: #171717;
+border: 1px solid #222;
+border-radius: 14px;
+padding: 26px;
+text-align: center;
+}
+
+.price-card.featured {
+border: 1px solid white;
+}
+
+.price-card h3 {
+margin-top: 0;
+font-size: 24px;
+}
+
+.price {
+font-size: 36px;
+font-weight: bold;
+margin: 14px 0;
+}
+
+.price small {
+font-size: 15px;
+color: #bbb;
+font-weight: normal;
+}
+
+.price-card p {
+color: #bbb;
+min-height: 60px;
+}
+
+.memorial-preview {
+background: #171717;
+border: 1px solid #222;
+border-radius: 14px;
+padding: 30px;
+text-align: center;
+max-width: 800px;
+margin: 0 auto;
+}
+
+.memorial-preview h3 {
+font-size: 30px;
+margin-bottom: 8px;
+}
+
+.memorial-preview p {
+color: #bbb;
+margin-bottom: 24px;
+}
+
+.cta {
+text-align: center;
+}
+
+.cta-box {
+background: #171717;
+border: 1px solid #222;
+border-radius: 16px;
+padding: 40px 24px;
+max-width: 850px;
+margin: 0 auto;
+}
+
+.cta-box h2 {
+margin-bottom: 16px;
+}
+
+.cta-box p {
+color: #bbb;
+max-width: 700px;
+margin: 0 auto 24px;
+font-size: 18px;
+}
+
+.footer {
+border-top: 1px solid #1b1b1b;
+padding: 30px 0;
+text-align: center;
+color: #888;
+font-size: 14px;
+}
+
+@media (max-width: 900px) {
+.grid-3,
+.pricing,
+.feature-list {
+grid-template-columns: 1fr;
+}
+
+.hero h1 {
+font-size: 40px;
+}
+
+.hero p {
+font-size: 18px;
+}
+
+.nav {
+display: none;
+}
+}
+</style>
 </head>
 <body>
 
-  <div class="hero">
-    <h1>Non solo un nome. Una vita.</h1>
-    <p>Ogni persona ha una storia. Ora può essere raccontata, ascoltata e ricordata per sempre.</p>
-    <a href="/memoriale.html" class="btn">Scopri un memoriale</a>
-  </div>
+<header class="header">
+<div class="container header-inner">
+<div class="logo">Cimitero Telematico</div>
+<nav class="nav">
+<a href="#come-funziona">Come funziona</a>
+<a href="#famiglie">Per le famiglie</a>
+<a href="#prezzi">Prezzi</a>
+<a href="memoriale.html" class="btn btn-primary">Vedi memoriale</a>
+</nav>
+</div>
+</header>
+
+<section class="hero">
+<div class="container">
+<h1>Non solo un nome.<br>Una vita.</h1>
+<p>
+Ogni persona ha una storia. Con il Cimitero Telematico, quella storia può essere raccontata,
+ascoltata e ricordata per sempre attraverso video, foto, messaggi e ricordi condivisi.
+</p>
+
+<div class="hero-buttons">
+<a href="memoriale.html" class="btn btn-primary">Scopri un memoriale</a>
+<a href="#prezzi" class="btn btn-secondary">Crea un memoriale</a>
+</div>
+
+<div class="hero-card">
+<div class="hero-card-title">Una visita che torna a parlare</div>
+<div class="hero-card-text">
+Davanti a una tomba, basta una scansione o un tocco per entrare nel memoriale digitale della persona:
+un video, una biografia, fotografie, ricordi condivisi e uno spazio vivo per la memoria.
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="come-funziona">
+<div class="container">
+<h2>Come funziona</h2>
+<p class="section-subtitle">
+Il sistema è pensato per essere semplice, intuitivo e umano. Anche una persona poco pratica deve riuscire a usarlo senza difficoltà.
+</p>
+
+<div class="grid-3">
+<div class="card">
+<h3>1. Scansiona</h3>
+<p>Il visitatore inquadra il QR code oppure accede al memoriale tramite link, anche a distanza.</p>
+</div>
+<div class="card">
+<h3>2. Scopri</h3>
+<p>Si apre la pagina della persona con video, biografia, fotografie e ricordi lasciati nel tempo.</p>
+</div>
+<div class="card">
+<h3>3. Ricorda</h3>
+<p>Amici e familiari possono lasciare messaggi e contenuti che vengono salvati e approvati prima della pubblicazione.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="famiglie">
+<div class="container">
+<h2>Per le famiglie</h2>
+<p class="section-subtitle">
+Uno spazio semplice da gestire, pensato per custodire la memoria con rispetto, controllo e continuità.
+</p>
+
+<div class="feature-list">
+<div class="feature-item">
+<strong>Video e biografia</strong>
+<span>Il memoriale può contenere il video della persona, la sua storia e ciò che ha fatto nella vita.</span>
+</div>
+<div class="feature-item">
+<strong>Ricordi a distanza</strong>
+<span>Chi vive lontano può lasciare un ricordo da qualsiasi luogo, senza dover andare fisicamente al cimitero.</span>
+</div>
+<div class="feature-item">
+<strong>Approvazione contenuti</strong>
+<span>I messaggi vengono salvati e pubblicati solo dopo approvazione, per evitare contenuti offensivi o inappropriati.</span>
+</div>
+<div class="feature-item">
+<strong>Contenuti pubblici e privati</strong>
+<span>Foto, video e ricordi possono essere pubblici, visibili solo ai familiari o riservati.</span>
+</div>
+<div class="feature-item">
+<strong>Visualizzazioni memoriale</strong>
+<span>La famiglia può vedere quante persone hanno visitato la tomba digitale e quante interazioni ci sono state.</span>
+</div>
+<div class="feature-item">
+<strong>Notifiche</strong>
+<span>Ogni nuovo ricordo, messaggio o contenuto può generare una notifica per la famiglia.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<h2>Esempio memoriale</h2>
+<p class="section-subtitle">
+Una prima anteprima della pagina dedicata a una persona, con video, storia e ricordi condivisi.
+</p>
+
+<div class="memorial-preview">
+<h3>Mario Rossi</h3>
+<p>1950 - 2023</p>
+<a href="memoriale.html" class="btn btn-primary">Apri il memoriale</a>
+</div>
+</div>
+</section>
+
+<section class="section" id="prezzi">
+<div class="container">
+<h2>Prezzi</h2>
+<p class="section-subtitle">
+Una struttura semplice, chiara e sostenibile, pensata per attivare il servizio e mantenerlo nel tempo.
+</p>
+
+<div class="pricing">
+<div class="price-card">
+<h3>Attivazione</h3>
+<div class="price">49€</div>
+<p>Creazione del memoriale digitale, struttura iniziale e collegamento della pagina.</p>
+<a href="#" class="btn btn-secondary">Richiedi attivazione</a>
+</div>
+
+<div class="price-card featured">
+<h3>Annuale</h3>
+<div class="price">29€ <small>/ anno</small></div>
+<p>Mantenimento pagina, archiviazione contenuti, aggiornamenti e continuità del servizio.</p>
+<a href="#" class="btn btn-primary">Scegli questo piano</a>
+</div>
+
+<div class="price-card">
+<h3>Premium</h3>
+<div class="price">Su richiesta</div>
+<p>Gestione avanzata contenuti, supporto, spazio maggiore e servizi dedicati per famiglie.</p>
+<a href="#" class="btn btn-secondary">Contattaci</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section cta">
+<div class="container">
+<div class="cta-box">
+<h2>Restituiamo voce alla memoria</h2>
+<p>
+Il Cimitero Telematico nasce per trasformare il ricordo in presenza, la visita in incontro,
+la tomba in una storia che continua a parlare nel tempo.
+</p>
+<a href="memoriale.html" class="btn btn-primary">Vedi il memoriale demo</a>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+Cimitero Telematico — progetto digitale memoriale
+</div>
+</footer>
 
 </body>
 </html>
