@@ -1,91 +1,130 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Memoriale</title>
-
 <style>
 body {
-  margin: 0;
-  font-family: Arial;
-  background: #0d0d0d;
-  color: white;
-  text-align: center;
+margin: 0;
+font-family: Arial, sans-serif;
+background: #0d0d0d;
+color: white;
+text-align: center;
 }
 
 .container {
-  padding: 50px 20px;
+max-width: 900px;
+margin: 0 auto;
+padding: 50px 20px;
+}
+
+h1 {
+font-size: 42px;
+margin-bottom: 8px;
+}
+
+.years {
+color: #ccc;
+margin-bottom: 24px;
+}
+
+video {
+width: 100%;
+max-width: 500px;
+border-radius: 10px;
 }
 
 .box {
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  margin: auto;
-  margin-top: 20px;
+background: #1a1a1a;
+padding: 20px;
+border-radius: 10px;
+margin: 24px auto;
+max-width: 800px;
 }
 
 input, textarea {
-  width: 80%;
-  padding: 12px;
-  margin: 10px 0;
+width: 100%;
+box-sizing: border-box;
+padding: 12px;
+margin: 10px 0;
+border: none;
+border-radius: 8px;
+font-size: 16px;
+font-family: Arial, sans-serif;
+}
+
+textarea {
+min-height: 140px;
+resize: vertical;
 }
 
 button {
-  padding: 12px 24px;
-  background: white;
-  border: none;
-  cursor: pointer;
+padding: 12px 24px;
+background: white;
+color: black;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.status {
+margin-top: 14px;
+color: #ccc;
+min-height: 24px;
+word-break: break-word;
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
 <h1>Mario Rossi</h1>
-<p>1950 - 2023</p>
+<div class="years">1950 - 2023</div>
 
-<!-- VIDEO FUNZIONANTE ONLINE -->
-<video width="400" controls>
-  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+<video controls>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+Il tuo browser non supporta il video.
 </video>
 
 <div class="box">
 <h2>Chi era</h2>
-<p>Un uomo gentile, persona amorevole e grande lavoratore.</p>
+<p>Un uomo gentile, padre amorevole e grande lavoratore.</p>
 </div>
 
 <div class="box">
 <h2>Lascia un ricordo</h2>
 
-<input id="nome" placeholder="Il tuo nome">
+<input id="nome" type="text" placeholder="Il tuo nome" />
 <textarea id="messaggio" placeholder="Scrivi un ricordo..."></textarea>
 
-<button onclick="invia()">Invia ricordo</button>
+<button id="btnInvia" type="button">Invia ricordo</button>
 
+<div id="status" class="status"></div>
+</div>
 </div>
 
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
 
-<script>
-const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co"
-const supabaseKey = "sb_publishable_..." // la tua key
-const client = supabase.createClient(supabaseUrl, supabaseKey)
+const statusEl = document.getElementById("status");
+const btnEl = document.getElementById("btnInvia");
 
-async function invia() {
-const nome = document.getElementById("nome").value
-const messaggio = document.getElementById("messaggio").value
+btnEl.addEventListener("click", async function () {
+statusEl.textContent = "Click ricevuto. Invio in corso...";
+
+const nome = document.getElementById("nome").value.trim();
+const messaggio = document.getElementById("messaggio").value.trim();
 
 if (!nome || !messaggio) {
-alert("Compila tutto")
-return
+statusEl.textContent = "Compila tutti i campi.";
+return;
 }
+
+try {
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const { error } = await client
 .from("ricordi")
@@ -96,16 +135,22 @@ messaggio: messaggio,
 approvato: false,
 memoriale: "mario-rossi"
 }
-])
+]);
 
 if (error) {
-alert("Errore nel salvataggio")
-console.error(error)
-} else {
-alert("Messaggio salvato!")
+console.error(error);
+statusEl.textContent = "Errore nel salvataggio: " + error.message;
+return;
 }
-}
-</script>
 
+statusEl.textContent = "Messaggio salvato correttamente.";
+document.getElementById("nome").value = "";
+document.getElementById("messaggio").value = "";
+} catch (e) {
+console.error(e);
+statusEl.textContent = "Errore JavaScript: " + e.message;
+}
+});
+</script>
 </body>
 </html>
