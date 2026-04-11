@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Memoriale</title>
+<title>Crea memoriale</title>
 <style>
 * {
 box-sizing: border-box;
@@ -14,8 +14,7 @@ box-sizing: border-box;
 --text: #172033;
 --muted: #667085;
 --line: rgba(23, 32, 51, 0.08);
---card: rgba(255, 255, 255, 0.72);
---card-strong: rgba(255, 255, 255, 0.9);
+--card: rgba(255, 255, 255, 0.78);
 --shadow: 0 20px 60px rgba(31, 41, 55, 0.08);
 --shadow-soft: 0 10px 30px rgba(31, 41, 55, 0.06);
 --radius-xl: 28px;
@@ -23,6 +22,8 @@ box-sizing: border-box;
 --radius-md: 18px;
 --accent-dark: #111827;
 --accent-soft: #eef2ff;
+--accent-pink: #fdf2f8;
+--accent-blue: #dbeafe;
 }
 
 body {
@@ -31,8 +32,8 @@ font-family: Arial, sans-serif;
 color: var(--text);
 background:
 radial-gradient(circle at 10% 10%, rgba(191, 219, 254, 0.55), transparent 28%),
-radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.22), transparent 24%),
-radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.18), transparent 26%),
+radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.20), transparent 24%),
+radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.16), transparent 26%),
 linear-gradient(180deg, #fbfcff 0%, #f5f7fb 100%);
 line-height: 1.6;
 }
@@ -56,12 +57,6 @@ gap: 16px;
 margin-bottom: 26px;
 }
 
-.brand {
-display: flex;
-flex-direction: column;
-gap: 3px;
-}
-
 .brand-title {
 font-size: 14px;
 font-weight: 800;
@@ -73,18 +68,13 @@ color: #111827;
 .brand-subtitle {
 font-size: 13px;
 color: var(--muted);
-}
-
-.top-actions {
-display: flex;
-gap: 10px;
-flex-wrap: wrap;
+margin-top: 3px;
 }
 
 .pill-link {
 text-decoration: none;
 color: var(--accent-dark);
-background: rgba(255,255,255,0.8);
+background: rgba(255,255,255,0.82);
 border: 1px solid rgba(17,24,39,0.07);
 border-radius: 999px;
 padding: 12px 18px;
@@ -103,14 +93,13 @@ background: #fff;
 .hero {
 position: relative;
 overflow: hidden;
-padding: 56px 46px;
+padding: 52px 42px;
 border-radius: 36px;
 background:
-linear-gradient(135deg, rgba(255,255,255,0.88), rgba(255,255,255,0.68)),
+linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,255,255,0.70)),
 linear-gradient(135deg, #dbeafe, #fdf2f8);
 border: 1px solid rgba(17,24,39,0.06);
 box-shadow: var(--shadow);
-backdrop-filter: blur(14px);
 margin-bottom: 26px;
 }
 
@@ -125,17 +114,6 @@ background: radial-gradient(circle, rgba(191,219,254,0.65), transparent 70%);
 pointer-events: none;
 }
 
-.hero::after {
-content: "";
-position: absolute;
-width: 260px;
-height: 260px;
-bottom: -120px;
-left: -70px;
-background: radial-gradient(circle, rgba(244, 114, 182, 0.12), transparent 70%);
-pointer-events: none;
-}
-
 .hero-inner {
 position: relative;
 z-index: 1;
@@ -145,10 +123,9 @@ max-width: 760px;
 .eyebrow {
 display: inline-flex;
 align-items: center;
-gap: 8px;
 padding: 9px 14px;
 border-radius: 999px;
-background: rgba(255,255,255,0.82);
+background: rgba(255,255,255,0.86);
 border: 1px solid rgba(17,24,39,0.06);
 color: #334155;
 font-size: 13px;
@@ -160,22 +137,14 @@ margin-bottom: 18px;
 
 .hero h1 {
 margin: 0;
-font-size: 72px;
+font-size: 64px;
 line-height: 0.98;
 letter-spacing: -0.05em;
 color: #0f172a;
-max-width: 700px;
-}
-
-.anni {
-margin-top: 16px;
-font-size: 23px;
-font-weight: 700;
-color: #475467;
 }
 
 .hero-text {
-margin-top: 18px;
+margin-top: 16px;
 max-width: 620px;
 color: #5b6473;
 font-size: 17px;
@@ -184,14 +153,14 @@ font-size: 17px;
 .hero-line {
 width: 120px;
 height: 2px;
-margin-top: 26px;
+margin-top: 24px;
 border-radius: 999px;
 background: linear-gradient(90deg, #c7d2fe, #fbcfe8);
 }
 
 .layout {
 display: grid;
-grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.8fr);
+grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
 gap: 24px;
 align-items: start;
 }
@@ -214,7 +183,7 @@ padding: 28px;
 }
 
 .section-title {
-margin: 0 0 14px;
+margin: 0 0 12px;
 font-size: 30px;
 line-height: 1.05;
 letter-spacing: -0.035em;
@@ -224,72 +193,21 @@ color: #0f172a;
 .section-subtitle {
 color: var(--muted);
 font-size: 15px;
-margin-bottom: 14px;
+margin-bottom: 16px;
 }
 
-.bio-grid {
+.field-grid {
 display: grid;
-gap: 18px;
-}
-
-.bio-text {
-margin: 0;
-color: #334155;
-font-size: 17px;
-white-space: pre-wrap;
-}
-
-.video-placeholder {
-padding: 20px;
-border-radius: var(--radius-md);
-border: 1px dashed #cfd8e3;
-background: rgba(255,255,255,0.5);
-color: #667085;
-text-align: center;
-font-size: 14px;
-}
-
-video {
-width: 100%;
-display: block;
-border-radius: var(--radius-md);
-background: #000;
-box-shadow: var(--shadow-soft);
-}
-
-.memory-aside {
-position: sticky;
-top: 18px;
-}
-
-.aside-top {
-padding: 28px;
-border-bottom: 1px solid var(--line);
-background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.65));
-border-top-left-radius: var(--radius-xl);
-border-top-right-radius: var(--radius-xl);
-}
-
-.aside-top h2 {
-margin: 0 0 8px;
-font-size: 28px;
-line-height: 1.05;
-letter-spacing: -0.03em;
-color: #0f172a;
-}
-
-.aside-top p {
-margin: 0;
-color: var(--muted);
-font-size: 15px;
-}
-
-.aside-form {
-padding: 24px 28px 28px;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
 }
 
 .field-group {
-margin-top: 16px;
+margin-top: 14px;
+}
+
+.field-group.full {
+grid-column: 1 / -1;
 }
 
 .label {
@@ -321,8 +239,106 @@ background: #fff;
 }
 
 textarea {
-min-height: 150px;
+min-height: 130px;
 resize: vertical;
+}
+
+.plans-grid {
+display: grid;
+gap: 14px;
+margin-top: 12px;
+}
+
+.plan-card {
+border: 1px solid #dbe1ea;
+background: rgba(255,255,255,0.9);
+border-radius: 20px;
+padding: 18px;
+cursor: pointer;
+transition: 0.2s ease;
+}
+
+.plan-card:hover {
+transform: translateY(-1px);
+box-shadow: var(--shadow-soft);
+border-color: #c7d2fe;
+}
+
+.plan-card.active {
+border-color: #93c5fd;
+background: linear-gradient(135deg, #ffffff, #eff6ff);
+box-shadow: 0 12px 28px rgba(59, 130, 246, 0.12);
+}
+
+.plan-top {
+display: flex;
+justify-content: space-between;
+gap: 12px;
+align-items: start;
+}
+
+.plan-name {
+font-size: 20px;
+font-weight: 800;
+color: #0f172a;
+line-height: 1.1;
+}
+
+.plan-price {
+font-size: 26px;
+font-weight: 800;
+color: #111827;
+white-space: nowrap;
+}
+
+.plan-desc {
+margin-top: 8px;
+color: var(--muted);
+font-size: 14px;
+}
+
+.plan-features {
+margin-top: 12px;
+color: #4b5563;
+font-size: 14px;
+}
+
+.price-box {
+padding: 24px;
+border-radius: 24px;
+background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(239,246,255,0.9));
+border: 1px solid rgba(17,24,39,0.06);
+box-shadow: var(--shadow-soft);
+}
+
+.price-label {
+color: var(--muted);
+font-size: 14px;
+margin-bottom: 8px;
+}
+
+.price-value {
+font-size: 48px;
+line-height: 1;
+font-weight: 800;
+letter-spacing: -0.04em;
+color: #0f172a;
+}
+
+.price-note {
+margin-top: 10px;
+color: #475467;
+font-size: 14px;
+}
+
+.summary-box {
+margin-top: 16px;
+padding: 18px;
+border-radius: 18px;
+background: rgba(255,255,255,0.72);
+border: 1px solid rgba(17,24,39,0.06);
+color: #475467;
+font-size: 14px;
 }
 
 .btn-row {
@@ -354,63 +370,19 @@ color: var(--muted);
 font-size: 14px;
 }
 
-.memory-tip {
-margin-top: 18px;
-padding: 14px 16px;
-border-radius: 16px;
-background: rgba(219,234,254,0.42);
-border: 1px solid rgba(147,197,253,0.35);
-color: #37546f;
-font-size: 14px;
-}
-
-.ricordi-header {
-display: flex;
-justify-content: space-between;
-align-items: end;
-gap: 14px;
-margin-bottom: 8px;
-}
-
-.ricordi-count {
-color: var(--muted);
-font-size: 14px;
-white-space: nowrap;
-}
-
-.ricordi-list {
-display: grid;
-gap: 14px;
-margin-top: 16px;
-}
-
-.ricordo {
-padding: 18px 18px 16px;
-border-radius: 20px;
-border: 1px solid rgba(17,24,39,0.07);
-background:
-linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,250,252,0.86));
-box-shadow: 0 8px 24px rgba(31,41,55,0.05);
-}
-
-.ricordo strong {
-display: block;
-margin-bottom: 8px;
-color: #111827;
-font-size: 15px;
-letter-spacing: -0.01em;
-}
-
-.ricordo div {
+.tip-box {
+padding: 18px;
+border-radius: 18px;
+background: linear-gradient(135deg, #ffffff, #f9fafb);
+border: 1px solid rgba(17,24,39,0.06);
 color: #475467;
-white-space: pre-wrap;
-font-size: 15px;
+font-size: 14px;
 }
 
-.vuoto {
-text-align: center;
-color: var(--muted);
-padding: 18px 0 4px;
+.tip-box strong {
+color: #111827;
+display: block;
+margin-bottom: 6px;
 }
 
 .footer-note {
@@ -426,15 +398,17 @@ padding: 42px 28px;
 }
 
 .hero h1 {
-font-size: 56px;
+font-size: 52px;
 }
 
 .layout {
 grid-template-columns: 1fr;
 }
+}
 
-.memory-aside {
-position: static;
+@media (max-width: 700px) {
+.field-grid {
+grid-template-columns: 1fr;
 }
 }
 
@@ -454,25 +428,19 @@ border-radius: 28px;
 }
 
 .hero h1 {
-font-size: 42px;
+font-size: 38px;
 }
 
-.anni {
-font-size: 19px;
-}
-
-.hero-text {
-font-size: 15px;
-}
-
-.card-inner,
-.aside-top,
-.aside-form {
+.card-inner {
 padding: 22px;
 }
 
 .section-title {
 font-size: 26px;
+}
+
+.price-value {
+font-size: 38px;
 }
 }
 </style>
@@ -481,23 +449,20 @@ font-size: 26px;
 <div class="page">
 <div class="container">
 <div class="topbar">
-<div class="brand">
+<div>
 <div class="brand-title">Cimitero Telematico</div>
-<div class="brand-subtitle">Memoriali digitali moderni e accessibili</div>
+<div class="brand-subtitle">Attiva un memoriale digitale in modo semplice e guidato</div>
 </div>
 
-<div class="top-actions">
 <a href="index.html" class="pill-link">Torna alla home</a>
-</div>
 </div>
 
 <section class="hero">
 <div class="hero-inner">
-<div class="eyebrow">Memoriale digitale</div>
-<h1 id="nomePersona">Caricamento...</h1>
-<div class="anni" id="anniPersona"></div>
+<div class="eyebrow">Attivazione memoriale</div>
+<h1>Crea un memoriale</h1>
 <div class="hero-text">
-Uno spazio pensato per custodire la memoria, raccogliere ricordi e lasciare parole che restano nel tempo.
+Inserisci i dati essenziali della persona e del familiare referente. Scegli il pacchetto più adatto e invia la richiesta.
 </div>
 <div class="hero-line"></div>
 </div>
@@ -507,196 +472,232 @@ Uno spazio pensato per custodire la memoria, raccogliere ricordi e lasciare paro
 <div class="stack">
 <article class="card">
 <div class="card-inner">
-<h2 class="section-title">Chi era</h2>
-<div class="bio-grid">
-<p id="biografiaPersona" class="bio-text">Caricamento biografia...</p>
-<video id="videoPersona" controls style="display:none;"></video>
-<div id="videoPlaceholder" class="video-placeholder">Nessun video disponibile per questo memoriale.</div>
+<h2 class="section-title">Dati del memoriale</h2>
+<div class="section-subtitle">
+Compila i campi principali per preparare la pagina commemorativa.
+</div>
+
+<div class="field-grid">
+<div class="field-group">
+<label for="nomePersona" class="label">Nome della persona</label>
+<input id="nomePersona" type="text" placeholder="Es. Mario Rossi" />
+</div>
+
+<div class="field-group">
+<label for="anniVita" class="label">Anni di vita</label>
+<input id="anniVita" type="text" placeholder="Es. 1950 - 2023" />
+</div>
+
+<div class="field-group full">
+<label for="biografia" class="label">Breve biografia</label>
+<textarea id="biografia" placeholder="Scrivi una breve presentazione della persona..."></textarea>
+</div>
 </div>
 </div>
 </article>
 
 <article class="card">
 <div class="card-inner">
-<div class="ricordi-header">
-<div>
-<h2 class="section-title" style="margin-bottom: 6px;">Ricordi condivisi</h2>
-<div class="section-subtitle">Messaggi e pensieri lasciati da amici, parenti e persone care.</div>
-</div>
-<div id="ricordiCount" class="ricordi-count"></div>
+<h2 class="section-title">Referente familiare</h2>
+<div class="section-subtitle">
+Questi dati servono per contatto, gestione e attivazione del memoriale.
 </div>
 
-<div id="listaRicordi" class="vuoto">Caricamento ricordi...</div>
+<div class="field-grid">
+<div class="field-group">
+<label for="nomeFamiliare" class="label">Nome familiare referente</label>
+<input id="nomeFamiliare" type="text" placeholder="Es. Giovanni Rossi" />
+</div>
+
+<div class="field-group">
+<label for="emailFamiliare" class="label">Email</label>
+<input id="emailFamiliare" type="email" placeholder="Es. famiglia@email.it" />
+</div>
+
+<div class="field-group">
+<label for="telefonoFamiliare" class="label">Telefono</label>
+<input id="telefonoFamiliare" type="text" placeholder="Es. 333 1234567" />
+</div>
+
+<div class="field-group full">
+<label for="note" class="label">Note aggiuntive</label>
+<textarea id="note" placeholder="Richieste particolari, esigenze o informazioni aggiuntive..."></textarea>
+</div>
+</div>
+</div>
+</article>
+
+<article class="card">
+<div class="card-inner">
+<h2 class="section-title">Scegli il pacchetto</h2>
+<div class="section-subtitle">
+Il prezzo si aggiorna subito in base al piano selezionato.
+</div>
+
+<div class="plans-grid">
+<div class="plan-card active" data-plan="base" data-price="49">
+<div class="plan-top">
+<div class="plan-name">Base</div>
+<div class="plan-price">49€</div>
+</div>
+<div class="plan-desc">Soluzione semplice per attivare il memoriale digitale.</div>
+<div class="plan-features">Pagina memoriale, biografia, ricordi condivisi, link dedicato.</div>
+</div>
+
+<div class="plan-card" data-plan="plus" data-price="99">
+<div class="plan-top">
+<div class="plan-name">Plus</div>
+<div class="plan-price">99€</div>
+</div>
+<div class="plan-desc">Più spazio e una presentazione più ricca.</div>
+<div class="plan-features">Tutto del Base + video, contenuti ampliati e impaginazione più completa.</div>
+</div>
+
+<div class="plan-card" data-plan="premium" data-price="149">
+<div class="plan-top">
+<div class="plan-name">Premium</div>
+<div class="plan-price">149€</div>
+</div>
+<div class="plan-desc">Versione completa e più curata.</div>
+<div class="plan-features">Tutto del Plus + assistenza dedicata e configurazione completa.</div>
+</div>
+</div>
+
+<input id="piano" type="hidden" value="base" />
 </div>
 </article>
 </div>
 
-<aside class="card memory-aside">
-<div class="aside-top">
-<h2>Lascia un ricordo</h2>
-<p>Puoi condividere un pensiero, un saluto o un ricordo personale in modo semplice e rispettoso.</p>
-</div>
+<aside class="stack">
+<article class="price-box">
+<div class="price-label">Prezzo del pacchetto selezionato</div>
+<div class="price-value" id="prezzoPiano">49€</div>
+<div class="price-note" id="nomePianoBox">Piano Base selezionato</div>
+</article>
 
-<div class="aside-form">
-<div class="field-group">
-<label for="nome" class="label">Il tuo nome</label>
-<input id="nome" type="text" placeholder="Inserisci il tuo nome" />
-</div>
+<article class="summary-box">
+Il memoriale verrà preparato con un link dedicato. Dopo l’invio della richiesta, potrai gestire la pubblicazione dal pannello admin.
+</article>
 
-<div class="field-group">
-<label for="messaggio" class="label">Il tuo ricordo</label>
-<textarea id="messaggio" placeholder="Scrivi qui il tuo ricordo..."></textarea>
+<article class="tip-box">
+<strong>Consiglio</strong>
+Inserisci subito una biografia chiara e una scelta di piano corretta: renderà più rapida la pubblicazione.
+</article>
+
+<article class="card">
+<div class="card-inner">
+<h2 class="section-title">Invia richiesta</h2>
+<div class="section-subtitle">
+Quando hai finito, invia la richiesta per registrare il memoriale.
 </div>
 
 <div class="btn-row">
-<button id="btnInvia" type="button">Invia ricordo</button>
+<button id="btnInviaRichiesta" type="button">Invia richiesta</button>
 </div>
 
-<div id="status" class="status"></div>
-
-<div class="memory-tip">
-Ogni messaggio contribuisce a costruire una memoria condivisa, accessibile anche a distanza.
+<div id="statusRichiesta" class="status"></div>
 </div>
-</div>
+</article>
 </aside>
 </section>
 
 <div class="footer-note">
-Una memoria digitale, accessibile nel tempo.
+Attivazione memoriale digitale
 </div>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://lbfkrsdtezjowkftntlq.supabase.co";
-const SUPABASE_KEY = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const btnInviaRichiesta = document.getElementById("btnInviaRichiesta");
+const statusRichiesta = document.getElementById("statusRichiesta");
+const pianoInput = document.getElementById("piano");
+const prezzoPianoEl = document.getElementById("prezzoPiano");
+const nomePianoBoxEl = document.getElementById("nomePianoBox");
+const planCards = document.querySelectorAll(".plan-card");
 
-const nomePersonaEl = document.getElementById("nomePersona");
-const anniPersonaEl = document.getElementById("anniPersona");
-const biografiaPersonaEl = document.getElementById("biografiaPersona");
-const videoPersonaEl = document.getElementById("videoPersona");
-const videoPlaceholderEl = document.getElementById("videoPlaceholder");
-const listaRicordiEl = document.getElementById("listaRicordi");
-const ricordiCountEl = document.getElementById("ricordiCount");
-const statusEl = document.getElementById("status");
-const btnInvia = document.getElementById("btnInvia");
-
-const params = new URLSearchParams(window.location.search);
-const slug = params.get("slug") || "mario-rossi";
-
-async function caricaMemoriale() {
-const { data, error } = await client
-.from("memoriali")
-.select("*")
-.eq("slug", slug)
-.maybeSingle();
-
-if (error) {
-console.error("Errore memoriale:", error);
-nomePersonaEl.textContent = "Errore caricamento";
-anniPersonaEl.textContent = "";
-biografiaPersonaEl.textContent = error.message;
-return;
+function generaSlug(nome) {
+return nome
+.toLowerCase()
+.trim()
+.replace(/\s+/g, "-")
+.replace(/[^a-z0-9\-]/g, "");
 }
 
-if (!data) {
-nomePersonaEl.textContent = "Memoriale non trovato";
-anniPersonaEl.textContent = "";
-biografiaPersonaEl.textContent = "Nessun dato disponibile.";
-return;
+function aggiornaPiano(card) {
+const piano = card.dataset.plan;
+const prezzo = card.dataset.price;
+
+planCards.forEach(c => c.classList.remove("active"));
+card.classList.add("active");
+
+pianoInput.value = piano;
+prezzoPianoEl.textContent = prezzo + "€";
+nomePianoBoxEl.textContent = "Piano " + piano.charAt(0).toUpperCase() + piano.slice(1) + " selezionato";
 }
 
-nomePersonaEl.textContent = data.nome_persona || "";
-anniPersonaEl.textContent = data.anni || "";
-biografiaPersonaEl.textContent = data.biografia || "";
-
-if (data.video_url) {
-videoPersonaEl.src = data.video_url;
-videoPersonaEl.style.display = "block";
-videoPlaceholderEl.style.display = "none";
-} else {
-videoPersonaEl.style.display = "none";
-videoPlaceholderEl.style.display = "block";
-}
-}
-
-async function caricaRicordi() {
-listaRicordiEl.textContent = "Caricamento ricordi...";
-
-const { data, error } = await client
-.from("ricordi")
-.select("*")
-.eq("approvato", true)
-.eq("memoriale", slug)
-.order("id", { ascending: false });
-
-if (error) {
-console.error("Errore ricordi:", error);
-listaRicordiEl.textContent = "Errore caricamento ricordi.";
-ricordiCountEl.textContent = "";
-return;
-}
-
-if (!data || data.length === 0) {
-listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo approvato per ora.</div>';
-ricordiCountEl.textContent = "0 ricordi";
-return;
-}
-
-ricordiCountEl.textContent = `${data.length} ricordi`;
-
-listaRicordiEl.innerHTML = '<div class="ricordi-list"></div>';
-const list = listaRicordiEl.querySelector(".ricordi-list");
-
-data.forEach((r) => {
-const div = document.createElement("div");
-div.className = "ricordo";
-div.innerHTML = `<strong>${r.nome}</strong><div>${r.messaggio}</div>`;
-list.appendChild(div);
+planCards.forEach(card => {
+card.addEventListener("click", () => aggiornaPiano(card));
 });
-}
 
-async function inviaRicordo() {
-const nome = document.getElementById("nome").value.trim();
-const messaggio = document.getElementById("messaggio").value.trim();
+btnInviaRichiesta.addEventListener("click", async function () {
+const nomePersona = document.getElementById("nomePersona").value.trim();
+const anniVita = document.getElementById("anniVita").value.trim();
+const biografia = document.getElementById("biografia").value.trim();
+const nomeFamiliare = document.getElementById("nomeFamiliare").value.trim();
+const emailFamiliare = document.getElementById("emailFamiliare").value.trim();
+const telefonoFamiliare = document.getElementById("telefonoFamiliare").value.trim();
+const piano = document.getElementById("piano").value;
+const note = document.getElementById("note").value.trim();
 
-if (!nome || !messaggio) {
-statusEl.textContent = "Compila tutti i campi.";
+if (!nomePersona || !anniVita || !nomeFamiliare || !emailFamiliare || !piano) {
+statusRichiesta.textContent = "Compila tutti i campi principali.";
 return;
 }
 
-statusEl.textContent = "Invio ricordo...";
+const slug = generaSlug(nomePersona);
+
+statusRichiesta.textContent = "Invio richiesta...";
 
 const { error } = await client
-.from("ricordi")
+.from("richieste")
 .insert([
 {
-nome,
-messaggio,
-memoriale: slug,
-approvato: true
+nome_persona: nomePersona,
+anni: anniVita,
+descrizione: biografia,
+nome_familiare: nomeFamiliare,
+email: emailFamiliare,
+telefono: telefonoFamiliare,
+piano: piano,
+note: note,
+slug: slug
 }
 ]);
 
 if (error) {
-console.error("Errore invio ricordo:", error);
-statusEl.textContent = "Errore invio ricordo.";
+console.error(error);
+statusRichiesta.textContent = "Errore: " + error.message;
 return;
 }
 
-document.getElementById("nome").value = "";
-document.getElementById("messaggio").value = "";
-statusEl.textContent = "Ricordo inviato correttamente.";
-caricaRicordi();
-}
+statusRichiesta.textContent = "Richiesta inviata correttamente.";
 
-btnInvia.addEventListener("click", inviaRicordo);
+document.getElementById("nomePersona").value = "";
+document.getElementById("anniVita").value = "";
+document.getElementById("biografia").value = "";
+document.getElementById("nomeFamiliare").value = "";
+document.getElementById("emailFamiliare").value = "";
+document.getElementById("telefonoFamiliare").value = "";
+document.getElementById("note").value = "";
 
-caricaMemoriale();
-caricaRicordi();
+const baseCard = document.querySelector('.plan-card[data-plan="base"]');
+aggiornaPiano(baseCard);
+});
 </script>
 </body>
 </html>
