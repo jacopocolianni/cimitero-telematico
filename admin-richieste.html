@@ -136,7 +136,7 @@ data.forEach((r) => {
 const div = document.createElement("div");
 div.className = "richiesta";
 
-const slug = r.slug || "";
+const slug = r.slug || generaSlug(r.nome_persona || "");
 
 div.innerHTML = `
 <h2>${r.nome_persona || "Senza nome"}</h2>
