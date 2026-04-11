@@ -41,6 +41,12 @@ padding: 20px;
 border-radius: 10px;
 margin: 24px auto;
 max-width: 800px;
+text-align: left;
+}
+
+.box h2 {
+text-align: center;
+margin-top: 0;
 }
 
 input, textarea {
@@ -67,6 +73,8 @@ border: none;
 border-radius: 8px;
 cursor: pointer;
 font-weight: bold;
+display: block;
+margin: 10px auto 0;
 }
 
 .status {
@@ -74,6 +82,30 @@ margin-top: 14px;
 color: #ccc;
 min-height: 24px;
 word-break: break-word;
+text-align: center;
+}
+
+.ricordo {
+background: #242424;
+border-radius: 10px;
+padding: 16px;
+margin-top: 14px;
+}
+
+.ricordo-nome {
+font-weight: bold;
+margin-bottom: 8px;
+color: white;
+}
+
+.ricordo-testo {
+color: #ddd;
+white-space: pre-wrap;
+}
+
+.vuoto {
+color: #aaa;
+text-align: center;
 }
 </style>
 </head>
@@ -102,6 +134,11 @@ Il tuo browser non supporta il video.
 
 <div id="status" class="status"></div>
 </div>
+
+<div class="box">
+<h2>Ricordi condivisi</h2>
+<div id="listaRicordi" class="vuoto">Caricamento ricordi...</div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -109,11 +146,56 @@ Il tuo browser non supporta il video.
 const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
 const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
 
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 const statusEl = document.getElementById("status");
 const btnEl = document.getElementById("btnInvia");
+const listaRicordiEl = document.getElementById("listaRicordi");
+
+async function caricaRicordi() {
+listaRicordiEl.textContent = "Caricamento ricordi...";
+
+const { data, error } = await client
+.from("ricordi")
+.select("nome, messaggio, created_at")
+.eq("memoriale", "mario-rossi")
+.eq("approvato", true)
+.order("created_at", { ascending: false });
+
+if (error) {
+console.error(error);
+listaRicordiEl.textContent = "Errore nel caricamento dei ricordi.";
+return;
+}
+
+if (!data || data.length === 0) {
+listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo approvato per ora.</div>';
+return;
+}
+
+listaRicordiEl.innerHTML = "";
+
+data.forEach((ricordo) => {
+const item = document.createElement("div");
+item.className = "ricordo";
+
+item.innerHTML = `
+<div class="ricordo-nome">${escapeHtml(ricordo.nome || "Anonimo")}</div>
+<div class="ricordo-testo">${escapeHtml(ricordo.messaggio || "")}</div>
+`;
+
+listaRicordiEl.appendChild(item);
+});
+}
+
+function escapeHtml(text) {
+const div = document.createElement("div");
+div.textContent = text;
+return div.innerHTML;
+}
 
 btnEl.addEventListener("click", async function () {
-statusEl.textContent = "Click ricevuto. Invio in corso...";
+statusEl.textContent = "Invio in corso...";
 
 const nome = document.getElementById("nome").value.trim();
 const messaggio = document.getElementById("messaggio").value.trim();
@@ -122,9 +204,6 @@ if (!nome || !messaggio) {
 statusEl.textContent = "Compila tutti i campi.";
 return;
 }
-
-try {
-const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const { error } = await client
 .from("ricordi")
@@ -143,14 +222,12 @@ statusEl.textContent = "Errore nel salvataggio: " + error.message;
 return;
 }
 
-statusEl.textContent = "Messaggio salvato correttamente.";
+statusEl.textContent = "Ricordo inviato correttamente. Sarà visibile dopo l'approvazione.";
 document.getElementById("nome").value = "";
 document.getElementById("messaggio").value = "";
-} catch (e) {
-console.error(e);
-statusEl.textContent = "Errore JavaScript: " + e.message;
-}
 });
+
+caricaRicordi();
 </script>
 </body>
 </html>
