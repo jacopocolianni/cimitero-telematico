@@ -2,152 +2,106 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Memoriale</title>
-<style>
-* { box-sizing: border-box; }
 
+<script src="https://unpkg.com/@supabase/supabase-js"></script>
+
+<style>
 body {
 margin: 0;
-font-family: Arial, sans-serif;
-background: #0d0d0d;
+font-family: sans-serif;
+background: #0b0b0b;
 color: white;
-line-height: 1.5;
-}
-
-.container {
-max-width: 900px;
-margin: 0 auto;
-padding: 40px 20px 80px;
-}
-
-.hero {
-text-align: center;
-padding: 20px 0 10px;
+padding: 40px;
 }
 
 h1 {
-font-size: 48px;
-margin: 0 0 10px;
-}
-
-.anni {
-color: #bbb;
-font-size: 22px;
-margin-bottom: 24px;
-}
-
-.box {
-background: #171717;
-border: 1px solid #222;
-border-radius: 14px;
-padding: 24px;
-margin-top: 24px;
+text-align: center;
+font-size: 40px;
+margin-bottom: 10px;
 }
 
 h2 {
-margin: 0 0 14px;
-font-size: 28px;
+margin-top: 40px;
 }
 
-p {
-color: #ddd;
-margin: 0;
+.card {
+background: #1a1a1a;
+padding: 20px;
+border-radius: 12px;
+margin-top: 20px;
 }
 
-input, textarea, button {
+input, textarea {
 width: 100%;
-padding: 14px;
-margin-top: 12px;
-border-radius: 10px;
-border: 1px solid #333;
-background: #101010;
+padding: 12px;
+margin-top: 10px;
+border-radius: 8px;
+border: none;
+background: #2a2a2a;
 color: white;
-font-size: 15px;
-}
-
-textarea {
-min-height: 120px;
-resize: vertical;
 }
 
 button {
+margin-top: 10px;
+width: 100%;
+padding: 12px;
+border-radius: 8px;
+border: none;
 background: white;
 color: black;
-border: none;
 font-weight: bold;
 cursor: pointer;
 }
 
-.status {
-margin-top: 12px;
-color: #bbb;
-min-height: 24px;
-}
-
 .ricordo {
-padding: 14px 0;
-border-bottom: 1px solid #2a2a2a;
-}
-
-.ricordo:last-child {
-border-bottom: none;
-}
-
-.ricordo strong {
-display: block;
-margin-bottom: 6px;
-color: white;
-}
-
-.vuoto {
-color: #888;
+margin-top: 10px;
+padding: 10px;
+background: #222;
+border-radius: 8px;
 }
 </style>
 </head>
 <body>
-<div class="container">
-<div class="hero">
-<h1 id="nomePersona">Caricamento...</h1>
-<div class="anni" id="anniPersona"></div>
-</div>
 
-<div class="box">
+<h1 id="nomePersona">Caricamento...</h1>
+<p id="anniPersona" style="text-align:center;"></p>
+
+<div class="card">
 <h2>Chi era</h2>
 <p id="biografiaPersona">Caricamento biografia...</p>
 </div>
 
-<div class="box">
+<div class="card">
 <h2>Lascia un ricordo</h2>
-<input id="nome" type="text" placeholder="Il tuo nome" />
-<textarea id="messaggio" placeholder="Scrivi un ricordo..."></textarea>
-<button id="btnInvia" type="button">Invia ricordo</button>
-<div id="status" class="status"></div>
+
+<input id="nomeInput" placeholder="Il tuo nome" />
+<textarea id="messaggioInput" placeholder="Scrivi un ricordo..."></textarea>
+
+<button onclick="inviaRicordo()">Invia ricordo</button>
 </div>
 
-<div class="box">
+<div class="card">
 <h2>Ricordi condivisi</h2>
-<div id="listaRicordi" class="vuoto">Caricamento ricordi...</div>
-</div>
+<div id="listaRicordi">Caricamento ricordi...</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
-const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
-const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+const SUPABASE_URL = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const nomePersonaEl = document.getElementById("nomePersona");
 const anniPersonaEl = document.getElementById("anniPersona");
 const biografiaPersonaEl = document.getElementById("biografiaPersona");
-const listaRicordiEl = document.getElementById("listaRicordi");
-const statusEl = document.getElementById("status");
-const btnInvia = document.getElementById("btnInvia");
 
-async function caricaMemoriale() {
+const listaRicordiEl = document.getElementById("listaRicordi");
+
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug") || "mario-rossi";
 
+async function caricaMemoriale() {
 const { data, error } = await client
 .from("memoriali")
 .select("*")
@@ -155,93 +109,77 @@ const { data, error } = await client
 .maybeSingle();
 
 if (error) {
-console.error("Errore memoriale:", error);
-nomePersonaEl.textContent = data.nome_persona || "";
-anniPersonaEl.textContent = data.anni || "";
-biografiaPersonaEl.textContent = data.biografia || "";
+nomePersonaEl.textContent = "Errore caricamento";
+biografiaPersonaEl.textContent = error.message;
 return;
 }
 
 if (!data) {
 nomePersonaEl.textContent = "Memoriale non trovato";
-anniPersonaEl.textContent = "";
 biografiaPersonaEl.textContent = "Nessun dato disponibile.";
 return;
 }
 
 nomePersonaEl.textContent = data.nome_persona || "";
 anniPersonaEl.textContent = data.anni || "";
-biografiaPersonaEl.textContent = data.descrizione || "";
+biografiaPersonaEl.textContent = data.biografia || "";
 }
 
 async function caricaRicordi() {
-listaRicordiEl.textContent = "Caricamento ricordi...";
-
 const { data, error } = await client
 .from("ricordi")
-.select("nome, messaggio, created_at")
+.select("*")
 .eq("approvato", true)
+.eq("memoriale", slug)
 .order("id", { ascending: false });
 
 if (error) {
-console.error("Errore ricordi:", error);
-listaRicordiEl.textContent = "Errore nel caricamento dei ricordi: " + error.message;
-return;
-}
-
-if (!data || data.length === 0) {
-listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo approvato per ora.</div>';
+listaRicordiEl.textContent = "Errore caricamento ricordi.";
 return;
 }
 
 listaRicordiEl.innerHTML = "";
 
-data.forEach((r) => {
+data.forEach(r => {
 const div = document.createElement("div");
 div.className = "ricordo";
-div.innerHTML = `
-<strong>${r.nome}</strong>
-<div>${r.messaggio}</div>
-`;
+div.innerHTML = `<strong>${r.nome}</strong><br>${r.messaggio}`;
 listaRicordiEl.appendChild(div);
 });
 }
 
-btnInvia.addEventListener("click", async function () {
-const nome = document.getElementById("nome").value.trim();
-const messaggio = document.getElementById("messaggio").value.trim();
+async function inviaRicordo() {
+const nome = document.getElementById("nomeInput").value;
+const messaggio = document.getElementById("messaggioInput").value;
 
 if (!nome || !messaggio) {
-statusEl.textContent = "Compila tutti i campi.";
+alert("Compila tutti i campi");
 return;
 }
 
-statusEl.textContent = "Invio ricordo...";
-
-const { error } = await client
-.from("ricordi")
-.insert([
+const { error } = await client.from("ricordi").insert([
 {
-nome: nome,
-messaggio: messaggio,
-approvato: false,
-memoriale: "mario-rossi"
+nome,
+messaggio,
+memoriale: slug,
+approvato: true
 }
 ]);
 
 if (error) {
-console.error("Errore invio ricordo:", error);
-statusEl.textContent = "Errore: " + error.message;
+alert("Errore invio ricordo");
 return;
 }
 
-statusEl.textContent = "Ricordo inviato correttamente. Sarà visibile dopo approvazione.";
-document.getElementById("nome").value = "";
-document.getElementById("messaggio").value = "";
-});
+document.getElementById("nomeInput").value = "";
+document.getElementById("messaggioInput").value = "";
+
+caricaRicordi();
+}
 
 caricaMemoriale();
 caricaRicordi();
 </script>
+
 </body>
 </html>
