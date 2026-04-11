@@ -161,9 +161,15 @@ const { data, error } = await client
 .eq("nome_persona", "Mario Rossi")
 .order("creato_il", { ascending: false })
 .limit(1)
-.single();
+.maybeSingle();
 
 if (error || !data) {
+nomePersonaEl.textContent = "Memoriale non trovato";
+anniPersonaEl.textContent = "";
+biografiaPersonaEl.textContent = "Nessun dato disponibile.";
+return;
+}
+
 nomePersonaEl.textContent = data.nome_persona || "";
 anniPersonaEl.textContent = data.anni || "";
 biografiaPersonaEl.textContent = data.descrizione || "";
@@ -186,7 +192,6 @@ listaRicordiEl.textContent = "Caricamento ricordi...";
 const { data, error } = await client
 .from("ricordi")
 .select("nome, messaggio, created_at")
-.eq("memoriale", "mario-rossi")
 .eq("approvato", true)
 .order("created_at", { ascending: false });
 
