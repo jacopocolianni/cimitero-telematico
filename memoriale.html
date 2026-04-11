@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Memoriale</title>
 <style>
-* {
-box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
 margin: 0;
@@ -57,16 +55,7 @@ color: #ddd;
 margin: 0;
 }
 
-video {
-width: 100%;
-border-radius: 12px;
-margin-top: 20px;
-background: black;
-}
-
-input,
-textarea,
-button {
+input, textarea, button {
 width: 100%;
 padding: 14px;
 margin-top: 12px;
@@ -126,7 +115,6 @@ color: #888;
 <div class="box">
 <h2>Chi era</h2>
 <p id="biografiaPersona">Caricamento biografia...</p>
-<video id="videoPersona" controls style="display:none;"></video>
 </div>
 
 <div class="box">
@@ -152,7 +140,6 @@ const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 const nomePersonaEl = document.getElementById("nomePersona");
 const anniPersonaEl = document.getElementById("anniPersona");
 const biografiaPersonaEl = document.getElementById("biografiaPersona");
-const videoPersonaEl = document.getElementById("videoPersona");
 const listaRicordiEl = document.getElementById("listaRicordi");
 const statusEl = document.getElementById("status");
 const btnInvia = document.getElementById("btnInvia");
@@ -160,13 +147,20 @@ const btnInvia = document.getElementById("btnInvia");
 async function caricaMemoriale() {
 const { data, error } = await client
 .from("richieste")
-.select("*")
-.order("creato_il", { ascending: false })
+.select("id, nome_persona, anni, descrizione")
+.order("id", { ascending: false })
 .limit(1)
 .maybeSingle();
 
-if (error || !data) {
-console.error(error);
+if (error) {
+console.error("Errore memoriale:", error);
+nomePersonaEl.textContent = "Errore caricamento memoriale";
+anniPersonaEl.textContent = "";
+biografiaPersonaEl.textContent = error.message;
+return;
+}
+
+if (!data) {
 nomePersonaEl.textContent = "Memoriale non trovato";
 anniPersonaEl.textContent = "";
 biografiaPersonaEl.textContent = "Nessun dato disponibile.";
@@ -176,11 +170,6 @@ return;
 nomePersonaEl.textContent = data.nome_persona || "";
 anniPersonaEl.textContent = data.anni || "";
 biografiaPersonaEl.textContent = data.descrizione || "";
-
-if (data.video_url) {
-videoPersonaEl.src = data.video_url;
-videoPersonaEl.style.display = "block";
-}
 }
 
 async function caricaRicordi() {
@@ -189,16 +178,17 @@ listaRicordiEl.textContent = "Caricamento ricordi...";
 const { data, error } = await client
 .from("ricordi")
 .select("nome, messaggio, created_at")
-.order("created_at", { ascending: false });
+.eq("approvato", true)
+.order("id", { ascending: false });
 
 if (error) {
-console.error(error);
-listaRicordiEl.textContent = "Errore nel caricamento dei ricordi.";
+console.error("Errore ricordi:", error);
+listaRicordiEl.textContent = "Errore nel caricamento dei ricordi: " + error.message;
 return;
 }
 
 if (!data || data.length === 0) {
-listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo per ora.</div>';
+listaRicordiEl.innerHTML = '<div class="vuoto">Nessun ricordo approvato per ora.</div>';
 return;
 }
 
@@ -238,7 +228,7 @@ memoriale: "mario-rossi"
 ]);
 
 if (error) {
-console.error(error);
+console.error("Errore invio ricordo:", error);
 statusEl.textContent = "Errore: " + error.message;
 return;
 }
