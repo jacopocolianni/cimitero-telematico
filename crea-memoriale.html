@@ -11,19 +11,16 @@ box-sizing: border-box;
 
 :root {
 --bg: #f7f8fc;
---text: #172033;
---muted: #667085;
---line: rgba(23, 32, 51, 0.08);
---card: rgba(255, 255, 255, 0.78);
+--text: #1f2937;
+--muted: #6b7280;
+--line: rgba(31, 41, 55, 0.08);
+--card: rgba(255, 255, 255, 0.82);
 --shadow: 0 20px 60px rgba(31, 41, 55, 0.08);
---shadow-soft: 0 10px 30px rgba(31, 41, 55, 0.06);
+--shadow-soft: 0 10px 30px rgba(31, 41, 55, 0.05);
 --radius-xl: 28px;
 --radius-lg: 22px;
---radius-md: 18px;
+--radius-md: 16px;
 --accent-dark: #111827;
---accent-soft: #eef2ff;
---accent-pink: #fdf2f8;
---accent-blue: #dbeafe;
 }
 
 body {
@@ -32,10 +29,10 @@ font-family: Arial, sans-serif;
 color: var(--text);
 background:
 radial-gradient(circle at 10% 10%, rgba(191, 219, 254, 0.55), transparent 28%),
-radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.20), transparent 24%),
-radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.16), transparent 26%),
+radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.18), transparent 24%),
+radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.12), transparent 26%),
 linear-gradient(180deg, #fbfcff 0%, #f5f7fb 100%);
-line-height: 1.6;
+line-height: 1.55;
 }
 
 .page {
@@ -44,9 +41,9 @@ min-height: 100vh;
 
 .container {
 width: 100%;
-max-width: 1180px;
+max-width: 1120px;
 margin: 0 auto;
-padding: 28px 20px 70px;
+padding: 26px 20px 64px;
 }
 
 .topbar {
@@ -54,11 +51,11 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 gap: 16px;
-margin-bottom: 26px;
+margin-bottom: 22px;
 }
 
 .brand-title {
-font-size: 14px;
+font-size: 13px;
 font-weight: 800;
 letter-spacing: 0.14em;
 text-transform: uppercase;
@@ -66,7 +63,7 @@ color: #111827;
 }
 
 .brand-subtitle {
-font-size: 13px;
+font-size: 12px;
 color: var(--muted);
 margin-top: 3px;
 }
@@ -74,14 +71,13 @@ margin-top: 3px;
 .pill-link {
 text-decoration: none;
 color: var(--accent-dark);
-background: rgba(255,255,255,0.82);
+background: rgba(255,255,255,0.84);
 border: 1px solid rgba(17,24,39,0.07);
 border-radius: 999px;
-padding: 12px 18px;
-font-size: 14px;
+padding: 11px 16px;
+font-size: 13px;
 font-weight: 700;
 box-shadow: var(--shadow-soft);
-backdrop-filter: blur(10px);
 transition: 0.2s ease;
 }
 
@@ -91,83 +87,64 @@ background: #fff;
 }
 
 .hero {
-position: relative;
-overflow: hidden;
-padding: 52px 42px;
-border-radius: 36px;
+padding: 42px 34px;
+border-radius: 32px;
 background:
-linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,255,255,0.70)),
+linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,255,255,0.72)),
 linear-gradient(135deg, #dbeafe, #fdf2f8);
 border: 1px solid rgba(17,24,39,0.06);
 box-shadow: var(--shadow);
-margin-bottom: 26px;
-}
-
-.hero::before {
-content: "";
-position: absolute;
-width: 280px;
-height: 280px;
-top: -80px;
-right: -50px;
-background: radial-gradient(circle, rgba(191,219,254,0.65), transparent 70%);
-pointer-events: none;
-}
-
-.hero-inner {
-position: relative;
-z-index: 1;
-max-width: 760px;
+margin-bottom: 22px;
 }
 
 .eyebrow {
 display: inline-flex;
 align-items: center;
-padding: 9px 14px;
+padding: 8px 13px;
 border-radius: 999px;
 background: rgba(255,255,255,0.86);
 border: 1px solid rgba(17,24,39,0.06);
 color: #334155;
-font-size: 13px;
+font-size: 12px;
 font-weight: 800;
 letter-spacing: 0.05em;
 text-transform: uppercase;
-margin-bottom: 18px;
+margin-bottom: 16px;
 }
 
 .hero h1 {
 margin: 0;
-font-size: 64px;
-line-height: 0.98;
-letter-spacing: -0.05em;
+font-size: 46px;
+line-height: 1.02;
+letter-spacing: -0.045em;
 color: #0f172a;
 }
 
 .hero-text {
-margin-top: 16px;
+margin-top: 14px;
 max-width: 620px;
 color: #5b6473;
-font-size: 17px;
+font-size: 15px;
 }
 
 .hero-line {
-width: 120px;
+width: 96px;
 height: 2px;
-margin-top: 24px;
+margin-top: 20px;
 border-radius: 999px;
 background: linear-gradient(90deg, #c7d2fe, #fbcfe8);
 }
 
 .layout {
 display: grid;
-grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
-gap: 24px;
+grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+gap: 22px;
 align-items: start;
 }
 
 .stack {
 display: grid;
-gap: 22px;
+gap: 18px;
 }
 
 .card {
@@ -175,35 +152,34 @@ background: var(--card);
 border: 1px solid var(--line);
 border-radius: var(--radius-xl);
 box-shadow: var(--shadow-soft);
-backdrop-filter: blur(14px);
 }
 
 .card-inner {
-padding: 28px;
+padding: 24px;
 }
 
 .section-title {
-margin: 0 0 12px;
-font-size: 30px;
-line-height: 1.05;
-letter-spacing: -0.035em;
+margin: 0 0 10px;
+font-size: 24px;
+line-height: 1.1;
+letter-spacing: -0.03em;
 color: #0f172a;
 }
 
 .section-subtitle {
 color: var(--muted);
-font-size: 15px;
-margin-bottom: 16px;
+font-size: 14px;
+margin-bottom: 14px;
 }
 
 .field-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
-gap: 16px;
+gap: 14px;
 }
 
 .field-group {
-margin-top: 14px;
+margin-top: 12px;
 }
 
 .field-group.full {
@@ -212,8 +188,8 @@ grid-column: 1 / -1;
 
 .label {
 display: block;
-margin-bottom: 8px;
-font-size: 14px;
+margin-bottom: 7px;
+font-size: 13px;
 font-weight: 700;
 color: #344054;
 }
@@ -221,12 +197,12 @@ color: #344054;
 input,
 textarea {
 width: 100%;
-padding: 15px 16px;
-border-radius: 16px;
+padding: 14px 15px;
+border-radius: 14px;
 border: 1px solid #dbe1ea;
-background: rgba(255,255,255,0.92);
+background: rgba(255,255,255,0.94);
 color: #111827;
-font-size: 15px;
+font-size: 14px;
 outline: none;
 transition: 0.2s ease;
 }
@@ -234,26 +210,26 @@ transition: 0.2s ease;
 input:focus,
 textarea:focus {
 border-color: #93c5fd;
-box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.22);
+box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.18);
 background: #fff;
 }
 
 textarea {
-min-height: 130px;
+min-height: 118px;
 resize: vertical;
 }
 
 .plans-grid {
 display: grid;
-gap: 14px;
-margin-top: 12px;
+gap: 12px;
+margin-top: 8px;
 }
 
 .plan-card {
 border: 1px solid #dbe1ea;
 background: rgba(255,255,255,0.9);
-border-radius: 20px;
-padding: 18px;
+border-radius: 18px;
+padding: 16px;
 cursor: pointer;
 transition: 0.2s ease;
 }
@@ -267,95 +243,110 @@ border-color: #c7d2fe;
 .plan-card.active {
 border-color: #93c5fd;
 background: linear-gradient(135deg, #ffffff, #eff6ff);
-box-shadow: 0 12px 28px rgba(59, 130, 246, 0.12);
+box-shadow: 0 10px 24px rgba(59, 130, 246, 0.10);
 }
 
 .plan-top {
 display: flex;
 justify-content: space-between;
-gap: 12px;
 align-items: start;
+gap: 10px;
 }
 
 .plan-name {
-font-size: 20px;
+font-size: 17px;
 font-weight: 800;
 color: #0f172a;
 line-height: 1.1;
 }
 
 .plan-price {
-font-size: 26px;
+font-size: 18px;
 font-weight: 800;
 color: #111827;
 white-space: nowrap;
 }
 
 .plan-desc {
-margin-top: 8px;
+margin-top: 7px;
 color: var(--muted);
-font-size: 14px;
+font-size: 13px;
 }
 
 .plan-features {
-margin-top: 12px;
+margin-top: 10px;
 color: #4b5563;
-font-size: 14px;
+font-size: 13px;
+}
+
+.summary-box {
+padding: 18px;
+border-radius: 18px;
+background: rgba(255,255,255,0.72);
+border: 1px solid rgba(17,24,39,0.06);
+color: #475467;
+font-size: 13px;
 }
 
 .price-box {
-padding: 24px;
-border-radius: 24px;
-background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(239,246,255,0.9));
+margin-top: 16px;
+padding: 18px;
+border-radius: 18px;
+background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(239,246,255,0.88));
 border: 1px solid rgba(17,24,39,0.06);
 box-shadow: var(--shadow-soft);
 }
 
 .price-label {
 color: var(--muted);
-font-size: 14px;
-margin-bottom: 8px;
+font-size: 13px;
+margin-bottom: 6px;
 }
 
 .price-value {
-font-size: 48px;
+font-size: 30px;
 line-height: 1;
 font-weight: 800;
-letter-spacing: -0.04em;
+letter-spacing: -0.03em;
 color: #0f172a;
 }
 
 .price-note {
-margin-top: 10px;
+margin-top: 8px;
 color: #475467;
-font-size: 14px;
+font-size: 13px;
 }
 
-.summary-box {
-margin-top: 16px;
-padding: 18px;
+.tip-box {
+padding: 16px;
 border-radius: 18px;
-background: rgba(255,255,255,0.72);
+background: linear-gradient(135deg, #ffffff, #f9fafb);
 border: 1px solid rgba(17,24,39,0.06);
 color: #475467;
-font-size: 14px;
+font-size: 13px;
+}
+
+.tip-box strong {
+color: #111827;
+display: block;
+margin-bottom: 6px;
 }
 
 .btn-row {
-margin-top: 18px;
+margin-top: 16px;
 }
 
 button {
 width: 100%;
 border: none;
-border-radius: 18px;
-padding: 16px 18px;
-font-size: 15px;
+border-radius: 16px;
+padding: 15px 18px;
+font-size: 14px;
 font-weight: 800;
 cursor: pointer;
 color: white;
 background: linear-gradient(135deg, #111827, #334155);
-box-shadow: 0 14px 30px rgba(17, 24, 39, 0.18);
+box-shadow: 0 14px 30px rgba(17, 24, 39, 0.16);
 transition: 0.2s ease;
 }
 
@@ -365,40 +356,25 @@ transform: translateY(-1px);
 
 .status {
 min-height: 24px;
-margin-top: 14px;
+margin-top: 12px;
 color: var(--muted);
-font-size: 14px;
-}
-
-.tip-box {
-padding: 18px;
-border-radius: 18px;
-background: linear-gradient(135deg, #ffffff, #f9fafb);
-border: 1px solid rgba(17,24,39,0.06);
-color: #475467;
-font-size: 14px;
-}
-
-.tip-box strong {
-color: #111827;
-display: block;
-margin-bottom: 6px;
+font-size: 13px;
 }
 
 .footer-note {
-margin-top: 26px;
+margin-top: 24px;
 text-align: center;
 color: #98a2b3;
-font-size: 13px;
+font-size: 12px;
 }
 
 @media (max-width: 980px) {
 .hero {
-padding: 42px 28px;
+padding: 36px 26px;
 }
 
 .hero h1 {
-font-size: 52px;
+font-size: 40px;
 }
 
 .layout {
@@ -414,7 +390,7 @@ grid-template-columns: 1fr;
 
 @media (max-width: 640px) {
 .container {
-padding: 18px 14px 56px;
+padding: 18px 14px 52px;
 }
 
 .topbar {
@@ -423,24 +399,16 @@ align-items: flex-start;
 }
 
 .hero {
-padding: 34px 22px;
-border-radius: 28px;
+padding: 30px 20px;
+border-radius: 26px;
 }
 
 .hero h1 {
-font-size: 38px;
+font-size: 34px;
 }
 
 .card-inner {
-padding: 22px;
-}
-
-.section-title {
-font-size: 26px;
-}
-
-.price-value {
-font-size: 38px;
+padding: 20px;
 }
 }
 </style>
@@ -458,14 +426,12 @@ font-size: 38px;
 </div>
 
 <section class="hero">
-<div class="hero-inner">
 <div class="eyebrow">Attivazione memoriale</div>
 <h1>Crea un memoriale</h1>
 <div class="hero-text">
-Inserisci i dati essenziali della persona e del familiare referente. Scegli il pacchetto più adatto e invia la richiesta.
+Inserisci i dati essenziali della persona e scegli il pacchetto più adatto. In fondo troverai il riepilogo del prezzo prima della conferma.
 </div>
 <div class="hero-line"></div>
-</div>
 </section>
 
 <section class="layout">
@@ -474,7 +440,7 @@ Inserisci i dati essenziali della persona e del familiare referente. Scegli il p
 <div class="card-inner">
 <h2 class="section-title">Dati del memoriale</h2>
 <div class="section-subtitle">
-Compila i campi principali per preparare la pagina commemorativa.
+Compila le informazioni principali che verranno usate per preparare la pagina.
 </div>
 
 <div class="field-grid">
@@ -500,7 +466,7 @@ Compila i campi principali per preparare la pagina commemorativa.
 <div class="card-inner">
 <h2 class="section-title">Referente familiare</h2>
 <div class="section-subtitle">
-Questi dati servono per contatto, gestione e attivazione del memoriale.
+Questi dati servono per gestire la richiesta e la futura pubblicazione.
 </div>
 
 <div class="field-grid">
@@ -531,7 +497,7 @@ Questi dati servono per contatto, gestione e attivazione del memoriale.
 <div class="card-inner">
 <h2 class="section-title">Scegli il pacchetto</h2>
 <div class="section-subtitle">
-Il prezzo si aggiorna subito in base al piano selezionato.
+Seleziona prima il piano. Il riepilogo del prezzo apparirà più in basso, prima della conferma finale.
 </div>
 
 <div class="plans-grid">
@@ -540,7 +506,7 @@ Il prezzo si aggiorna subito in base al piano selezionato.
 <div class="plan-name">Base</div>
 <div class="plan-price">49€</div>
 </div>
-<div class="plan-desc">Soluzione semplice per attivare il memoriale digitale.</div>
+<div class="plan-desc">La soluzione essenziale per attivare il memoriale digitale.</div>
 <div class="plan-features">Pagina memoriale, biografia, ricordi condivisi, link dedicato.</div>
 </div>
 
@@ -549,8 +515,8 @@ Il prezzo si aggiorna subito in base al piano selezionato.
 <div class="plan-name">Plus</div>
 <div class="plan-price">99€</div>
 </div>
-<div class="plan-desc">Più spazio e una presentazione più ricca.</div>
-<div class="plan-features">Tutto del Base + video, contenuti ampliati e impaginazione più completa.</div>
+<div class="plan-desc">Più contenuti e una presentazione più ricca.</div>
+<div class="plan-features">Tutto del Base + video e contenuti ampliati.</div>
 </div>
 
 <div class="plan-card" data-plan="premium" data-price="149">
@@ -558,8 +524,8 @@ Il prezzo si aggiorna subito in base al piano selezionato.
 <div class="plan-name">Premium</div>
 <div class="plan-price">149€</div>
 </div>
-<div class="plan-desc">Versione completa e più curata.</div>
-<div class="plan-features">Tutto del Plus + assistenza dedicata e configurazione completa.</div>
+<div class="plan-desc">La versione più completa e curata.</div>
+<div class="plan-features">Tutto del Plus + supporto e configurazione completa.</div>
 </div>
 </div>
 
@@ -569,30 +535,30 @@ Il prezzo si aggiorna subito in base al piano selezionato.
 </div>
 
 <aside class="stack">
-<article class="price-box">
-<div class="price-label">Prezzo del pacchetto selezionato</div>
-<div class="price-value" id="prezzoPiano">49€</div>
-<div class="price-note" id="nomePianoBox">Piano Base selezionato</div>
-</article>
-
 <article class="summary-box">
-Il memoriale verrà preparato con un link dedicato. Dopo l’invio della richiesta, potrai gestire la pubblicazione dal pannello admin.
+Dopo la scelta del pacchetto, troverai qui sotto il prezzo finale e potrai confermare la richiesta.
 </article>
 
 <article class="tip-box">
 <strong>Consiglio</strong>
-Inserisci subito una biografia chiara e una scelta di piano corretta: renderà più rapida la pubblicazione.
+Inserire una biografia chiara e il pacchetto corretto rende più rapida la preparazione del memoriale.
 </article>
 
 <article class="card">
 <div class="card-inner">
-<h2 class="section-title">Invia richiesta</h2>
+<h2 class="section-title">Conferma richiesta</h2>
 <div class="section-subtitle">
-Quando hai finito, invia la richiesta per registrare il memoriale.
+Controlla il riepilogo e invia la richiesta.
+</div>
+
+<div class="price-box">
+<div class="price-label">Pacchetto selezionato</div>
+<div class="price-value" id="prezzoPiano">49€</div>
+<div class="price-note" id="nomePianoBox">Piano Base selezionato</div>
 </div>
 
 <div class="btn-row">
-<button id="btnInviaRichiesta" type="button">Invia richiesta</button>
+<button id="btnInviaRichiesta" type="button">Conferma e invia richiesta</button>
 </div>
 
 <div id="statusRichiesta" class="status"></div>
