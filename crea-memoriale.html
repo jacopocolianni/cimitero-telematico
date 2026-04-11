@@ -2,256 +2,677 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Crea memoriale</title>
-
 <style>
-*{box-sizing:border-box;}
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(180deg,#f7f8fc,#eef2f7);
-color:#1f2937;
+* {
+box-sizing: border-box;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-padding:40px 20px 120px;
+:root {
+--bg: #f7f8fc;
+--text: #1f2937;
+--muted: #6b7280;
+--line: rgba(31, 41, 55, 0.08);
+--card: rgba(255, 255, 255, 0.82);
+--shadow: 0 20px 60px rgba(31, 41, 55, 0.08);
+--shadow-soft: 0 10px 30px rgba(31, 41, 55, 0.05);
+--radius-xl: 28px;
+--radius-lg: 22px;
+--radius-md: 16px;
+--accent-dark: #111827;
 }
 
-h1{
-text-align:center;
-margin-bottom:10px;
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+color: var(--text);
+background:
+radial-gradient(circle at 10% 10%, rgba(191, 219, 254, 0.55), transparent 28%),
+radial-gradient(circle at 85% 18%, rgba(249, 168, 212, 0.18), transparent 24%),
+radial-gradient(circle at 60% 85%, rgba(196, 181, 253, 0.12), transparent 26%),
+linear-gradient(180deg, #fbfcff 0%, #f5f7fb 100%);
+line-height: 1.55;
 }
 
-.subtitle{
-text-align:center;
-color:#6b7280;
-margin-bottom:40px;
+.page {
+min-height: 100vh;
 }
 
-/* BOX */
-.box{
-background:white;
-border-radius:20px;
-padding:24px;
-margin-bottom:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+.container {
+width: 100%;
+max-width: 1120px;
+margin: 0 auto;
+padding: 26px 20px 64px;
 }
 
-/* INPUT */
-input,textarea{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:1px solid #ddd;
-margin-top:6px;
-margin-bottom:14px;
+.topbar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 16px;
+margin-bottom: 22px;
 }
 
-/* PACCHETTI */
-.packages{
-display:grid;
-gap:16px;
+.brand-title {
+font-size: 13px;
+font-weight: 800;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: #111827;
 }
 
-.card{
-border:1px solid #e5e7eb;
-border-radius:16px;
-padding:18px;
-cursor:pointer;
-transition:0.2s;
+.brand-subtitle {
+font-size: 12px;
+color: var(--muted);
+margin-top: 3px;
 }
 
-.card:hover{
-transform:translateY(-2px);
+.pill-link {
+text-decoration: none;
+color: var(--accent-dark);
+background: rgba(255,255,255,0.84);
+border: 1px solid rgba(17,24,39,0.07);
+border-radius: 999px;
+padding: 11px 16px;
+font-size: 13px;
+font-weight: 700;
+box-shadow: var(--shadow-soft);
+transition: 0.2s ease;
 }
 
-.card.selected{
-border:2px solid #2563eb;
-background:#f0f6ff;
+.pill-link:hover {
+transform: translateY(-1px);
+background: #fff;
 }
 
-.card h3{
-margin:0;
+.hero {
+padding: 44px 34px;
+border-radius: 32px;
+background:
+linear-gradient(135deg, rgba(255,255,255,0.90), rgba(255,255,255,0.72)),
+linear-gradient(135deg, #dbeafe, #fdf2f8);
+border: 1px solid rgba(17,24,39,0.06);
+box-shadow: var(--shadow);
+margin-bottom: 22px;
 }
 
-.card p{
-font-size:14px;
-color:#6b7280;
-margin:6px 0;
+.eyebrow {
+display: inline-flex;
+align-items: center;
+padding: 8px 13px;
+border-radius: 999px;
+background: rgba(255,255,255,0.86);
+border: 1px solid rgba(17,24,39,0.06);
+color: #334155;
+font-size: 12px;
+font-weight: 800;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+margin-bottom: 16px;
 }
 
-/* prezzo piccolo */
-.price{
-font-size:13px;
-color:#9ca3af;
+.hero h1 {
+margin: 0;
+font-size: 46px;
+line-height: 1.02;
+letter-spacing: -0.045em;
+color: #0f172a;
 }
 
-/* BOTTOM BAR */
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-border-top:1px solid #eee;
-padding:14px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+.hero-text {
+margin-top: 14px;
+max-width: 640px;
+color: #5b6473;
+font-size: 15px;
 }
 
-.bottom span{
-font-size:14px;
-color:#6b7280;
+.hero-line {
+width: 96px;
+height: 2px;
+margin-top: 20px;
+border-radius: 999px;
+background: linear-gradient(90deg, #c7d2fe, #fbcfe8);
 }
 
-button{
-background:#111827;
-color:white;
-border:none;
-padding:12px 18px;
-border-radius:10px;
-cursor:pointer;
+.layout {
+display: grid;
+grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+gap: 22px;
+align-items: start;
 }
 
-button:hover{
-opacity:0.9;
+.stack {
+display: grid;
+gap: 18px;
 }
 
-.note{
-font-size:12px;
-color:#9ca3af;
+.card {
+background: var(--card);
+border: 1px solid var(--line);
+border-radius: var(--radius-xl);
+box-shadow: var(--shadow-soft);
+}
+
+.card-inner {
+padding: 24px;
+}
+
+.section-title {
+margin: 0 0 10px;
+font-size: 24px;
+line-height: 1.1;
+letter-spacing: -0.03em;
+color: #0f172a;
+}
+
+.section-subtitle {
+color: var(--muted);
+font-size: 14px;
+margin-bottom: 14px;
+}
+
+.field-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 14px;
+}
+
+.field-group {
+margin-top: 12px;
+}
+
+.field-group.full {
+grid-column: 1 / -1;
+}
+
+.label {
+display: block;
+margin-bottom: 7px;
+font-size: 13px;
+font-weight: 700;
+color: #344054;
+}
+
+input,
+textarea {
+width: 100%;
+padding: 14px 15px;
+border-radius: 14px;
+border: 1px solid #dbe1ea;
+background: rgba(255,255,255,0.94);
+color: #111827;
+font-size: 14px;
+outline: none;
+transition: 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+border-color: #93c5fd;
+box-shadow: 0 0 0 4px rgba(147, 197, 253, 0.18);
+background: #fff;
+}
+
+textarea {
+min-height: 118px;
+resize: vertical;
+}
+
+.plans-grid {
+display: grid;
+gap: 12px;
+margin-top: 8px;
+}
+
+.plan-card {
+border: 1px solid #dbe1ea;
+background: rgba(255,255,255,0.92);
+border-radius: 20px;
+padding: 18px;
+cursor: pointer;
+transition: 0.2s ease;
+}
+
+.plan-card:hover {
+transform: translateY(-2px);
+box-shadow: var(--shadow-soft);
+border-color: #c7d2fe;
+}
+
+.plan-card.active {
+border-color: #93c5fd;
+background: linear-gradient(135deg, #ffffff, #eff6ff);
+box-shadow: 0 12px 28px rgba(59, 130, 246, 0.10);
+}
+
+.plan-top {
+display: flex;
+justify-content: space-between;
+align-items: start;
+gap: 10px;
+}
+
+.plan-name {
+font-size: 18px;
+font-weight: 800;
+color: #0f172a;
+line-height: 1.1;
+}
+
+.plan-price {
+font-size: 15px;
+font-weight: 700;
+color: #475467;
+white-space: nowrap;
+}
+
+.plan-desc {
+margin-top: 7px;
+color: var(--muted);
+font-size: 13px;
+}
+
+.plan-features {
+margin-top: 10px;
+color: #4b5563;
+font-size: 13px;
+}
+
+.summary-box {
+padding: 18px;
+border-radius: 18px;
+background: rgba(255,255,255,0.72);
+border: 1px solid rgba(17,24,39,0.06);
+color: #475467;
+font-size: 13px;
+}
+
+.tip-box {
+padding: 16px;
+border-radius: 18px;
+background: linear-gradient(135deg, #ffffff, #f9fafb);
+border: 1px solid rgba(17,24,39,0.06);
+color: #475467;
+font-size: 13px;
+}
+
+.tip-box strong {
+color: #111827;
+display: block;
+margin-bottom: 6px;
+}
+
+.confirm-card {
+position: sticky;
+top: 18px;
+}
+
+.confirm-price {
+margin-top: 14px;
+padding: 16px;
+border-radius: 18px;
+background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(239,246,255,0.88));
+border: 1px solid rgba(17,24,39,0.06);
+box-shadow: var(--shadow-soft);
+}
+
+.confirm-price-label {
+color: var(--muted);
+font-size: 12px;
+margin-bottom: 6px;
+}
+
+.confirm-price-value {
+font-size: 22px;
+line-height: 1;
+font-weight: 800;
+letter-spacing: -0.02em;
+color: #0f172a;
+}
+
+.confirm-price-note {
+margin-top: 8px;
+color: #475467;
+font-size: 12px;
+}
+
+.btn-row {
+margin-top: 16px;
+}
+
+button {
+width: 100%;
+border: none;
+border-radius: 16px;
+padding: 15px 18px;
+font-size: 14px;
+font-weight: 800;
+cursor: pointer;
+color: white;
+background: linear-gradient(135deg, #111827, #334155);
+box-shadow: 0 14px 30px rgba(17, 24, 39, 0.16);
+transition: 0.2s ease;
+}
+
+button:hover {
+transform: translateY(-1px);
+}
+
+.status {
+min-height: 24px;
+margin-top: 12px;
+color: var(--muted);
+font-size: 13px;
+}
+
+.footer-note {
+margin-top: 24px;
+text-align: center;
+color: #98a2b3;
+font-size: 12px;
+}
+
+@media (max-width: 980px) {
+.hero {
+padding: 36px 26px;
+}
+
+.hero h1 {
+font-size: 40px;
+}
+
+.layout {
+grid-template-columns: 1fr;
+}
+
+.confirm-card {
+position: static;
+}
+}
+
+@media (max-width: 700px) {
+.field-grid {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 640px) {
+.container {
+padding: 18px 14px 52px;
+}
+
+.topbar {
+flex-direction: column;
+align-items: flex-start;
+}
+
+.hero {
+padding: 30px 20px;
+border-radius: 26px;
+}
+
+.hero h1 {
+font-size: 34px;
+}
+
+.card-inner {
+padding: 20px;
+}
 }
 </style>
 </head>
-
 <body>
-
+<div class="page">
 <div class="container">
+<div class="topbar">
+<div>
+<div class="brand-title">Cimitero Telematico</div>
+<div class="brand-subtitle">Attiva un memoriale digitale in modo semplice e guidato</div>
+</div>
 
+<a href="index.html" class="pill-link">Torna alla home</a>
+</div>
+
+<section class="hero">
+<div class="eyebrow">Attivazione memoriale</div>
 <h1>Crea un memoriale</h1>
-<p class="subtitle">Un luogo digitale per custodire e condividere un ricordo</p>
+<div class="hero-text">
+Inserisci i dati essenziali della persona e scegli il contributo più adatto per sostenere e portare avanti il progetto del Cimitero Telematico.
+</div>
+<div class="hero-line"></div>
+</section>
 
-<div class="box">
-<label>Nome persona</label>
-<input id="nome_persona">
-
-<label>Anni</label>
-<input id="anni">
-
-<label>Descrizione</label>
-<textarea id="descrizione"></textarea>
-
-<label>Nome familiare</label>
-<input id="nome_familiare">
-
-<label>Email</label>
-<input id="email">
-
-<label>Telefono</label>
-<input id="telefono">
+<section class="layout">
+<div class="stack">
+<article class="card">
+<div class="card-inner">
+<h2 class="section-title">Dati del memoriale</h2>
+<div class="section-subtitle">
+Compila le informazioni principali che verranno usate per preparare la pagina.
 </div>
 
-<div class="box">
-<h2>Scegli il memoriale</h2>
-<p class="note">
-Il contributo serve a sostenere e portare avanti il progetto del Cimitero Telematico
-</p>
-
-<div class="packages">
-
-<div class="card" onclick="selectPackage('base',49)">
-<h3>Base</h3>
-<p>Memoriale digitale con biografia e ricordi condivisi</p>
-<div class="price">Contributo: 49€</div>
+<div class="field-grid">
+<div class="field-group">
+<label for="nomePersona" class="label">Nome della persona</label>
+<input id="nomePersona" type="text" placeholder="Es. Mario Rossi" />
 </div>
 
-<div class="card" onclick="selectPackage('plus',99)">
-<h3>Plus</h3>
-<p>Memoriale più completo con contenuti ampliati</p>
-<div class="price">Contributo: 99€</div>
+<div class="field-group">
+<label for="anniVita" class="label">Anni di vita</label>
+<input id="anniVita" type="text" placeholder="Es. 1950 - 2023" />
 </div>
 
-<div class="card" onclick="selectPackage('premium',149)">
-<h3>Premium</h3>
-<p>
-Versione completa con configurazione avanzata e videocamera sulla tomba
-visibile ai familiari e apribile al pubblico su scelta
-</p>
-<div class="price">Contributo: 149€</div>
+<div class="field-group full">
+<label for="biografia" class="label">Breve biografia</label>
+<textarea id="biografia" placeholder="Scrivi una breve presentazione della persona..."></textarea>
+</div>
+</div>
+</div>
+</article>
+
+<article class="card">
+<div class="card-inner">
+<h2 class="section-title">Referente familiare</h2>
+<div class="section-subtitle">
+Questi dati servono per gestire la richiesta e la futura pubblicazione.
 </div>
 
+<div class="field-grid">
+<div class="field-group">
+<label for="nomeFamiliare" class="label">Nome familiare referente</label>
+<input id="nomeFamiliare" type="text" placeholder="Es. Giovanni Rossi" />
+</div>
+
+<div class="field-group">
+<label for="emailFamiliare" class="label">Email</label>
+<input id="emailFamiliare" type="email" placeholder="Es. famiglia@email.it" />
+</div>
+
+<div class="field-group">
+<label for="telefonoFamiliare" class="label">Telefono</label>
+<input id="telefonoFamiliare" type="text" placeholder="Es. 333 1234567" />
+</div>
+
+<div class="field-group full">
+<label for="note" class="label">Note aggiuntive</label>
+<textarea id="note" placeholder="Richieste particolari, esigenze o informazioni aggiuntive..."></textarea>
+</div>
+</div>
+</div>
+</article>
+
+<article class="card">
+<div class="card-inner">
+<h2 class="section-title">Scegli il contributo</h2>
+<div class="section-subtitle">
+Scegli il pacchetto che preferisci. Il riepilogo finale comparirà nella sezione di conferma, più in basso.
+</div>
+
+<div class="plans-grid">
+<div class="plan-card active" data-plan="base" data-price="49">
+<div class="plan-top">
+<div class="plan-name">Base</div>
+<div class="plan-price">49€</div>
+</div>
+<div class="plan-desc">Contributo essenziale per attivare il memoriale digitale.</div>
+<div class="plan-features">Biografia, link dedicato, ricordi condivisi e struttura base del memoriale.</div>
+</div>
+
+<div class="plan-card" data-plan="plus" data-price="99">
+<div class="plan-top">
+<div class="plan-name">Plus</div>
+<div class="plan-price">99€</div>
+</div>
+<div class="plan-desc">Contributo ampliato per sostenere un memoriale più ricco.</div>
+<div class="plan-features">Tutto del Base + contenuti ampliati e presentazione più completa.</div>
+</div>
+
+<div class="plan-card" data-plan="premium" data-price="149">
+<div class="plan-top">
+<div class="plan-name">Premium</div>
+<div class="plan-price">149€</div>
+</div>
+<div class="plan-desc">Contributo completo per la versione più evoluta del progetto.</div>
+<div class="plan-features">Tutto del Plus + videocamera sulla tomba visibile ai familiari, con possibilità di apertura pubblica su scelta.</div>
 </div>
 </div>
 
+<input id="piano" type="hidden" value="base" />
+</div>
+</article>
 </div>
 
-<!-- BOTTOM BAR -->
-<div class="bottom">
-<span id="riepilogo">Seleziona un memoriale</span>
-<button onclick="invia()">Conferma richiesta</button>
+<aside class="stack confirm-card">
+<article class="summary-box">
+Il contributo selezionato aiuta a sostenere e portare avanti il progetto del Cimitero Telematico, mantenendo attivi i memoriali digitali nel tempo.
+</article>
+
+<article class="tip-box">
+<strong>Consiglio</strong>
+Inserire una biografia chiara e il pacchetto corretto rende più rapida la preparazione del memoriale.
+</article>
+
+<article class="card">
+<div class="card-inner">
+<h2 class="section-title">Conferma richiesta</h2>
+<div class="section-subtitle">
+Dopo aver compilato i dati e scelto il contributo, puoi confermare l’invio.
+</div>
+
+<div class="confirm-price">
+<div class="confirm-price-label">Contributo selezionato</div>
+<div class="confirm-price-value" id="prezzoPiano">49€</div>
+<div class="confirm-price-note" id="nomePianoBox">Piano Base selezionato</div>
+</div>
+
+<div class="btn-row">
+<button id="btnInviaRichiesta" type="button">Conferma richiesta</button>
+</div>
+
+<div id="statusRichiesta" class="status"></div>
+</div>
+</article>
+</aside>
+</section>
+
+<div class="footer-note">
+Attivazione memoriale digitale
+</div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const client = window.supabase.createClient(
-"https://lbfkrsdtezjowkftntlq.supabase.co",
-"sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs"
-);
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOF07w_AdzJrvXs";
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-let piano=null;
-let prezzo=0;
+const btnInviaRichiesta = document.getElementById("btnInviaRichiesta");
+const statusRichiesta = document.getElementById("statusRichiesta");
+const pianoInput = document.getElementById("piano");
+const prezzoPianoEl = document.getElementById("prezzoPiano");
+const nomePianoBoxEl = document.getElementById("nomePianoBox");
+const planCards = document.querySelectorAll(".plan-card");
 
-function selectPackage(p,pz){
-piano=p;
-prezzo=pz;
-
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-event.currentTarget.classList.add("selected");
-
-document.getElementById("riepilogo").innerText=
-"Contributo selezionato: "+pz+"€";
+function generaSlug(nome) {
+return nome
+.toLowerCase()
+.trim()
+.replace(/\s+/g, "-")
+.replace(/[^a-z0-9\-]/g, "");
 }
 
-function generaSlug(nome){
-return nome.toLowerCase().trim()
-.replace(/\s+/g,"-")
-.replace(/[^a-z0-9\-]/g,"");
+function aggiornaPiano(card) {
+const piano = card.dataset.plan;
+const prezzo = card.dataset.price;
+
+planCards.forEach(c => c.classList.remove("active"));
+card.classList.add("active");
+
+pianoInput.value = piano;
+prezzoPianoEl.textContent = prezzo + "€";
+nomePianoBoxEl.textContent = "Piano " + piano.charAt(0).toUpperCase() + piano.slice(1) + " selezionato";
 }
 
-async function invia(){
+planCards.forEach(card => {
+card.addEventListener("click", () => aggiornaPiano(card));
+});
 
-const nome=document.getElementById("nome_persona").value;
+btnInviaRichiesta.addEventListener("click", async function () {
+const nomePersona = document.getElementById("nomePersona").value.trim();
+const anniVita = document.getElementById("anniVita").value.trim();
+const biografia = document.getElementById("biografia").value.trim();
+const nomeFamiliare = document.getElementById("nomeFamiliare").value.trim();
+const emailFamiliare = document.getElementById("emailFamiliare").value.trim();
+const telefonoFamiliare = document.getElementById("telefonoFamiliare").value.trim();
+const piano = document.getElementById("piano").value;
+const note = document.getElementById("note").value.trim();
 
-if(!nome||!piano){
-alert("Compila i dati e scegli un memoriale");
+if (!nomePersona || !anniVita || !nomeFamiliare || !emailFamiliare || !piano) {
+statusRichiesta.textContent = "Compila tutti i campi principali.";
 return;
 }
 
-const slug=generaSlug(nome);
+const slug = generaSlug(nomePersona);
 
-const {error}=await client.from("richieste").insert([{
-nome_persona:nome,
-anni:document.getElementById("anni").value,
-descrizione:document.getElementById("descrizione").value,
-nome_familiare:document.getElementById("nome_familiare").value,
-email:document.getElementById("email").value,
-telefono:document.getElementById("telefono").value,
-piano,
-slug
-}]);
+statusRichiesta.textContent = "Invio richiesta...";
 
-if(error){
-alert(error.message);
-}else{
-alert("Richiesta inviata");
+const { error } = await client
+.from("richieste")
+.insert([
+{
+nome_persona: nomePersona,
+anni: anniVita,
+descrizione: biografia,
+nome_familiare: nomeFamiliare,
+email: emailFamiliare,
+telefono: telefonoFamiliare,
+piano: piano,
+note: note,
+slug: slug
 }
+]);
+
+if (error) {
+console.error(error);
+statusRichiesta.textContent = "Errore: " + error.message;
+return;
 }
+
+statusRichiesta.textContent = "Richiesta inviata correttamente.";
+
+document.getElementById("nomePersona").value = "";
+document.getElementById("anniVita").value = "";
+document.getElementById("biografia").value = "";
+document.getElementById("nomeFamiliare").value = "";
+document.getElementById("emailFamiliare").value = "";
+document.getElementById("telefonoFamiliare").value = "";
+document.getElementById("note").value = "";
+
+const baseCard = document.querySelector('.plan-card[data-plan="base"]');
+aggiornaPiano(baseCard);
+});
 </script>
-
 </body>
 </html>
