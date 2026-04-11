@@ -359,6 +359,65 @@ return;
 
 statusRichiesta.textContent = "Richiesta registrata. In questa fase è una demo del flusso. Il prossimo step sarà collegarla a database e pagamento.";
 });
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const btnInviaRichiesta = document.getElementById("btnInviaRichiesta");
+const statusRichiesta = document.getElementById("statusRichiesta");
+
+btnInviaRichiesta.addEventListener("click", async function () {
+const nomePersona = document.getElementById("nomePersona").value.trim();
+const anniVita = document.getElementById("anniVita").value.trim();
+const biografia = document.getElementById("biografia").value.trim();
+const nomeFamiliare = document.getElementById("nomeFamiliare").value.trim();
+const emailFamiliare = document.getElementById("emailFamiliare").value.trim();
+const telefonoFamiliare = document.getElementById("telefonoFamiliare").value.trim();
+const piano = document.getElementById("piano").value;
+const note = document.getElementById("note").value.trim();
+
+if (!nomePersona || !anniVita || !nomeFamiliare || !emailFamiliare || !piano) {
+statusRichiesta.textContent = "Compila tutti i campi principali.";
+return;
+}
+
+statusRichiesta.textContent = "Invio richiesta in corso...";
+
+const { error } = await client
+.from("richieste")
+.insert([
+{
+nome_persona: nomePersona,
+anni: anniVita,
+descrizione: biografia,
+nome_familiare: nomeFamiliare,
+email: emailFamiliare,
+telefono: telefonoFamiliare,
+piano: piano,
+note: note
+}
+]);
+
+if (error) {
+console.error(error);
+statusRichiesta.textContent = "Errore nel salvataggio: " + error.message;
+return;
+}
+
+statusRichiesta.textContent = "Richiesta inviata correttamente.";
+
+document.getElementById("nomePersona").value = "";
+document.getElementById("anniVita").value = "";
+document.getElementById("biografia").value = "";
+document.getElementById("nomeFamiliare").value = "";
+document.getElementById("emailFamiliare").value = "";
+document.getElementById("telefonoFamiliare").value = "";
+document.getElementById("piano").value = "";
+document.getElementById("note").value = "";
+});
 </script>
 
 </body>
