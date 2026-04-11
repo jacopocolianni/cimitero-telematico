@@ -88,19 +88,27 @@ if (!nomePersona || !anniVita || !nomeFamiliare || !emailFamiliare || !piano) {
 status.textContent = "Compila tutti i campi obbligatori.";
 return;
 }
-
+function generaSlug(nome) {
+return nome
+.toLowerCase()
+.trim()
+.replace(/\s+/g, "-")
+.replace(/[^\w\-]+/g, "");
+}
 const { error } = await client
 .from("richieste")
-.insert([
+const slug = generaSlug(nome_persona);
+await client.from("richieste").insert([
 {
-nome_persona: nomePersona,
-anni: anniVita,
-descrizione: biografia,
-nome_familiare: nomeFamiliare,
-email: emailFamiliare,
-telefono: telefonoFamiliare,
-piano: piano,
-note: note
+nome_persona,
+anni,
+descrizione,
+nome_familiare,
+email,
+telefono,
+piano,
+note,
+slug
 }
 ]);
 
