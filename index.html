@@ -180,20 +180,20 @@ box-shadow: var(--shadow-soft);
 .hero {
 position: relative;
 overflow: hidden;
-padding: 58px 40px;
+padding: 64px 44px;
 border-radius: 34px;
-min-height: 430px;
+min-height: 460px;
 display: flex;
 align-items: end;
 background:
-linear-gradient(rgba(17,24,39,0.38), rgba(17,24,39,0.42)),
+linear-gradient(rgba(17,24,39,0.34), rgba(17,24,39,0.46)),
 url("https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
 box-shadow: var(--shadow);
 margin-bottom: 22px;
 }
 
 .hero-content {
-max-width: 760px;
+max-width: 780px;
 color: white;
 }
 
@@ -215,7 +215,7 @@ backdrop-filter: blur(8px);
 
 .hero h1 {
 margin: 0;
-font-size: 54px;
+font-size: 56px;
 line-height: 1.02;
 letter-spacing: -0.045em;
 color: white;
@@ -261,6 +261,34 @@ backdrop-filter: blur(8px);
 transform: translateY(-1px);
 }
 
+.hero-stats {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+margin-top: 24px;
+}
+
+.hero-stat {
+background: rgba(255,255,255,0.14);
+border: 1px solid rgba(255,255,255,0.16);
+backdrop-filter: blur(8px);
+border-radius: 16px;
+padding: 12px 14px;
+min-width: 150px;
+}
+
+.hero-stat strong {
+display: block;
+font-size: 18px;
+color: white;
+margin-bottom: 2px;
+}
+
+.hero-stat span {
+font-size: 12px;
+color: rgba(255,255,255,0.86);
+}
+
 .section {
 margin-top: 22px;
 }
@@ -273,7 +301,7 @@ box-shadow: var(--shadow-soft);
 }
 
 .section-inner {
-padding: 26px;
+padding: 28px;
 }
 
 .section-title {
@@ -297,7 +325,7 @@ gap: 16px;
 }
 
 .feature-card {
-background: rgba(255,255,255,0.75);
+background: rgba(255,255,255,0.78);
 border: 1px solid rgba(17,24,39,0.06);
 border-radius: 20px;
 padding: 18px;
@@ -348,6 +376,63 @@ font-size: 16px;
 }
 
 .step-card p {
+margin: 0;
+color: #667085;
+font-size: 13px;
+}
+
+.trust-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+}
+
+.trust-card {
+background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,250,252,0.88));
+border: 1px solid rgba(17,24,39,0.06);
+border-radius: 20px;
+padding: 20px;
+}
+
+.trust-card h3 {
+margin: 0 0 8px;
+font-size: 16px;
+}
+
+.trust-card p {
+margin: 0;
+color: #667085;
+font-size: 13px;
+}
+
+.featured-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+}
+
+.featured-card {
+text-decoration: none;
+color: inherit;
+background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(239,246,255,0.88));
+border: 1px solid rgba(17,24,39,0.06);
+border-radius: 22px;
+padding: 20px;
+box-shadow: var(--shadow-soft);
+transition: 0.2s ease;
+}
+
+.featured-card:hover {
+transform: translateY(-2px);
+}
+
+.featured-card h3 {
+margin: 0 0 8px;
+font-size: 18px;
+color: #111827;
+}
+
+.featured-card p {
 margin: 0;
 color: #667085;
 font-size: 13px;
@@ -421,6 +506,8 @@ font-size: 42px;
 
 .grid-3,
 .steps-grid,
+.trust-grid,
+.featured-grid,
 .pricing-wrap {
 grid-template-columns: 1fr;
 }
@@ -452,6 +539,10 @@ font-size: 34px;
 
 .section-inner {
 padding: 20px;
+}
+
+.hero-stats {
+flex-direction: column;
 }
 }
 </style>
@@ -493,12 +584,27 @@ padding: 20px;
 <div class="eyebrow">Memoria digitale</div>
 <h1>Non solo un nome.<br>Una vita da ricordare.</h1>
 <div class="hero-text">
-Cimitero Telematico permette di visitare un memoriale digitale, ascoltare la storia della persona, leggere i ricordi condivisi e mantenere viva la memoria anche a distanza.
+Cimitero Telematico collega il luogo fisico al ricordo digitale: una pagina dedicata, ricordi condivisi, accesso a distanza e una memoria che continua a parlare nel tempo.
 </div>
 
 <div class="hero-actions">
 <a href="crea-memoriale.html" class="hero-btn hero-btn-primary">Crea un memoriale</a>
 <a href="#qr-code" class="hero-btn hero-btn-secondary">Scopri il QR Code</a>
+</div>
+
+<div class="hero-stats">
+<div class="hero-stat">
+<strong id="heroMemorialCount">—</strong>
+<span>memoriali pubblicati</span>
+</div>
+<div class="hero-stat">
+<strong>Accesso</strong>
+<span>anche a distanza</span>
+</div>
+<div class="hero-stat">
+<strong>Ricordi</strong>
+<span>condivisi nel tempo</span>
+</div>
 </div>
 </div>
 </section>
@@ -506,25 +612,25 @@ Cimitero Telematico permette di visitare un memoriale digitale, ascoltare la sto
 <section class="section">
 <article class="section-card">
 <div class="section-inner">
-<h2 class="section-title">Cos’è il Cimitero Telematico</h2>
+<h2 class="section-title">Perché nasce questo progetto</h2>
 <div class="section-subtitle">
-Un memoriale non deve fermarsi a una pietra. Può raccontare una persona, custodire la sua storia e accogliere ricordi lasciati da chi le ha voluto bene.
+Un memoriale non dovrebbe fermarsi a un nome inciso. Può raccontare la persona, custodirne la voce e permettere a familiari e amici di lasciare un segno.
 </div>
 
 <div class="grid-3">
 <div class="feature-card">
-<h3>Video e presentazione</h3>
-<p>Ogni persona può essere raccontata con una biografia, un video e una pagina dedicata.</p>
+<h3>Video e biografia</h3>
+<p>Ogni memoriale può raccontare chi era davvero la persona, con contenuti chiari e umani.</p>
 </div>
 
 <div class="feature-card">
 <h3>Ricordi a distanza</h3>
-<p>Amici e familiari possono lasciare un pensiero anche da altre città o dall’estero.</p>
+<p>Chi vive lontano può partecipare, scrivere e ritrovare un legame anche senza essere presente sul posto.</p>
 </div>
 
 <div class="feature-card">
-<h3>Memoria accessibile</h3>
-<p>Il memoriale resta consultabile online e permette di ritrovare la storia di una persona nel tempo.</p>
+<h3>Memoria condivisa</h3>
+<p>I ricordi approvati diventano parte di una pagina viva, accessibile e consultabile nel tempo.</p>
 </div>
 </div>
 </div>
@@ -536,32 +642,60 @@ Un memoriale non deve fermarsi a una pietra. Può raccontare una persona, custod
 <div class="section-inner">
 <h2 class="section-title">Come funziona il QR Code</h2>
 <div class="section-subtitle">
-Il QR Code è il collegamento diretto tra il luogo fisico e il memoriale digitale.
+Il QR Code è il ponte tra la tomba fisica e il memoriale digitale, semplice da usare per chiunque.
 </div>
 
 <div class="steps-grid">
 <div class="step-card">
 <div class="step-number">1</div>
 <h3>Arrivi alla tomba</h3>
-<p>Il visitatore trova il QR Code associato al memoriale della persona.</p>
+<p>Il visitatore trova il QR Code associato alla persona.</p>
 </div>
 
 <div class="step-card">
 <div class="step-number">2</div>
-<h3>Scansiona</h3>
-<p>Con il telefono apre subito la pagina memoriale dedicata.</p>
+<h3>Scansione immediata</h3>
+<p>Con il telefono apre subito il memoriale dedicato.</p>
 </div>
 
 <div class="step-card">
 <div class="step-number">3</div>
 <h3>Scopre la storia</h3>
-<p>Può vedere video, biografia, ricordi e informazioni lasciate dalla famiglia.</p>
+<p>Legge biografia, guarda contenuti e ritrova i ricordi condivisi.</p>
 </div>
 
 <div class="step-card">
 <div class="step-number">4</div>
 <h3>Lascia un ricordo</h3>
-<p>Può scrivere un pensiero o un saluto, anche se si trova molto lontano.</p>
+<p>Può inviare un pensiero anche se vive molto lontano.</p>
+</div>
+</div>
+</div>
+</article>
+</section>
+
+<section class="section">
+<article class="section-card">
+<div class="section-inner">
+<h2 class="section-title">Un servizio pensato per dare fiducia</h2>
+<div class="section-subtitle">
+Il progetto è costruito per essere semplice, umano e adatto a famiglie che vogliono qualcosa di chiaro e rispettoso.
+</div>
+
+<div class="trust-grid">
+<div class="trust-card">
+<h3>Facile da usare</h3>
+<p>Pochi passaggi, interfaccia chiara e accesso immediato al memoriale.</p>
+</div>
+
+<div class="trust-card">
+<h3>Adatto anche a distanza</h3>
+<p>Chiunque può ritrovare la pagina e partecipare da qualunque luogo.</p>
+</div>
+
+<div class="trust-card">
+<h3>Pubblicazione controllata</h3>
+<p>I memoriali e i contenuti possono essere gestiti e pubblicati con controllo.</p>
 </div>
 </div>
 </div>
@@ -573,11 +707,14 @@ Il QR Code è il collegamento diretto tra il luogo fisico e il memoriale digital
 <div class="section-inner">
 <h2 class="section-title">Memoriali pubblicati</h2>
 <div class="section-subtitle">
-Alcuni memoriali già attivi e consultabili online.
+Alcune pagine già attive e consultabili online.
 </div>
 
-<div id="featuredMemorials" class="toolbar-list">
-<div class="toolbar-item">Caricamento memoriali...</div>
+<div id="featuredMemorials" class="featured-grid">
+<div class="featured-card">
+<h3>Caricamento...</h3>
+<p>Attendere il caricamento dei memoriali.</p>
+</div>
 </div>
 </div>
 </article>
@@ -588,7 +725,7 @@ Alcuni memoriali già attivi e consultabili online.
 <div class="section-inner">
 <h2 class="section-title">Pacchetti</h2>
 <div class="section-subtitle">
-I prezzi sono indicati in modo chiaro e discreto, nella parte finale della pagina.
+I prezzi restano in basso e sono mostrati in modo chiaro ma non invasivo.
 </div>
 
 <div class="pricing-wrap">
@@ -633,6 +770,7 @@ const toolbarListEl = document.getElementById("toolbarList");
 const featuredMemorialsEl = document.getElementById("featuredMemorials");
 const searchInputEl = document.getElementById("searchInput");
 const searchBtnEl = document.getElementById("searchBtn");
+const heroMemorialCountEl = document.getElementById("heroMemorialCount");
 
 let memorialiCache = [];
 
@@ -646,36 +784,51 @@ const { data, error } = await client
 if (error) {
 console.error(error);
 toolbarListEl.innerHTML = '<div class="toolbar-item">Errore caricamento memoriali</div>';
-featuredMemorialsEl.innerHTML = '<div class="toolbar-item">Errore caricamento memoriali</div>';
+featuredMemorialsEl.innerHTML = '<div class="featured-card"><h3>Errore</h3><p>Impossibile caricare i memoriali.</p></div>';
+heroMemorialCountEl.textContent = "0";
 return;
 }
 
 memorialiCache = data || [];
-renderMemoriali(memorialiCache);
+heroMemorialCountEl.textContent = memorialiCache.length;
+renderToolbar(memorialiCache);
+renderFeatured(memorialiCache);
 }
 
-function renderMemoriali(lista) {
+function renderToolbar(lista) {
 if (!lista || lista.length === 0) {
 toolbarListEl.innerHTML = '<div class="toolbar-item">Nessun memoriale pubblicato</div>';
-featuredMemorialsEl.innerHTML = '<div class="toolbar-item">Nessun memoriale pubblicato</div>';
 return;
 }
 
 toolbarListEl.innerHTML = "";
+
+lista.forEach((m) => {
+const link = document.createElement("a");
+link.className = "toolbar-item";
+link.href = `memoriale.html?slug=${m.slug}`;
+link.textContent = m.nome_persona || m.slug;
+toolbarListEl.appendChild(link);
+});
+}
+
+function renderFeatured(lista) {
+if (!lista || lista.length === 0) {
+featuredMemorialsEl.innerHTML = '<div class="featured-card"><h3>Nessun memoriale</h3><p>Non risultano memoriali pubblicati.</p></div>';
+return;
+}
+
 featuredMemorialsEl.innerHTML = "";
 
 lista.forEach((m) => {
-const link1 = document.createElement("a");
-link1.className = "toolbar-item";
-link1.href = `memoriale.html?slug=${m.slug}`;
-link1.textContent = m.nome_persona || m.slug;
-toolbarListEl.appendChild(link1);
-
-const link2 = document.createElement("a");
-link2.className = "toolbar-item";
-link2.href = `memoriale.html?slug=${m.slug}`;
-link2.textContent = m.nome_persona || m.slug;
-featuredMemorialsEl.appendChild(link2);
+const card = document.createElement("a");
+card.className = "featured-card";
+card.href = `memoriale.html?slug=${m.slug}`;
+card.innerHTML = `
+<h3>${m.nome_persona || m.slug}</h3>
+<p>Apri il memoriale digitale dedicato.</p>
+`;
+featuredMemorialsEl.appendChild(card);
 });
 }
 
@@ -683,7 +836,8 @@ function cercaMemoriale() {
 const query = searchInputEl.value.trim().toLowerCase();
 
 if (!query) {
-renderMemoriali(memorialiCache);
+renderToolbar(memorialiCache);
+renderFeatured(memorialiCache);
 return;
 }
 
@@ -691,7 +845,8 @@ const filtrati = memorialiCache.filter((m) =>
 (m.nome_persona || "").toLowerCase().includes(query)
 );
 
-renderMemoriali(filtrati);
+renderToolbar(filtrati);
+renderFeatured(filtrati);
 }
 
 searchBtnEl.addEventListener("click", cercaMemoriale);
