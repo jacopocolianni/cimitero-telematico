@@ -251,6 +251,9 @@ font-size: 30px;
 <label for="biografiaPersona">Biografia</label>
 <textarea id="biografiaPersona"></textarea>
 
+<label for="videoUrl">Link video</label>
+<input id="videoUrl" type="text" placeholder="Incolla qui un link YouTube, Vimeo o video pubblico" />
+
 <button id="btnSalva" type="button">Salva modifiche</button>
 <div id="status" class="status"></div>
 </div>
@@ -339,6 +342,7 @@ metaEl.textContent = `Slug: ${memoriale.slug || "-"} • Stato: ${memoriale.stat
 document.getElementById("nomePersona").value = memoriale.nome_persona || "";
 document.getElementById("anniPersona").value = memoriale.anni || "";
 document.getElementById("biografiaPersona").value = memoriale.biografia || "";
+document.getElementById("videoUrl").value = memoriale.video_url || "";
 
 await caricaFoto();
 }
@@ -384,6 +388,8 @@ return;
 const nome_persona = document.getElementById("nomePersona").value.trim();
 const anni = document.getElementById("anniPersona").value.trim();
 const biografia = document.getElementById("biografiaPersona").value.trim();
+const video_url = document.getElementById("videoUrl").value.trim();
+
 
 statusEl.textContent = "Salvataggio in corso...";
 
@@ -392,7 +398,8 @@ const { error } = await client
 .update({
 nome_persona,
 anni,
-biografia
+biografia,
+video_url
 })
 .eq("id", memorialeCorrente.id);
 
