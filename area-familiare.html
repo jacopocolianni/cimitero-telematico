@@ -268,8 +268,17 @@ font-size: 30px;
 <div>
 <div class="card">
 <h2>Carica foto</h2>
-<p>Aggiungi immagini del memoriale direttamente dalla tua area familiare.</p>
+<p>Aggiungi immagini del memoriale...</p>
 
+<!-- VIDEO -->
+<h3>Carica video</h3>
+
+<input type="file" id="videoFile" accept="video/*" />
+<button id="btnCaricaVideo">Carica video</button>
+
+<p id="statusVideo"></p>
+
+<!-- FOTO -->
 <div class="upload-box">
 <label for="fileFoto">Seleziona una foto</label>
 <input id="fileFoto" type="file" accept="image/*" />
@@ -471,7 +480,48 @@ btnLogout.addEventListener("click", async () => {
 await client.auth.signOut();
 window.location.href = "login.html";
 });
+// ===== VIDEO =====
+const videoInput = document.getElementById("videoFile");
+const btnVideo = document.getElementById("btnCaricaVideo");
+const statusVideo = document.getElementById("statusVideo");
 
+btnVideo.addEventListener("click", async () => {
+const file = videoInput.files[0];
+
+if (!file) {
+statusVideo.textContent = "Seleziona un video.";
+return;
+}
+
+statusVideo.textContent = "Caricamento video...";
+
+const fileName = `${Date.now()}-${file.name}`;
+
+const { error: uploadError } = await client
+.storage
+.from("memoriali-video")
+.upload(fileName, file);
+
+if (uploadError) {
+statusVideo.textContent = "Errore upload video.";
+console.error(uploadError);
+return;
+}
+
+const { data: publicUrlData } = client
+.storage
+.from("memoriali-video")
+.getPublicUrl(fileName);
+
+const videoUrl = publicUrlData.publicUrl;
+
+await client
+.from("memoriali")
+.update({ video_url: videoUrl })
+.eq("id", memorialeCorrente.id);
+
+statusVideo.textContent = "Video caricato!";
+});
 caricaAreaFamiliare();
 </script>
 </body>
