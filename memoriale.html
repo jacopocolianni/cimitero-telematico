@@ -512,9 +512,12 @@ Uno spazio pensato per custodire la memoria, raccogliere ricordi e lasciare paro
 <p id="biografiaPersona" class="bio-text">Caricamento biografia...</p>
 <video id="videoPersona" controls style="display:none;"></video>
 <div id="videoPlaceholder" class="video-placeholder">Nessun video disponibile per questo memoriale.</div>
+
 <div class="foto-section">
 <h2 class="section-title">Ricordi in immagini</h2>
 <div id="galleryPubblica" class="gallery"></div>
+</div>
+</div>
 </div>
 </article>
 
@@ -588,9 +591,6 @@ const btnInvia = document.getElementById("btnInvia");
 
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug") || "mario-rossi";
-  async function caricaFotoPubbliche(memorialeId) {
-const { data, error } = await client
-.from("memoriali_foto")
 async function caricaFotoPubbliche(memorialeId) {
 const gallery = document.getElementById("galleryPubblica");
 if (!gallery) return;
@@ -620,8 +620,6 @@ gallery.appendChild(img);
 }
 
 async function caricaMemoriale() {
- console.log("caricaMemoriale partita");
-  
 const { data, error } = await client
 .from("memoriali")
 .select("*")
@@ -658,7 +656,6 @@ videoPlaceholderEl.style.display = "block";
 
 await caricaFotoPubbliche(data.id);
 }
-
 async function caricaRicordi() {
 listaRicordiEl.textContent = "Caricamento ricordi...";
 
