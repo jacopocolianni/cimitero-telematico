@@ -275,18 +275,6 @@ font-size: 30px;
 
 <button id="btnScaricaQR">Scarica QR Code</button>
 
-const btnScaricaQR = document.getElementById("btnScaricaQR");
-
-btnScaricaQR.addEventListener("click", () => {
-const qrImg = document.getElementById("qrCode");
-
-const link = document.createElement("a");
-link.href = qrImg.src;
-link.download = "qr-memoriale.png";
-
-link.click();
-});
-
 </div>
   
 </div>
@@ -331,6 +319,17 @@ const statusEl = document.getElementById("status");
 const statusFotoEl = document.getElementById("statusFoto");
 const galleryEl = document.getElementById("gallery");
 const btnSalva = document.getElementById("btnSalva");
+const btnScaricaQR = document.getElementById("btnScaricaQR");
+
+btnScaricaQR.addEventListener("click", () => {
+const qrImg = document.getElementById("qrCode");
+
+const link = document.createElement("a");
+link.href = qrImg.src;
+link.download = "qr-memoriale.png";
+
+link.click();
+});
 const btnLogout = document.getElementById("btnLogout");
 const btnCaricaFoto = document.getElementById("btnCaricaFoto");
 
