@@ -271,6 +271,8 @@ font-size: 30px;
 
 <button id="btnSalva" type="button">Salva modifiche</button>
 <div id="status" class="status"></div>
+<h3>QR Code memoriale</h3>
+<img id="qrCode" />
 </div>
 
 <div class="card">
@@ -353,6 +355,13 @@ return;
 }
 
 memorialeCorrente = memoriale;
+const qrEl = document.getElementById("qrCode");
+
+if (memorialeCorrente?.slug && qrEl) {
+const url = `https://cimitero-telematico.vercel.app/memoriale.html?slug=${memorialeCorrente.slug}`;
+
+qrEl.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+}
 
 titoloEl.textContent = memoriale.nome_persona || "Memoriale";
 metaEl.textContent = `Slug: ${memoriale.slug || "-"} • Stato: ${memoriale.stato || "-"}`;
