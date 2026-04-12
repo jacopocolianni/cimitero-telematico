@@ -591,11 +591,15 @@ const slug = params.get("slug") || "mario-rossi";
   async function caricaFotoPubbliche(memorialeId) {
 const { data, error } = await client
 .from("memoriali_foto")
-caricaFotoPubbliche(data.id);
-.select("*")
-.eq("memoriale_id", memorialeId);
-
+async function caricaFotoPubbliche(memorialeId) {
 const gallery = document.getElementById("galleryPubblica");
+if (!gallery) return;
+
+const { data, error } = await client
+.from("memoriali_foto")
+.select("*")
+.eq("memoriale_id", memorialeId)
+.order("id", { ascending: false });
 
 if (error || !data || data.length === 0) {
 gallery.innerHTML = "<p style='color:#6b7280'>Nessuna foto disponibile.</p>";
@@ -604,9 +608,10 @@ return;
 
 gallery.innerHTML = "";
 
-data.forEach(foto => {
+data.forEach((foto) => {
 const img = document.createElement("img");
 img.src = foto.url;
+img.alt = "Foto memoriale";
 img.style.width = "100%";
 img.style.borderRadius = "12px";
 img.style.marginBottom = "10px";
@@ -636,9 +641,9 @@ biografiaPersonaEl.textContent = "Nessun dato disponibile.";
 return;
 }
 
-nomePersonaEl.textContent = data.nome_persona || "";
+nomePersonaEl.textContent = data.nome_persona || "Memoriale";
 anniPersonaEl.textContent = data.anni || "";
-biografiaPersonaEl.textContent = data.biografia || "";
+biografiaPersonaEl.textContent = data.biografia || "Nessuna biografia disponibile.";
 
 if (data.video_url) {
 videoPersonaEl.src = data.video_url;
@@ -648,6 +653,8 @@ videoPlaceholderEl.style.display = "none";
 videoPersonaEl.style.display = "none";
 videoPlaceholderEl.style.display = "block";
 }
+
+await caricaFotoPubbliche(data.id);
 }
 
 async function caricaRicordi() {
