@@ -512,7 +512,9 @@ Uno spazio pensato per custodire la memoria, raccogliere ricordi e lasciare paro
 <p id="biografiaPersona" class="bio-text">Caricamento biografia...</p>
 <video id="videoPersona" controls style="display:none;"></video>
 <div id="videoPlaceholder" class="video-placeholder">Nessun video disponibile per questo memoriale.</div>
-</div>
+<div class="foto-section">
+<h2 class="section-title">Ricordi in immagini</h2>
+<div id="galleryPubblica" class="gallery"></div>
 </div>
 </article>
 
@@ -586,6 +588,31 @@ const btnInvia = document.getElementById("btnInvia");
 
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug") || "mario-rossi";
+  async function caricaFotoPubbliche(memorialeId) {
+const { data, error } = await client
+.from("memoriali_foto")
+caricaFotoPubbliche(data.id);
+.select("*")
+.eq("memoriale_id", memorialeId);
+
+const gallery = document.getElementById("galleryPubblica");
+
+if (error || !data || data.length === 0) {
+gallery.innerHTML = "<p style='color:#6b7280'>Nessuna foto disponibile.</p>";
+return;
+}
+
+gallery.innerHTML = "";
+
+data.forEach(foto => {
+const img = document.createElement("img");
+img.src = foto.url;
+img.style.width = "100%";
+img.style.borderRadius = "12px";
+img.style.marginBottom = "10px";
+gallery.appendChild(img);
+});
+}
 
 async function caricaMemoriale() {
 const { data, error } = await client
