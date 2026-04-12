@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Area familiare</title>
+<style>
+* { box-sizing: border-box; }
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+color: #1f2937;
+background:
+radial-gradient(circle at 10% 10%, rgba(191,219,254,0.55), transparent 28%),
+radial-gradient(circle at 85% 18%, rgba(249,168,212,0.14), transparent 24%),
+linear-gradient(180deg, #fbfcff 0%, #f5f7fb 100%);
+}
+.container {
+max-width: 980px;
+margin: 0 auto;
+padding: 28px 20px 70px;
+}
+.topbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+.brand {
+font-size: 13px;
+font-weight: 800;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: #111827;
+}
+.pill {
+text-decoration: none;
+color: #111827;
+background: rgba(255,255,255,0.84);
+border: 1px solid rgba(17,24,39,0.07);
+border-radius: 999px;
+padding: 11px 16px;
+font-size: 13px;
+font-weight: 700;
+box-shadow: 0 10px 30px rgba(31,41,55,0.05);
+cursor: pointer;
+}
+.card {
+background: rgba(255,255,255,0.9);
+border: 1px solid rgba(31,41,55,0.08);
+border-radius: 26px;
+padding: 24px;
+box-shadow: 0 20px 60px rgba(31,41,55,0.08);
+margin-bottom: 18px;
+}
+h1 {
+margin: 0 0 8px;
+font-size: 34px;
+letter-spacing: -0.03em;
+}
+h2 {
+margin: 0 0 8px;
+font-size: 24px;
+letter-spacing: -0.02em;
+}
+p {
+color: #6b7280;
+font-size: 14px;
+}
+.meta {
+color: #6b7280;
+font-size: 13px;
+margin-top: 6px;
+}
+label {
+display: block;
+margin: 14px 0 6px;
+font-size: 13px;
+font-weight: 700;
+}
+input, textarea {
+width: 100%;
+padding: 14px;
+border-radius: 14px;
+border: 1px solid #dbe1ea;
+font-size: 14px;
+background: white;
+}
+textarea {
+min-height: 150px;
+resize: vertical;
+}
+.row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 14px;
+}
+button {
+width: 100%;
+margin-top: 16px;
+padding: 14px;
+border: none;
+border-radius: 14px;
+background: linear-gradient(135deg, #111827, #334155);
+color: white;
+font-weight: 800;
+cursor: pointer;
+}
+.status {
+margin-top: 12px;
+min-height: 22px;
+color: #6b7280;
+font-size: 13px;
+}
+@media (max-width: 720px) {
+.row {
+grid-template-columns: 1fr;
+}
+.topbar {
+flex-direction: column;
+align-items: flex-start;
+gap: 10px;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="topbar">
+<div class="brand">Area familiare</div>
+<button id="btnLogout" class="pill" type="button">Esci</button>
+</div>
+
+<div class="card">
+<h1 id="titoloMemoriale">Caricamento...</h1>
+<div class="meta" id="metaMemoriale"></div>
+<p>Da qui puoi modificare il memoriale associato al tuo account.</p>
+</div>
+
+<div class="card">
+<h2>Modifica memoriale</h2>
+
+<div class="row">
+<div>
+<label for="nomePersona">Nome della persona</label>
+<input id="nomePersona" type="text" />
+</div>
+
+<div>
+<label for="anniPersona">Anni di vita</label>
+<input id="anniPersona" type="text" />
+</div>
+</div>
+
+<label for="biografiaPersona">Biografia</label>
+<textarea id="biografiaPersona"></textarea>
+
+<button id="btnSalva" type="button">Salva modifiche</button>
+<div id="status" class="status"></div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = "https://lbfkrsdtezjowkftntlq.supabase.co";
+const supabaseKey = "sb_publishable_FPogOpV9yRt4EleCtOFO7w_AdzJrVxS";
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const titoloEl = document.getElementById("titoloMemoriale");
+const metaEl = document.getElementById("metaMemoriale");
+const statusEl = document.getElementById("status");
+const btnSalva = document.getElementById("btnSalva");
+const btnLogout = document.getElementById("btnLogout");
+
+let memorialeCorrente = null;
+
+async function caricaAreaFamiliare() {
+const { data: userData, error: userError } = await client.auth.getUser();
+
+if (userError || !userData?.user) {
+window.location.href = "login.html";
+return;
+}
+
+const userId = userData.user.id;
+
+const { data: linkData, error: linkError } = await client
+.from("familiari_memoriali")
+.select("memoriale_id")
+.eq("user_id", userId)
+.maybeSingle();
+
+if (linkError || !linkData) {
+titoloEl.textContent = "Nessun memoriale associato";
+metaEl.textContent = "Collega questo account a un memoriale dal pannello admin.";
+return;
+}
+
+const { data: memoriale, error: memorialeError } = await client
+.from("memoriali")
+.select("*")
+.eq("id", linkData.memoriale_id)
+.maybeSingle();
+
+if (memorialeError || !memoriale) {
+titoloEl.textContent = "Memoriale non trovato";
+metaEl.textContent = "";
+return;
+}
+
+memorialeCorrente = memoriale;
+
+titoloEl.textContent = memoriale.nome_persona || "Memoriale";
+metaEl.textContent = `Slug: ${memoriale.slug || "-"} • Stato: ${memoriale.stato || "-"}`;
+
+document.getElementById("nomePersona").value = memoriale.nome_persona || "";
+document.getElementById("anniPersona").value = memoriale.anni || "";
+document.getElementById("biografiaPersona").value = memoriale.biografia || "";
+}
+
+btnSalva.addEventListener("click", async () => {
+if (!memorialeCorrente) {
+statusEl.textContent = "Memoriale non disponibile.";
+return;
+}
+
+const nome_persona = document.getElementById("nomePersona").value.trim();
+const anni = document.getElementById("anniPersona").value.trim();
+const biografia = document.getElementById("biografiaPersona").value.trim();
+
+statusEl.textContent = "Salvataggio in corso...";
+
+const { error } = await client
+.from("memoriali")
+.update({
+nome_persona,
+anni,
+biografia
+})
+.eq("id", memorialeCorrente.id);
+
+if (error) {
+statusEl.textContent = "Errore salvataggio: " + error.message;
+return;
+}
+
+statusEl.textContent = "Modifiche salvate correttamente.";
+titoloEl.textContent = nome_persona || "Memoriale";
+});
+
+btnLogout.addEventListener("click", async () => {
+await client.auth.signOut();
+window.location.href = "login.html";
+});
+
+caricaAreaFamiliare();
+</script>
+</body>
+</html>
