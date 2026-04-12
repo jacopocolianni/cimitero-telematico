@@ -94,6 +94,24 @@ position: relative;
 .gallery {
 overflow: visible;
 }
+#lightbox {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.8);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 999;
+}
+
+#lightbox img {
+max-width: 90%;
+max-height: 90%;
+border-radius: 12px;
+}
   
 body {
 background: #f5f6f8;
@@ -402,6 +420,9 @@ font-size: 30px;
 <p>Le foto caricate compariranno qui sotto.</p>
 <div id="gallery" class="gallery"></div>
 </div>
+<div id="lightbox" class="lightbox">
+<img id="lightboxImg" />
+</div>
 
 <div>
 <div class="card">
@@ -434,6 +455,8 @@ const galleryEl = document.getElementById("gallery");
 const btnSalva = document.getElementById("btnSalva");
 const btnScaricaQR = document.getElementById("btnScaricaQR");
 const btnStampaQR = document.getElementById("btnStampaQR");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
   
 btnStampaQR.addEventListener("click", () => {
 const qrImg = document.getElementById("qrCode");
@@ -470,6 +493,12 @@ link.click();
 });
 const btnLogout = document.getElementById("btnLogout");
 const btnCaricaFoto = document.getElementById("btnCaricaFoto");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+
+lightbox.addEventListener("click", () => {
+lightbox.style.display = "none";
+});
 
 let memorialeCorrente = null;
 let userCorrente = null;
@@ -696,5 +725,8 @@ statusVideo.textContent = "Video caricato!";
 });
 caricaAreaFamiliare();
 </script>
+<div id="lightbox" style="display:none;">
+<img id="lightboxImg" />
+</div>
 </body>
 </html>
