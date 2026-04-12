@@ -94,17 +94,22 @@ position: relative;
 .gallery {
 overflow: visible;
 }
-#lightbox {
+.lightbox {
 position: fixed;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
 background: rgba(0,0,0,0.8);
-display: flex;
 align-items: center;
 justify-content: center;
 z-index: 999;
+}
+
+.lightbox img {
+max-width: 90%;
+max-height: 90%;
+border-radius: 12px;
 }
 
 #lightbox img {
@@ -420,7 +425,7 @@ font-size: 30px;
 <p>Le foto caricate compariranno qui sotto.</p>
 <div id="gallery" class="gallery"></div>
 </div>
-<div id="lightbox" class="lightbox">
+<div id="lightbox" class="lightbox" style="display:none;">
 <img id="lightboxImg" />
 </div>
 
