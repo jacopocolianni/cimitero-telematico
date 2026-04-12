@@ -272,6 +272,21 @@ font-size: 30px;
 <div id="status" class="status"></div>
 <h3>QR Code memoriale</h3>
 <img id="qrCode" />
+
+<button id="btnScaricaQR">Scarica QR Code</button>
+
+const btnScaricaQR = document.getElementById("btnScaricaQR");
+
+btnScaricaQR.addEventListener("click", () => {
+const qrImg = document.getElementById("qrCode");
+
+const link = document.createElement("a");
+link.href = qrImg.src;
+link.download = "qr-memoriale.png";
+
+link.click();
+});
+
 </div>
   
 </div>
