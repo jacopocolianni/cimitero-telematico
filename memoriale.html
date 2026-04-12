@@ -510,7 +510,7 @@ Uno spazio pensato per custodire la memoria, raccogliere ricordi e lasciare paro
 <h2 class="section-title">Chi era</h2>
 <div class="bio-grid">
 <p id="biografiaPersona" class="bio-text">Caricamento biografia...</p>
-<video id="videoPersona" controls style="display:none;"></video>
+<div id="videoPersona" style="display:none;"></div>
 <div id="videoPlaceholder" class="video-placeholder">Nessun video disponibile per questo memoriale.</div>
 
 <div class="foto-section">
@@ -646,10 +646,34 @@ anniPersonaEl.textContent = data.anni || "";
 biografiaPersonaEl.textContent = data.biografia || "Nessuna biografia disponibile.";
 
 if (data.video_url) {
-videoPersonaEl.src = data.video_url;
+let embedUrl = data.video_url;
+
+if (data.video_url.includes("youtube.com/watch?v=")) {
+const videoId = data.video_url.split("v=")[1].split("&")[0];
+embedUrl = `https://www.youtube.com/embed/${videoId}`;
+} else if (data.video_url.includes("youtu.be/")) {
+const videoId = data.video_url.split("youtu.be/")[1].split("?")[0];
+embedUrl = `https://www.youtube.com/embed/${videoId}`;
+} else if (data.video_url.includes("vimeo.com/")) {
+const videoId = data.video_url.split("vimeo.com/")[1].split("?")[0];
+embedUrl = `https://player.vimeo.com/video/${videoId}`;
+}
+
+videoPersonaEl.innerHTML = `
+<iframe
+src="${embedUrl}"
+width="100%"
+height="420"
+frameborder="0"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen
+style="border-radius: 18px;"
+></iframe>
+`;
 videoPersonaEl.style.display = "block";
 videoPlaceholderEl.style.display = "none";
 } else {
+videoPersonaEl.innerHTML = "";
 videoPersonaEl.style.display = "none";
 videoPlaceholderEl.style.display = "block";
 }
