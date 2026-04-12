@@ -408,6 +408,9 @@ font-size: 30px;
 <p>Le foto caricate compariranno qui sotto.</p>
 <div id="gallery" class="gallery"></div>
 </div>
+<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:999;">
+<img id="lightboxImg" style="max-width:90%; max-height:90%; border-radius:12px;" />
+</div>
 
 <div>
 <div class="card">
@@ -438,6 +441,12 @@ const statusEl = document.getElementById("status");
 const statusFotoEl = document.getElementById("statusFoto");
 const galleryEl = document.getElementById("gallery");
 const btnSalva = document.getElementById("btnSalva");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+
+lightbox.addEventListener("click", () => {
+lightbox.style.display = "none";
+});
 const btnScaricaQR = document.getElementById("btnScaricaQR");
 const btnStampaQR = document.getElementById("btnStampaQR");
   
@@ -564,6 +573,14 @@ card.innerHTML = `
 <img src="${foto.url}" alt="Foto memoriale">
 <div class="photo-meta">${foto.nome_file || "Foto memoriale"}</div>
 `;
+
+card.style.cursor = "pointer";
+
+card.addEventListener("click", () => {
+lightbox.style.display = "flex";
+lightboxImg.src = foto.url;
+});
+
 galleryEl.appendChild(card);
 });
 }
