@@ -274,6 +274,7 @@ font-size: 30px;
 <img id="qrCode" />
 
 <button id="btnScaricaQR">Scarica QR Code</button>
+<button id="btnStampaQR">Stampa QR Code</button>
 
 </div>
   
@@ -320,6 +321,31 @@ const statusFotoEl = document.getElementById("statusFoto");
 const galleryEl = document.getElementById("gallery");
 const btnSalva = document.getElementById("btnSalva");
 const btnScaricaQR = document.getElementById("btnScaricaQR");
+const btnStampaQR = document.getElementById("btnStampaQR");
+  
+btnStampaQR.addEventListener("click", () => {
+const qrImg = document.getElementById("qrCode");
+const nomePersona = memorialeCorrente?.nome_persona || "Memoriale";
+const slug = memorialeCorrente?.slug || "";
+
+const linkMemoriale = `https://cimitero-telematico.vercel.app/memoriale.html?slug=${slug}`;
+
+const win = window.open("", "_blank");
+
+win.document.write(`
+<html>
+<body style="text-align:center;font-family:Arial;padding:30px;">
+<h1>${nomePersona}</h1>
+<p>Scansiona il QR code</p>
+<img src="${qrImg.src}" style="width:250px;" />
+<p style="margin-top:20px;">${linkMemoriale}</p>
+</body>
+</html>
+`);
+
+win.document.close();
+win.print();
+});
 
 btnScaricaQR.addEventListener("click", () => {
 const qrImg = document.getElementById("qrCode");
