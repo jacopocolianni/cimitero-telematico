@@ -620,6 +620,8 @@ gallery.appendChild(img);
 }
 
 async function caricaMemoriale() {
+ console.log("caricaMemoriale partita");
+  
 const { data, error } = await client
 .from("memoriali")
 .select("*")
